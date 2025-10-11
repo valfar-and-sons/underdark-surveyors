@@ -1,268 +1,317 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valfar and Sons Underdark Surveyors Inc.</title>
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Valfar and Sons, Inc.</title>
+    <meta name="description"
+        content="Valfar and Sons, Inc. is developing innovative software experiences that bring new depth and creativity to tabletop role-playing games." />
+    <meta property="og:title" content="Valfar and Sons, Inc." />
+    <meta property="og:description"
+        content="Valfar and Sons, Inc. is developing innovative software experiences that bring new depth and creativity to tabletop role-playing games." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0f172a" />
+    <!-- Inline SVG favicon so the page is fully self‑contained -->
+    <link rel="icon"
+        href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231e293b'/><circle cx='32' cy='32' r='18' fill='%2338bdf8'/><text x='32' y='38' text-anchor='middle' font-size='18' font-family='sans-serif' fill='white' font-weight='bold'>VS</text></svg>" />
     <style>
+        :root {
+            --bg: #0b1020;
+            /* deep navy */
+            --card: #0f172a;
+            /* slate-900 */
+            --text: #e5e7eb;
+            /* gray-200 */
+            --muted: #94a3b8;
+            /* slate-400 */
+            --accent: #38bdf8;
+            /* sky-400 */
+            --accent-2: #a78bfa;
+            /* violet-400 */
+            --ring: rgba(56, 189, 248, 0.45);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a1a;
-            color: #d0d0d0;
+            height: 100%;
+        }
+
+        body {
             margin: 0;
-            padding: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            color: var(--text);
+            background: radial-gradient(1200px 800px at 20% -10%, rgba(56, 189, 248, 0.15), transparent 60%),
+                radial-gradient(1000px 700px at 90% 10%, rgba(167, 139, 250, 0.15), transparent 60%),
+                linear-gradient(180deg, #0b1020 0%, #0b1020 100%);
+            display: grid;
+            place-items: center;
             line-height: 1.6;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        .card {
+            width: min(720px, 92vw);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 20px;
+            padding: 2.25rem;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(6px);
         }
 
-
-        .text-content {
-            flex: 1;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
 
-        header {
-            background-color: #2c2c2c;
-            padding: 20px 0;
-            text-align: center;
+        .logo {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: conic-gradient(from 210deg, var(--accent), var(--accent-2));
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
         }
 
         h1 {
+            font-size: clamp(1.35rem, 1.1rem + 1.2vw, 1.75rem);
             margin: 0;
-            font-size: 2.5em;
-            color: #8b0000;
         }
 
-        nav {
-            margin-top: 20px;
+        .tagline {
+            font-size: clamp(1rem, 0.95rem + 0.35vw, 1.125rem);
+            color: var(--muted);
+            margin-top: 0.25rem;
         }
 
-        nav a {
-            color: #d0d0d0;
+        .cta {
+            margin-top: 1.75rem;
+        }
+
+        .button {
+            appearance: none;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            color: #0b1020;
+            font-weight: 700;
+            padding: 0.85rem 1.1rem;
+            border-radius: 12px;
             text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.2);
+            transition: transform 120ms ease, box-shadow 120ms ease;
         }
 
-        section {
-            margin: 40px 0;
+        .button:focus {
+            outline: 3px solid var(--ring);
+            outline-offset: 3px;
         }
 
-        h2 {
-            color: #8b0000;
-            border-bottom: 2px solid #8b0000;
-            padding-bottom: 10px;
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 28px rgba(56, 189, 248, 0.28);
         }
 
-        .testimonial {
-            background-color: #2c2c2c;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-left: 4px solid #8b0000;
-            overflow: hidden;
-            /* Clear the float */
-        }
+        .subtle {
+            margin-top: 1rem;
+            font-size: 0.925rem;
 
-        .testimonial-content {
-            float: left;
-            width: calc(80%);
-            /* Adjust based on your image width */
-        }
+            ... (75 lines left) Collapse message.txt 7 KB DrellYan OP — 11: 04 AM @dbz you want anything else for the website? I can have codex drop in a konami code-style sequence or secret button press to link to a (hidden) subdomain with the old website if you want an easter egg dbz — 11:56 AM Yeah no I’ll come back to this this weekend and update the website < !doctype html> <html lang="en" > <head> <meta charset="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1" /> <title>Valfar and Sons, Inc.</title> <meta name="description" content="Valfar and Sons, Inc. is developing innovative software experiences that bring new depth and creativity to tabletop role-playing games." /> <meta property="og:title" content="Valfar and Sons, Inc." /> <meta property="og:description" content="Valfar and Sons, Inc. is developing innovative software experiences that bring new depth and creativity to tabletop role-playing games." /> <meta property="og:type" content="website" /> <meta name="theme-color" content="#0f172a" /> < !-- Inline SVG favicon so the page is fully self‑contained --> <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231e293b'/><circle cx='32' cy='32' r='18' fill='%2338bdf8'/><text x='32' y='38' text-anchor='middle' font-size='18' font-family='sans-serif' fill='white' font-weight='bold'>VS</text></svg>" /> <style> :root {
+                --bg: #0b1020;
+                /* deep navy */
+                --card: #0f172a;
+                /* slate-900 */
+                --text: #e5e7eb;
+                /* gray-200 */
+                --muted: #94a3b8;
+                /* slate-400 */
+                --accent: #38bdf8;
+                /* sky-400 */
+                --accent-2: #a78bfa;
+                /* violet-400 */
+                --ring: rgba(56, 189, 248, 0.45);
+            }
 
-        .testimonial-image {
-            float: left;
-            /* Adjust as needed */
-            width: calc(15%);
-            /* Adjust as needed */
-            object-fit: cover;
-            margin-right: 20px;
-        }
+            * {
+                box-sizing: border-box;
+            }
 
-        .testimonial-author {
-            font-style: italic;
-            text-align: right;
-            clear: both;
-        }
+            html,
+            body {
+                height: 100%;
+            }
 
-        .image-container {
-            width: 200px;
-            float: left;
-            margin-right: 15px;
-            margin-bottom: 10px;
-        }
+            body {
+                margin: 0;
+                font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+                color: var(--text);
+                background: radial-gradient(1200px 800px at 20% -10%, rgba(56, 189, 248, 0.15), transparent 60%),
+                    radial-gradient(1000px 700px at 90% 10%, rgba(167, 139, 250, 0.15), transparent 60%),
+                    linear-gradient(180deg, #0b1020 0%, #0b1020 100%);
+                display: grid;
+                place-items: center;
+                line-height: 1.6;
+            }
 
-        footer {
-            background-color: #2c2c2c;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-        }
+            .card {
+                width: min(720px, 92vw);
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+                border: 1px solid rgba(148, 163, 184, 0.18);
+                border-radius: 20px;
+                padding: 2.25rem;
+                box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+                backdrop-filter: blur(6px);
+            }
 
-        .btn {
-            display: inline-block;
-            background-color: #8b0000;
-            color: #d0d0d0;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
 
-        .btn:hover {
-            background-color: #a50000;
-        }
+            .logo {
+                width: 52px;
+                height: 52px;
+                border-radius: 14px;
+                display: grid;
+                place-items: center;
+                background: conic-gradient(from 210deg, var(--accent), var(--accent-2));
+                box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
+                font-weight: 800;
+                letter-spacing: 0.5px;
+            }
 
-        .clearfix::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
+            .logo span {
+                filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+            }
 
-        #about {
-            margin-bottom: 20px;
-            /* Add some space between sections */
-        }
+            h1 {
+                font-size: clamp(1.35rem, 1.1rem + 1.2vw, 1.75rem);
+                margin: 0;
+            }
 
-        .about-content {
-            overflow: hidden;
-            /* Contains the floated elements */
-        }
+            .tagline {
+                font-size: clamp(1rem, 0.95rem + 0.35vw, 1.125rem);
+                color: var(--muted);
+                margin-top: 0.25rem;
+            }
 
-        .about-image {
-            float: left;
-            width: 200px;
-            /* Adjust as needed */
-            margin-right: 20px;
-            margin-bottom: 10px;
-        }
+            .cta {
+                margin-top: 1.75rem;
+            }
 
-        #services {
-            clear: both;
-            /* Ensures it starts below the About section */
-        }
+            .button {
+                appearance: none;
+                border: none;
+                cursor: pointer;
+                background: linear-gradient(90deg, var(--accent), var(--accent-2));
+                color: #0b1020;
+                font-weight: 700;
+                padding: 0.85rem 1.1rem;
+                border-radius: 12px;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                box-shadow: 0 10px 25px rgba(56, 189, 248, 0.2);
+                transition: transform 120ms ease, box-shadow 120ms ease;
+            }
+
+            .button:focus {
+                outline: 3px solid var(--ring);
+                outline-offset: 3px;
+            }
+
+            .button:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 12px 28px rgba(56, 189, 248, 0.28);
+            }
+
+            .subtle {
+                margin-top: 1rem;
+                font-size: 0.925rem;
+                color: var(--muted);
+            }
+
+            footer {
+                margin-top: 2rem;
+                font-size: 0.875rem;
+                color: var(--muted);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0.75rem;
+                flex-wrap: wrap;
+            }
+
+            .sep {
+                opacity: 0.35;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .button {
+                    transition: none;
+                }
+            }
     </style>
 </head>
 
 <body>
-    <header>
-        <div class="container" style="display: flex;">
-            <img src="static/logo.png" height="200">
-            <div class="text-content">
-                <h1>Valfar and Sons Underdark Surveyors Inc.</h1>
-                <nav>
-                    <a href="#about">About</a>
-                    <a href="#services">Services</a>
-                    <a href="#testimonials">Testimonials</a>
-                    <a href="#contact">Contact</a>
-                    <a href="#corporate">Corporate</a>
-                </nav>
+    <main class="card" role="main" aria-labelledby="site-title">
+        <div class="brand">
+            <div class="logo" aria-hidden="true"><span>VS</span></div>
+            <div>
+                <h1 id="site-title">Valfar and Sons, Inc.</h1>
             </div>
-
         </div>
 
-    </header>
+        <p class="lead"
+            style="font-size: clamp(1.05rem, 1rem + 0.4vw, 1.2rem); margin: 0.5rem 0 0.25rem; max-width: 60ch;">
+            Valfar and Sons, Inc. is developing innovative software experiences that bring new depth and creativity to
+            tabletop role-playing games.
+        </p>
 
-    <div class="container">
-        <section id="about" class="clearfix">
-            <h2>About Us</h2>
-            <div class="about-content">
-                <img src="static/valfar-and-sons.png" class="about-image" alt="Valfar and Sons">
-                <p>
-                    Founded by a group of intrepid adventurers, Valfar and Sons Underdark Surveyors Inc. has become the
-                    premier resource exploration and trading company in the Underdark. Based in the great city of
-                    Gracklstugh, we navigate the treacherous Darklake to bring valuable resources to our clients across
-                    the subterranean realm.
-                </p>
-            </div>
-        </section>
-
-        <section id="services">
-            <h2>Our Services</h2>
-            <ul>
-                <li>Underdark Resource Surveying</li>
-                <li>Darklake Shipping and Trading</li>
-                <li>Rare Mineral Identification</li>
-                <li>Subterranean Route Mapping</li>
-                <li>Drow Negotiation Assistance</li>
-            </ul>
-        </section>
-
-        <section id="testimonials">
-            <h2>Client Testimonials</h2>
-            <div class="testimonial">
-                <img src="static/sporepuff.png" alt="Spore Elder Puffcap" class="testimonial-image">
-                <div class="testimonial-content">
-                    <p>"Valfar and Sons' expertise in navigating the Darklake has allowed our myconid spore farm to
-                        thrive. Their reliable shipping services have expanded our reach to markets we never thought
-                        possible!"</p>
-                </div>
-                <p class="testimonial-author">- Spore Elder Puffcap, Neverlight Grove</p>
-            </div>
-            <div class="testimonial">
-                <img src="static/durgeddin.png" alt="Durgeddin the Black" class="testimonial-image">
-
-                <div class="testimonial-content">
-                    <p>"Thanks to Valfar and Sons, we discovered a rich vein of mithral that had eluded us for
-                        centuries. Their surveyors are second to none in the Underdark."</p>
-                </div>
-                <p class="testimonial-author">- Durgeddin the Black, Master Smith of Gracklstugh</p>
-            </div>
-            <div class="testimonial">
-                <img src="static/xixinthash.png" alt="Elder Brain Xix'inthash" class="testimonial-image">
-
-                <div class="testimonial-content">
-                    <p>"Our illithid colony has greatly benefited from the trade routes established by Valfar and Sons.
-                        Their discretion and efficiency are unmatched in the depths."</p>
-                </div>
-                <p class="testimonial-author">- Elder Brain Xix'inthash, Underdark Depths</p>
-            </div>
-        </section>
-
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <p>Ready to explore the untapped potential of the Underdark? Reach out to us via deepstone telepathy or
-                visit our offices in Gracklstugh's Darklake District.</p>
-            <a href="#" class="btn">Send a Mind Flayer Message</a>
-        </section>
-
-        <section id="corporate">
-            <h2>Corporate Information</h2>
-            <p><a href="articles-of-incorporation.html">Articles of Incorporation</a></p>
-        </section>
-    </div>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 1589 DR Valfar and Sons Underdark Surveyors Inc. | Beware of mimics imitating this website</p>
+        <div class="cta">
+            <a class="button" href="mailto:contact@valfarandsons.com?subject=Hello%20Valfar%20and%20Sons"
+                aria-label="Contact Valfar and Sons by email">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2Z" />
+                    <path d="m22 6-10 7L2 6" />
+                </svg>
+                Contact us
+            </a>
+            <div class="subtle" aria-hidden="true">contact@valfarandsons.com</div>
         </div>
 
-    </footer>
+        <footer>
+            <div>© <span id="year"></span> Valfar and Sons, Inc.</div>
+            <div class="sep"></div>
+            <div>All rights reserved.</div>
+        </footer>
+    </main>
 
     <script>
-        // Add some interactivity
-        document.addEventListener('DOMContentLoaded', function () {
-            const navLinks = document.querySelectorAll('nav a');
-            navLinks.forEach(link => {
-                link.addEventListener('mouseover', function () {
-                    this.style.color = '#8b0000';
-                });
-                link.addEventListener('mouseout', function () {
-                    this.style.color = '#d0d0d0';
-                });
-            });
-
-            const contactBtn = document.querySelector('.btn');
-            contactBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                alert('A mind flayer will contact you shortly. Please prepare your mind for the encounter.');
-            });
-        });
+        // Fill copyright year
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
 
