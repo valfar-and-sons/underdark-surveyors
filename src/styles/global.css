@@ -1,0 +1,181 @@
+/* ── Tailwind ────────────────────────────────────────────────── */
+@import "tailwindcss";
+
+/* ── Design System Tokens (ported from Loremaster app) ───────── */
+
+@theme {
+  --font-ui: "Space Grotesk", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+  --font-voice: "Lora", Georgia, serif;
+
+  --color-accent: var(--lm-accent);
+  --color-accent-hover: var(--lm-accent-hover);
+  --color-accent-muted: var(--lm-accent-muted);
+  --color-surface-glass: var(--lm-surface-glass);
+  --color-border-glass: var(--lm-border-glass);
+  --color-text-primary: var(--lm-text-primary);
+  --color-text-body: var(--lm-text-body);
+  --color-text-voice: var(--lm-text-voice);
+  --color-text-muted: var(--lm-text-muted);
+  --color-text-faint: var(--lm-text-faint);
+  --color-card-glass: var(--lm-card-glass);
+  --color-card-border: var(--lm-card-border);
+  --color-card-border-top: var(--lm-card-border-top);
+  --color-card-hover-bg: var(--lm-card-hover-bg);
+  --color-card-hover-border: var(--lm-card-hover-border);
+  --color-panel-bg: var(--lm-panel-bg);
+  --color-divider: var(--lm-divider);
+}
+
+/* ── Dark Mode (default) — Amber & Rose on Deep Plum ─────────── */
+:root {
+  --lm-accent: #daa040;
+  --lm-accent-hover: #e8b050;
+  --lm-accent-muted: rgba(218, 160, 64, 0.12);
+  --lm-complement: #d47070;
+  --lm-surface-glass: rgba(14, 12, 18, 0.5);
+  --lm-border-glass: rgba(218, 160, 64, 0.06);
+  --lm-text-primary: #fefdfa;
+  --lm-text-body: #b0a898;
+  --lm-text-voice: #e8d0a8;
+  --lm-text-muted: rgba(168, 158, 148, 0.6);
+  --lm-text-faint: rgba(168, 158, 148, 0.4);
+
+  --lm-bg-base: #0a090c;
+  --lm-bg-gradient: radial-gradient(
+    ellipse at 45% 0%,
+    #221a2e 0%,
+    #14101c 55%,
+    #0a090c 100%
+  );
+  --lm-panel-bg: rgba(14, 12, 18, 0.97);
+  --lm-overlay-bg: rgba(10, 9, 12, 0.5);
+
+  /* Glass card surfaces */
+  --lm-card-glass: rgba(20, 16, 26, 0.82);
+  --lm-card-hover-bg: rgba(255, 255, 255, 0.06);
+  --lm-card-hover-border: rgba(218, 160, 64, 0.20);
+  --lm-card-border: rgba(218, 160, 64, 0.12);
+  --lm-card-border-top: rgba(218, 160, 64, 0.30);
+  --lm-accent-bar: rgba(218, 160, 64, 0.45);
+  --lm-voice-text: #e8d0a8;
+  --lm-voice-text-faint: rgba(232, 208, 168, 0.5);
+  --lm-divider: rgba(200, 195, 188, 0.05);
+
+  /* Shimmer gradient */
+  --lm-shimmer-gradient: linear-gradient(
+    135deg,
+    #daa040 0%,
+    #daa040 30%,
+    #d47070 55%,
+    #daa040 80%,
+    #daa040 100%
+  );
+
+  --lm-ring: rgba(218, 160, 64, 0.45);
+}
+
+/* ── Base Styles ──────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  background: var(--lm-bg-gradient);
+  background-color: var(--lm-bg-base);
+  color: var(--lm-text-primary);
+  margin: 0;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Typography ───────────────────────────────────────────────── */
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Narrative / story text — Lora italic */
+.voice {
+  font-family: var(--font-voice);
+  font-style: italic;
+  color: var(--lm-text-voice);
+  line-height: 1.75;
+}
+
+/* Shimmer text effect for voice highlights */
+.voice-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--lm-voice-text-faint) 0%,
+    var(--lm-voice-text-faint) 40%,
+    var(--lm-voice-text) 50%,
+    var(--lm-voice-text-faint) 60%,
+    var(--lm-voice-text-faint) 100%
+  );
+  background-size: 200% 100%;
+  animation: stirsShimmer 2.17s linear infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Animations ───────────────────────────────────────────────── */
+@keyframes stirsShimmer {
+  0% {
+    background-position: 150% center;
+  }
+  100% {
+    background-position: -50% center;
+  }
+}
+
+@keyframes inkIn {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: inkIn 0.6s ease-out forwards;
+}
+
+/* ── Noise Overlay ────────────────────────────────────────────── */
+.noise-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.03;
+}
+
+/* ── Utility: Gold Divider ────────────────────────────────────── */
+.gold-divider {
+  height: 1px;
+  width: 4rem;
+  background: var(--lm-accent);
+  opacity: 0.4;
+}
+
+/* ── Focus ring ───────────────────────────────────────────────── */
+:focus-visible {
+  outline: 3px solid var(--lm-ring);
+  outline-offset: 3px;
+  border-radius: 6px;
+}

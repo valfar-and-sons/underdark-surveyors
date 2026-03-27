@@ -1,0 +1,275 @@
+---
+const slides = [
+  {
+    src: "/static/campaign_details_top_no_header.png",
+    alt: "Campaign details overview",
+    caption:
+      "Explore your campaign's living world, including recent sessions, open storylines, and unfolding arcs, all in one place.",
+  },
+  {
+    src: "/static/campaign_details_entities.png",
+    alt: "Campaign entities view",
+    caption:
+      "Follow every character, location, and artifact as your world grows alongside your players.",
+  },
+  {
+    src: "/static/session_details_summary_excerpt.png",
+    alt: "Session summary view",
+    caption:
+      "Revisit sessions through narrative summaries that highlight the story's most important twists and turns.",
+  },
+];
+---
+
+<div class="w-full" id="carousel-section">
+  <div
+    class="overflow-hidden rounded-[14px] border border-card-border"
+    style="background: linear-gradient(180deg, rgba(20, 16, 26, 0.5), rgba(14, 12, 18, 0.3));"
+    aria-roledescription="carousel"
+    aria-label="Product screenshots"
+    id="carousel"
+  >
+    <div class="flex will-change-transform" id="slides" style="transition: transform 360ms cubic-bezier(.22,.61,.36,1);">
+      {
+        slides.map((slide, i) => (
+          <div
+            class="min-w-full p-2.5"
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${i + 1} of ${slides.length}`}
+          >
+            <figure
+              class="mx-auto grid gap-2.5 rounded-2xl border border-card-border p-2.5"
+              style="background: rgba(10, 9, 12, 0.9); max-width: 1100px; grid-template-rows: minmax(0, 1fr) auto; height: clamp(340px, 62vw, 720px);"
+            >
+              <img
+                loading={i === 0 ? "eager" : "lazy"}
+                src={slide.src}
+                alt={slide.alt}
+                class="h-full w-full cursor-zoom-in rounded-xl object-contain"
+              />
+              <figcaption class="voice flex items-center justify-center px-3 py-2 text-center text-[clamp(0.9rem,0.85rem+0.4vw,1.05rem)]">
+                {slide.caption}
+              </figcaption>
+            </figure>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Controls -->
+    <button
+      class="absolute left-4 top-1/2 grid h-[42px] w-[42px] -translate-y-1/2 place-items-center rounded-full border text-text-primary"
+      style="background: rgba(14, 12, 18, 0.7); border-color: rgba(218, 160, 64, 0.15);"
+      aria-label="Previous slide"
+      id="carousel-prev"
+    >
+      &#8249;
+    </button>
+    <button
+      class="absolute right-4 top-1/2 grid h-[42px] w-[42px] -translate-y-1/2 place-items-center rounded-full border text-text-primary"
+      style="background: rgba(14, 12, 18, 0.7); border-color: rgba(218, 160, 64, 0.15);"
+      aria-label="Next slide"
+      id="carousel-next"
+    >
+      &#8250;
+    </button>
+
+    <!-- Dots -->
+    <div class="flex justify-center gap-2 py-2.5" role="tablist" aria-label="Slides">
+      {
+        slides.map((_, i) => (
+          <button
+            class="carousel-dot h-[9px] w-[9px] rounded-full border transition-colors"
+            style={
+              i === 0
+                ? "background: var(--lm-accent); border-color: var(--lm-accent);"
+                : "background: rgba(168, 158, 148, 0.25); border-color: rgba(168, 158, 148, 0.35);"
+            }
+            role="tab"
+            aria-selected={i === 0 ? "true" : "false"}
+            data-index={i}
+          />
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div
+    class="fixed inset-0 z-[2000] hidden place-items-center px-[clamp(16px,4vw,28px)]"
+    style="background: rgba(10, 9, 12, 0.7);"
+    id="lightbox"
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    <div
+      class="relative grid max-h-[96vh] gap-3"
+      style="max-width: min(1400px, 96vw); grid-template-rows: minmax(0, 1fr) auto;"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Screenshot viewer"
+    >
+      <button
+        class="absolute right-3 top-3 grid h-[42px] w-[42px] place-items-center rounded-full border text-text-primary"
+        style="background: rgba(14, 12, 18, 0.7); border-color: rgba(218, 160, 64, 0.15);"
+        aria-label="Close"
+        id="lightbox-close"
+      >
+        &times;
+      </button>
+      <img
+        id="lightbox-img"
+        alt=""
+        class="h-full w-full rounded-xl border border-card-border object-contain"
+        style="background: var(--lm-bg-base);"
+      />
+      <div class="grid grid-cols-[auto_1fr_auto] items-center gap-3">
+        <button
+          class="lightbox-ctrl grid h-[42px] w-[42px] place-items-center rounded-full border text-text-primary"
+          style="background: rgba(14, 12, 18, 0.7); border-color: rgba(218, 160, 64, 0.15);"
+          aria-label="Previous"
+        >
+          &#8249;
+        </button>
+        <div class="text-center font-semibold text-text-primary" id="lightbox-caption"></div>
+        <button
+          class="lightbox-ctrl grid h-[42px] w-[42px] place-items-center rounded-full border text-text-primary"
+          style="background: rgba(14, 12, 18, 0.7); border-color: rgba(218, 160, 64, 0.15);"
+          aria-label="Next"
+        >
+          &#8250;
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const carousel = document.getElementById("carousel");
+  const track = document.getElementById("slides");
+  if (carousel && track) {
+    const dots = Array.from(document.querySelectorAll(".carousel-dot"));
+    const prev = document.getElementById("carousel-prev");
+    const next = document.getElementById("carousel-next");
+    const total = track.children.length;
+    let index = 0;
+    let timer: ReturnType<typeof setInterval> | null = null;
+    const AUTOPLAY_MS = 4000;
+
+    function render() {
+      track!.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((d, i) => {
+        const isActive = i === index;
+        d.setAttribute("aria-selected", String(isActive));
+        (d as HTMLElement).style.background = isActive
+          ? "var(--lm-accent)"
+          : "rgba(168, 158, 148, 0.25)";
+        (d as HTMLElement).style.borderColor = isActive
+          ? "var(--lm-accent)"
+          : "rgba(168, 158, 148, 0.35)";
+      });
+    }
+    function go(i: number) {
+      index = ((i % total) + total) % total;
+      render();
+    }
+    function start() {
+      if (!timer) timer = setInterval(() => go(index + 1), AUTOPLAY_MS);
+    }
+    function stop() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    prev?.addEventListener("click", () => { stop(); go(index - 1); start(); });
+    next?.addEventListener("click", () => { stop(); go(index + 1); start(); });
+    dots.forEach((d) =>
+      d.addEventListener("click", () => {
+        stop();
+        go(Number((d as HTMLElement).dataset.index));
+        start();
+      }),
+    );
+
+    carousel.addEventListener("mouseenter", stop);
+    carousel.addEventListener("mouseleave", start);
+    carousel.addEventListener("focusin", stop);
+    carousel.addEventListener("focusout", start);
+
+    // Touch swipe
+    let startX: number | null = null;
+    track.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener("touchmove", (e) => {
+      if (startX === null) return;
+      const dx = e.touches[0].clientX - startX;
+      if (Math.abs(dx) > 40) { stop(); go(index + (dx < 0 ? 1 : -1)); start(); startX = null; }
+    }, { passive: true });
+
+    carousel.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") { stop(); go(index - 1); start(); }
+      if (e.key === "ArrowRight") { stop(); go(index + 1); start(); }
+    });
+    carousel.setAttribute("tabindex", "0");
+
+    // Lightbox
+    const lb = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lightbox-img") as HTMLImageElement;
+    const lbCap = document.getElementById("lightbox-caption");
+    const lbClose = document.getElementById("lightbox-close");
+    const lbCtrls = document.querySelectorAll(".lightbox-ctrl");
+    const figures = Array.from(track.querySelectorAll("figure"));
+
+    function showLB(i: number) {
+      index = ((i % total) + total) % total;
+      const fig = figures[index];
+      const img = fig.querySelector("img") as HTMLImageElement;
+      const cap = fig.querySelector("figcaption");
+      if (lbImg) { lbImg.src = img.currentSrc || img.src; lbImg.alt = img.alt || ""; }
+      if (lbCap) lbCap.textContent = cap ? cap.textContent : "";
+    }
+    function openLB(i: number) {
+      showLB(i);
+      if (lb) { lb.removeAttribute("aria-hidden"); lb.style.display = "grid"; lb.focus(); }
+      document.body.style.overflow = "hidden";
+    }
+    function closeLB() {
+      if (lb) { lb.setAttribute("aria-hidden", "true"); lb.style.display = "none"; }
+      document.body.style.overflow = "";
+    }
+
+    lb?.addEventListener("click", (e) => { if (e.target === lb) closeLB(); });
+    lbClose?.addEventListener("click", closeLB);
+    lbCtrls[0]?.addEventListener("click", () => showLB(index - 1));
+    lbCtrls[1]?.addEventListener("click", () => showLB(index + 1));
+
+    document.addEventListener("keydown", (e) => {
+      if (lb && lb.style.display === "grid") {
+        if (e.key === "Escape") closeLB();
+        if (e.key === "ArrowLeft") showLB(index - 1);
+        if (e.key === "ArrowRight") showLB(index + 1);
+      }
+    });
+
+    figures.forEach((fig, i) => {
+      fig.addEventListener("click", () => openLB(i));
+      (fig as HTMLElement).style.cursor = "zoom-in";
+    });
+
+    start();
+  }
+</script>
+
+<style>
+  #carousel {
+    position: relative;
+  }
+  @media (max-width: 640px) {
+    figure {
+      height: auto !important;
+      aspect-ratio: 16/10;
+    }
+  }
+</style>

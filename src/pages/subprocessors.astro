@@ -1,0 +1,78 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+
+const subprocessors = [
+  {
+    name: "Google Cloud Platform (GCP)",
+    purpose: "Hosting, infrastructure, data storage, and AI processing",
+  },
+  {
+    name: "Stripe",
+    purpose: "Payment processing and subscription management",
+  },
+  {
+    name: "Google Analytics",
+    purpose: "Website analytics and usage insights",
+  },
+  {
+    name: "Google (Workspace & Services)",
+    purpose: "Email delivery and document storage",
+  },
+  {
+    name: "Discord",
+    purpose: "Instant messaging, community communication, and optional support interactions",
+  },
+  {
+    name: "Notion",
+    purpose: "Issue tracking, internal documentation, and document storage",
+  },
+];
+---
+
+<LegalLayout
+  title="Subprocessors"
+  description="List of third-party subprocessors used by Loremaster."
+  lastUpdated="March 27, 2026"
+>
+  <p>
+    Loremaster is built by Valfar and Sons, Inc. We use a small number of trusted third-party
+    providers ("subprocessors") to help us run the Service.
+  </p>
+  <p>
+    These providers only process user data as needed to deliver Loremaster (for example: storing
+    files, processing payments, sending emails, and improving reliability).
+  </p>
+  <p>
+    For more details on how we handle data, see our <a href="/privacy">Privacy Policy</a>.
+  </p>
+
+  <h2>Subprocessors List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Subprocessor</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        subprocessors.map((sp) => (
+          <tr>
+            <td>{sp.name}</td>
+            <td>{sp.purpose}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+
+  <h2>Updates to This List</h2>
+  <p>
+    We may update this list from time to time as our vendors change or as we add new tools to
+    support Loremaster.
+  </p>
+  <p>
+    Questions? Contact us at
+    <a href="mailto:support@valfarandsons.com">support@valfarandsons.com</a>.
+  </p>
+</LegalLayout>

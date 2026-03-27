@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GlassCard from "../components/GlassCard.astro";
+import ProductCarousel from "../components/ProductCarousel.astro";
+---
+
+<BaseLayout title="Loremaster — AI Tools for Tabletop Storytelling">
+  <div class="mx-auto grid max-w-[1200px] gap-7 px-[clamp(16px,4vw,28px)] py-8 md:py-12">
+    <!-- Hero -->
+    <GlassCard accentBar class="p-[clamp(1.5rem,1rem+2vw,2.5rem)]">
+      <h1 class="text-[clamp(1.7rem,1.2rem+2vw,2.5rem)] font-bold">
+        Using AI to keep storytelling human.
+      </h1>
+      <div class="gold-divider my-5"></div>
+      <p class="voice max-w-[70ch] text-[clamp(1rem,0.95rem+0.3vw,1.15rem)]">
+        <em class="voice-shimmer not-italic">An AI-powered creative companion for tabletop campaigns.</em>
+      </p>
+      <p class="voice max-w-[70ch] text-[clamp(1rem,0.95rem+0.3vw,1.15rem)]">
+        Loremaster helps game masters and players stay in the moment,
+        remember what matters, and tell richer stories together.
+      </p>
+      <div class="mt-6">
+        <a
+          class="inline-flex items-center rounded-[10px] bg-accent px-5 py-3 text-[15px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_8px_24px_rgba(218,160,64,0.2)]"
+          href="https://loremaster.valfarandsons.com"
+        >
+          Try Loremaster
+        </a>
+      </div>
+    </GlassCard>
+
+    <!-- About (brief) -->
+    <GlassCard class="p-[clamp(1.25rem,0.9rem+1.6vw,2.25rem)]">
+      <h2 class="text-[clamp(1.2rem,1rem+1.2vw,1.6rem)]">About</h2>
+      <div class="gold-divider my-4"></div>
+      <p class="mb-3 max-w-[70ch] text-[clamp(1rem,0.98rem+0.25vw,1.1rem)] text-text-body">
+        Campaigns are living stories, but managing them often feels like bookkeeping. Taking notes,
+        tracking NPCs, and remembering open plot lines can pull focus away from the story itself.
+      </p>
+      <p class="voice max-w-[70ch] text-[clamp(1rem,0.98rem+0.25vw,1.1rem)]">
+        Loremaster is an AI-assisted platform that keeps the story straight, offers flavorful
+        exposition when you need it, and helps players stay focused on what matters most: telling
+        stories together.
+      </p>
+      <p class="mt-4">
+        <a
+          href="/about"
+          class="text-[14px] text-accent no-underline transition-opacity hover:opacity-80"
+        >
+          Meet the team &rarr;
+        </a>
+      </p>
+    </GlassCard>
+
+    <!-- Product Preview -->
+    <section>
+      <GlassCard class="p-[clamp(1.25rem,0.9rem+1.6vw,2.25rem)]">
+        <h2 class="mb-1 text-[clamp(1.2rem,1rem+1.2vw,1.6rem)]">Product</h2>
+        <div class="gold-divider my-4"></div>
+        <ProductCarousel />
+      </GlassCard>
+    </section>
+
+    <!-- CTA Banner -->
+    <GlassCard class="p-[clamp(1.5rem,1rem+2vw,2.5rem)] text-center">
+      <h2 class="text-[clamp(1.2rem,1rem+1.2vw,1.6rem)]">Ready to tell richer stories?</h2>
+      <p class="mx-auto mt-2 max-w-[50ch] text-text-body">
+        Join players and game masters who use Loremaster to focus on what matters most.
+      </p>
+      <div class="mt-5">
+        <a
+          class="inline-flex items-center rounded-[10px] bg-accent px-5 py-3 text-[15px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_8px_24px_rgba(218,160,64,0.2)]"
+          href="https://loremaster.valfarandsons.com"
+        >
+          Try Loremaster
+        </a>
+      </div>
+    </GlassCard>
+  </div>
+</BaseLayout>

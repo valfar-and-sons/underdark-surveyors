@@ -1,0 +1,144 @@
+---
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/product", label: "Product" },
+  { href: "/about", label: "About" },
+];
+---
+
+<header
+  class="fixed top-0 left-0 z-50 w-full border-b border-card-border backdrop-blur-[12px]"
+  style="background: var(--lm-panel-bg);"
+>
+  <nav
+    class="mx-auto flex max-w-[1200px] items-center justify-between px-[clamp(16px,4vw,28px)] py-0"
+    style="min-height: 64px;"
+    aria-label="Primary"
+  >
+    <!-- Brand -->
+    <a href="/" class="flex items-center gap-2.5 no-underline">
+      <img
+        class="block h-10 w-10 rounded-xl object-cover"
+        src="/static/loremaster-logo.png"
+        alt="Loremaster logo"
+        width="40"
+        height="40"
+      />
+      <span class="text-text-primary text-[15px] font-semibold">Loremaster</span>
+    </a>
+
+    <!-- Desktop nav links -->
+    <div class="hidden items-center gap-6 md:flex">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              "text-[15px] no-underline transition-opacity duration-200",
+              currentPath === link.href || (link.href !== "/" && currentPath.startsWith(link.href))
+                ? "text-accent font-semibold opacity-100"
+                : "text-text-body opacity-80 hover:opacity-100",
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a
+        href="https://loremaster.valfarandsons.com"
+        class="inline-flex items-center rounded-[10px] bg-accent px-4 py-2 text-[14px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_8px_24px_rgba(218,160,64,0.2)]"
+      >
+        Try Loremaster
+      </a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button
+      class="inline-grid h-[42px] w-[42px] place-items-center rounded-[10px] border border-card-border text-text-primary md:hidden"
+      style="background: rgba(14, 12, 18, 0.55);"
+      id="nav-toggle"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+        <path
+          d="M3 6h18M3 12h18M3 18h18"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"></path>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile nav dropdown -->
+  <div
+    id="mobile-nav"
+    class="fixed left-0 right-0 origin-top scale-y-0 border-b border-card-border backdrop-blur-[12px] transition-transform duration-200 ease-out md:hidden"
+    style="background: var(--lm-panel-bg); top: 64px;"
+  >
+    <div class="grid gap-1 px-[clamp(16px,4vw,28px)] py-3">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              "mobile-nav-link rounded-lg px-3 py-2.5 text-[16px] no-underline transition-colors",
+              currentPath === link.href || (link.href !== "/" && currentPath.startsWith(link.href))
+                ? "text-accent font-semibold"
+                : "text-text-body hover:text-text-primary",
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a
+        href="https://loremaster.valfarandsons.com"
+        class="mobile-nav-link mt-1 inline-flex items-center justify-center rounded-[10px] bg-accent px-4 py-2.5 text-[15px] font-semibold text-[#1a1520] no-underline"
+      >
+        Try Loremaster
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Spacer for fixed header -->
+<div style="height: 64px;"></div>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const mobileNav = document.getElementById("mobile-nav");
+
+  if (toggle && mobileNav) {
+    const closeMenu = () => {
+      mobileNav.style.transform = "scaleY(0)";
+      toggle.setAttribute("aria-expanded", "false");
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = mobileNav.style.transform === "scaleY(1)";
+      mobileNav.style.transform = isOpen ? "scaleY(0)" : "scaleY(1)";
+      toggle.setAttribute("aria-expanded", String(!isOpen));
+    });
+
+    mobileNav.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
+
+    const mq = window.matchMedia("(min-width: 768px)");
+    mq.addEventListener("change", () => {
+      if (mq.matches) closeMenu();
+    });
+  }
+</script>

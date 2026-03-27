@@ -1,0 +1,101 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  lastUpdated?: string;
+}
+
+const { title, description, lastUpdated } = Astro.props;
+---
+
+<BaseLayout title={`${title} — Loremaster`} description={description}>
+  <div class="mx-auto max-w-[800px] px-[clamp(16px,4vw,28px)] py-12 md:py-16">
+    <header class="mb-10">
+      <h1 class="mb-3 text-[clamp(1.5rem,1.2rem+1.5vw,2rem)] font-bold text-text-primary">
+        {title}
+      </h1>
+      {
+        lastUpdated && (
+          <p class="text-[14px] text-text-muted">Last Updated: {lastUpdated}</p>
+        )
+      }
+      <div class="gold-divider mt-4"></div>
+    </header>
+
+    <div class="legal-content">
+      <slot />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-content :global(h2) {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--lm-text-primary);
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .legal-content :global(h3) {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--lm-text-primary);
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .legal-content :global(p) {
+    color: var(--lm-text-body);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .legal-content :global(ul),
+  .legal-content :global(ol) {
+    color: var(--lm-text-body);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  .legal-content :global(li) {
+    margin-bottom: 0.35rem;
+  }
+
+  .legal-content :global(a) {
+    color: var(--lm-accent);
+    text-decoration: underline;
+    text-decoration-color: rgba(218, 160, 64, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  .legal-content :global(a:hover) {
+    text-decoration-color: var(--lm-accent);
+  }
+
+  .legal-content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+  }
+
+  .legal-content :global(th),
+  .legal-content :global(td) {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--lm-divider);
+    font-size: 0.95rem;
+    color: var(--lm-text-body);
+  }
+
+  .legal-content :global(th) {
+    color: var(--lm-text-primary);
+    font-weight: 600;
+  }
+</style>

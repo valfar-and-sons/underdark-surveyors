@@ -1,0 +1,92 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GlassCard from "../components/GlassCard.astro";
+import FeatureCard from "../components/FeatureCard.astro";
+import ProductCarousel from "../components/ProductCarousel.astro";
+---
+
+<BaseLayout
+  title="Product — Loremaster"
+  description="Loremaster: an AI-assisted platform for tabletop RPG campaigns. Manage sessions, track entities, and get AI-powered summaries."
+>
+  <div class="mx-auto grid max-w-[1200px] gap-7 px-[clamp(16px,4vw,28px)] py-8 md:py-12">
+    <!-- Hero -->
+    <GlassCard accentBar class="p-[clamp(1.5rem,1rem+2vw,2.5rem)]">
+      <h1 class="text-[clamp(1.7rem,1.2rem+2vw,2.5rem)] font-bold">Loremaster</h1>
+      <div class="gold-divider my-5"></div>
+      <p class="voice max-w-[70ch] text-[clamp(1rem,0.95rem+0.3vw,1.15rem)]">
+        An AI-powered creative companion for tabletop RPG campaigns. Loremaster helps you manage
+        your world, remember your story, and stay in the moment.
+      </p>
+      <div class="mt-6">
+        <a
+          class="inline-flex items-center rounded-[10px] bg-accent px-5 py-3 text-[15px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_8px_24px_rgba(218,160,64,0.2)]"
+          href="https://loremaster.valfarandsons.com"
+        >
+          Try Loremaster
+        </a>
+      </div>
+    </GlassCard>
+
+    <!-- Features Grid -->
+    <section>
+      <h2 class="mb-5 text-[clamp(1.2rem,1rem+1.2vw,1.6rem)] font-semibold">Features</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <FeatureCard
+          icon="🏰"
+          title="Campaign Management"
+          description="Organize your campaign's sessions, storylines, and arcs in one place. Keep track of where your story has been and where it's going."
+        />
+        <FeatureCard
+          icon="📖"
+          title="Entity Tracking"
+          description="Follow every character, location, faction, and artifact as your world grows. Never lose track of an NPC or forget a key location again."
+        />
+        <FeatureCard
+          icon="✨"
+          title="AI Session Summaries"
+          description="Get narrative summaries of your sessions that highlight the most important twists, turns, and character moments."
+        />
+        <FeatureCard
+          icon="🎙️"
+          title="Audio Transcription"
+          description="Upload session recordings and let Loremaster transcribe them automatically. Your spoken stories become searchable text."
+        />
+        <FeatureCard
+          icon="💬"
+          title="Ask Loremaster"
+          description="Chat with an AI that knows your campaign inside and out. Ask questions about your world and get answers grounded in your story."
+        />
+        <FeatureCard
+          icon="🗺️"
+          title="Quest & Arc Tracking"
+          description="Keep open plot threads organized. Track quests, mysteries, and unresolved storylines so nothing falls through the cracks."
+        />
+      </div>
+    </section>
+
+    <!-- Screenshots Carousel -->
+    <section>
+      <GlassCard class="p-[clamp(1.25rem,0.9rem+1.6vw,2.25rem)]">
+        <h2 class="mb-4 text-[clamp(1.2rem,1rem+1.2vw,1.6rem)]">See it in action</h2>
+        <ProductCarousel />
+      </GlassCard>
+    </section>
+
+    <!-- CTA -->
+    <GlassCard class="p-[clamp(1.5rem,1rem+2vw,2.5rem)] text-center">
+      <h2 class="text-[clamp(1.2rem,1rem+1.2vw,1.6rem)]">Start your adventure</h2>
+      <p class="mx-auto mt-2 max-w-[50ch] text-text-body">
+        Loremaster is ready to help you tell richer stories. Try it today.
+      </p>
+      <div class="mt-5">
+        <a
+          class="inline-flex items-center rounded-[10px] bg-accent px-5 py-3 text-[15px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_8px_24px_rgba(218,160,64,0.2)]"
+          href="https://loremaster.valfarandsons.com"
+        >
+          Try Loremaster
+        </a>
+      </div>
+    </GlassCard>
+  </div>
+</BaseLayout>

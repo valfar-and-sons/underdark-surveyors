@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GlassCard from "../components/GlassCard.astro";
+import TeamCard from "../components/TeamCard.astro";
+---
+
+<BaseLayout
+  title="About — Loremaster"
+  description="Meet the team behind Loremaster. We're builders, researchers, and storytellers."
+>
+  <div class="mx-auto grid max-w-[1200px] gap-7 px-[clamp(16px,4vw,28px)] py-8 md:py-12">
+    <!-- Mission -->
+    <GlassCard accentBar class="p-[clamp(1.5rem,1rem+2vw,2.5rem)]">
+      <h1 class="text-[clamp(1.7rem,1.2rem+2vw,2.5rem)] font-bold">About Loremaster</h1>
+      <div class="gold-divider my-5"></div>
+      <p class="voice max-w-[70ch] text-[clamp(1rem,0.95rem+0.3vw,1.15rem)]">
+        We're builders, researchers, and storytellers — experienced in AI and software engineering,
+        united by a shared love of tabletop RPGs.
+      </p>
+      <p class="mt-3 max-w-[70ch] text-[clamp(1rem,0.98rem+0.25vw,1.1rem)] text-text-body">
+        Loremaster was born from a simple belief: the best stories are told together around a
+        table. But the logistics of running a campaign — taking notes, tracking NPCs, remembering
+        what happened three sessions ago — can get in the way of the story itself.
+      </p>
+      <p class="mt-3 max-w-[70ch] text-[clamp(1rem,0.98rem+0.25vw,1.1rem)] text-text-body">
+        So we built Loremaster: an AI-powered companion that handles the bookkeeping so you can
+        focus on what matters most — telling stories together.
+      </p>
+    </GlassCard>
+
+    <!-- Team -->
+    <section>
+      <h2 class="mb-5 text-[clamp(1.2rem,1rem+1.2vw,1.6rem)] font-semibold">Our Team</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <TeamCard
+          name="Mark Derdzinski"
+          title="CEO"
+          bio="Brings deep experience leading AI engineering teams and designing agentic systems for real-world software applications."
+        />
+        <TeamCard
+          name="Daniel Ben-Zion"
+          title="CTO"
+          bio="Combines expertise in large-scale machine learning systems with a hands-on approach to building robust, production-ready AI infrastructure."
+        />
+        <TeamCard
+          name="Garrett Bredell"
+          title="Founding Product Lead"
+          bio="Draws on a background in product design and user research to create intuitive tools that support imaginative play."
+        />
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <GlassCard class="p-[clamp(1.25rem,0.9rem+1.6vw,2.25rem)]">
+      <h2 class="text-[clamp(1.2rem,1rem+1.2vw,1.6rem)]">Get in Touch</h2>
+      <div class="gold-divider my-4"></div>
+      <p class="mb-4 text-text-body">
+        Have questions or want to learn more? We'd love to hear from you.
+      </p>
+      <a
+        class="inline-flex items-center rounded-[10px] bg-accent px-5 py-3 text-[15px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_8px_24px_rgba(218,160,64,0.2)]"
+        href="mailto:contact@valfarandsons.com"
+      >
+        Contact us
+      </a>
+      <p class="mt-3 text-[14px] text-text-muted">contact@valfarandsons.com</p>
+    </GlassCard>
+  </div>
+</BaseLayout>

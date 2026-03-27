@@ -1,0 +1,26 @@
+---
+interface Props {
+  class?: string;
+  accentBar?: boolean;
+}
+
+const { class: className = "", accentBar = false } = Astro.props;
+---
+
+<div
+  class:list={[
+    "relative overflow-hidden rounded-[14px] border border-card-border backdrop-blur-[12px] transition-colors duration-200 hover:border-card-hover-border",
+    className,
+  ]}
+  style="background: var(--lm-card-glass); border-top: 1px solid var(--lm-card-border-top);"
+>
+  {
+    accentBar && (
+      <div
+        class="absolute top-0 bottom-0 left-0 w-[4px]"
+        style="background: var(--lm-accent-bar); border-radius: 14px 0 0 14px;"
+      />
+    )
+  }
+  <slot />
+</div>
