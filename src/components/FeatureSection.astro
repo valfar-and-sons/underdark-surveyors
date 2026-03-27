@@ -1,0 +1,60 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  voiceQuote?: string;
+  screenshot?: string;
+  screenshotAlt?: string;
+  reverse?: boolean;
+}
+
+const {
+  title,
+  description,
+  voiceQuote,
+  screenshot,
+  screenshotAlt = "",
+  reverse = false,
+} = Astro.props;
+---
+
+<section
+  class:list={[
+    "grid items-center gap-8 md:grid-cols-2 md:gap-12",
+    reverse && "md:[direction:rtl] md:[&>*]:[direction:ltr]",
+  ]}
+>
+  <!-- Text -->
+  <div>
+    <h3 class="mb-3 text-[clamp(1.2rem,1rem+1vw,1.5rem)] font-semibold text-text-primary">
+      {title}
+    </h3>
+    <p class="text-[15px] leading-relaxed text-text-body">{description}</p>
+    {
+      voiceQuote && (
+        <p class="voice mt-3 text-[15px]">{voiceQuote}</p>
+      )
+    }
+  </div>
+
+  <!-- Screenshot placeholder -->
+  <div
+    class="overflow-hidden rounded-xl border border-card-border"
+    style="background: var(--lm-card-glass);"
+  >
+    {
+      screenshot ? (
+        <img
+          src={screenshot}
+          alt={screenshotAlt}
+          class="block w-full"
+          loading="lazy"
+        />
+      ) : (
+        <div class="flex aspect-[16/10] items-center justify-center">
+          <span class="text-[13px] text-text-faint">Screenshot coming soon</span>
+        </div>
+      )
+    }
+  </div>
+</section>

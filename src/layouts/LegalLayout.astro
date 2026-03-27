@@ -54,17 +54,31 @@ const { title, description, lastUpdated } = Astro.props;
     margin-bottom: 1rem;
   }
 
-  .legal-content :global(ul),
+  .legal-content :global(ul) {
+    color: var(--lm-text-body);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    list-style-type: disc;
+  }
+
   .legal-content :global(ol) {
     color: var(--lm-text-body);
     font-size: 0.95rem;
     line-height: 1.75;
     margin-bottom: 1rem;
     padding-left: 1.5rem;
+    list-style-type: decimal;
   }
 
   .legal-content :global(li) {
     margin-bottom: 0.35rem;
+  }
+
+  .legal-content :global(strong) {
+    color: var(--lm-text-primary);
+    font-weight: 600;
   }
 
   .legal-content :global(a) {
@@ -82,6 +96,7 @@ const { title, description, lastUpdated } = Astro.props;
   .legal-content :global(table) {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 1rem;
     margin-bottom: 1.5rem;
   }
 
@@ -89,7 +104,7 @@ const { title, description, lastUpdated } = Astro.props;
   .legal-content :global(td) {
     text-align: left;
     padding: 0.75rem 1rem;
-    border-bottom: 1px solid var(--lm-divider);
+    border-bottom: 1px solid rgba(200, 195, 188, 0.1);
     font-size: 0.95rem;
     color: var(--lm-text-body);
   }
@@ -97,5 +112,10 @@ const { title, description, lastUpdated } = Astro.props;
   .legal-content :global(th) {
     color: var(--lm-text-primary);
     font-weight: 600;
+    border-bottom: 1px solid rgba(200, 195, 188, 0.15);
+  }
+
+  .legal-content :global(thead) {
+    border-top: 1px solid rgba(200, 195, 188, 0.1);
   }
 </style>

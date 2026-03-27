@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GlassCard from "../components/GlassCard.astro";
-import ProductCarousel from "../components/ProductCarousel.astro";
+import FeatureCard from "../components/FeatureCard.astro";
 ---
 
 <BaseLayout title="Loremaster — AI Tools for Tabletop Storytelling">
@@ -29,9 +29,20 @@ import ProductCarousel from "../components/ProductCarousel.astro";
       </div>
     </GlassCard>
 
+    <!-- Hero Screenshot -->
+    <div
+      class="overflow-hidden rounded-[14px] border border-card-border"
+      style="background: var(--lm-card-glass);"
+    >
+      <!-- Replace with a full-width campaign dashboard screenshot -->
+      <div class="flex aspect-[16/9] items-center justify-center">
+        <span class="text-[14px] text-text-faint">Screenshot coming soon</span>
+      </div>
+    </div>
+
     <!-- About (brief) -->
     <GlassCard class="p-[clamp(1.25rem,0.9rem+1.6vw,2.25rem)]">
-      <h2 class="text-[clamp(1.2rem,1rem+1.2vw,1.6rem)]">About</h2>
+      <h2 class="text-[clamp(1.2rem,1rem+1.2vw,1.6rem)]">Why Loremaster?</h2>
       <div class="gold-divider my-4"></div>
       <p class="mb-3 max-w-[70ch] text-[clamp(1rem,0.98rem+0.25vw,1.1rem)] text-text-body">
         Campaigns are living stories, but managing them often feels like bookkeeping. Taking notes,
@@ -42,23 +53,35 @@ import ProductCarousel from "../components/ProductCarousel.astro";
         exposition when you need it, and helps players stay focused on what matters most: telling
         stories together.
       </p>
-      <p class="mt-4">
-        <a
-          href="/about"
-          class="text-[14px] text-accent no-underline transition-opacity hover:opacity-80"
-        >
-          Meet the team &rarr;
-        </a>
-      </p>
     </GlassCard>
 
-    <!-- Product Preview -->
+    <!-- Feature Highlights -->
     <section>
-      <GlassCard class="p-[clamp(1.25rem,0.9rem+1.6vw,2.25rem)]">
-        <h2 class="mb-1 text-[clamp(1.2rem,1rem+1.2vw,1.6rem)]">Product</h2>
-        <div class="gold-divider my-4"></div>
-        <ProductCarousel />
-      </GlassCard>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <FeatureCard
+          icon="🎙️"
+          title="Session to story"
+          description="Upload a recording or transcript. Get narrative summaries, key events, and AI-generated scene illustrations back."
+        />
+        <FeatureCard
+          icon="📖"
+          title="The Codex"
+          description="Every character, location, and artifact tracked automatically. Loremaster finds new entities and suggests additions as you play."
+        />
+        <FeatureCard
+          icon="💬"
+          title="Ask Loremaster"
+          description="Chat with an AI that knows your entire campaign. Get recaps, look up details, or brainstorm where the story goes next."
+        />
+      </div>
+      <p class="mt-5 text-center">
+        <a
+          href="/product"
+          class="text-[14px] font-medium text-accent no-underline transition-opacity hover:opacity-80"
+        >
+          See all features &rarr;
+        </a>
+      </p>
     </section>
 
     <!-- CTA Banner -->
