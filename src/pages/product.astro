@@ -5,6 +5,7 @@ import SessionCardStatic from "../components/SessionCardStatic.astro";
 import EntityCardStatic from "../components/EntityCardStatic.astro";
 import ChatDemo from "../components/ChatDemo.astro";
 import NarrationPresetDemo from "../components/NarrationPresetDemo.astro";
+import QuestLogDemo from "../components/QuestLogDemo.astro";
 ---
 
 <BaseLayout
@@ -153,12 +154,19 @@ import NarrationPresetDemo from "../components/NarrationPresetDemo.astro";
     </section>
 
 
-    <div class="reveal mt-20 md:mt-28">
-      <FeatureSection
-        title="Track every thread with the Quest Log"
-        description="Open plot lines, unresolved mysteries, and active quests stay organized in one place. As sessions progress, Loremaster helps you track what's been resolved and what's still dangling, so nothing falls through the cracks."
-      />
-    </div>
+    <section class="reveal mt-20 grid items-start gap-10 md:mt-28 md:grid-cols-2 md:gap-16">
+      <!-- Text -->
+      <div class="md:pt-4">
+        <h3 class="mb-3 text-[clamp(1.4rem,1.1rem+1.5vw,1.8rem)] font-semibold text-text-primary">
+          Track every thread with the Quest Log
+        </h3>
+        <p class="text-[16px] leading-[1.75] text-text-body md:text-[17px]">
+          Open plot lines, unresolved mysteries, and active quests stay organized in one place. As sessions progress, Loremaster helps you track what's been resolved and what's still dangling, so nothing falls through the cracks.
+        </p>
+      </div>
+      <!-- Quest log demo -->
+      <QuestLogDemo />
+    </section>
 
 
     <div class="reveal mt-20 md:mt-28">
