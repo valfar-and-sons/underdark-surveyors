@@ -274,6 +274,50 @@ h4 {
   opacity: 0.4;
 }
 
+/* ── Marquee (infinite horizontal scroll) ─────────────────────── */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeVertical {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.marquee-track-vertical {
+  animation: marqueeVertical 45s linear infinite;
+}
+
+.marquee-track-vertical:hover {
+  animation-play-state: paused;
+}
+
+/* ── Scrollbar hide ───────────────────────────────────────────── */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* ── Focus ring ───────────────────────────────────────────────── */
 :focus-visible {
   outline: 3px solid var(--lm-ring);

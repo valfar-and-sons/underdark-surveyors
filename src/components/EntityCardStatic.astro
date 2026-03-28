@@ -1,0 +1,60 @@
+---
+interface Props {
+  name: string;
+  type: string;
+  tagline: string;
+  image?: string;
+  playerName?: string;
+}
+
+const { name, type, tagline, image, playerName } = Astro.props;
+---
+
+<div
+  class="entity-card w-full rounded-xl border border-border-glass p-4 backdrop-blur-md transition-all duration-300 hover:border-card-hover-border hover:bg-card-hover-bg md:p-5"
+  style="background: var(--lm-surface-glass);"
+>
+  <div class="flex items-start gap-3.5">
+    <!-- Portrait -->
+    {
+      image ? (
+        <div class="h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-border-glass">
+          <img src={image} alt={name} class="h-full w-full object-cover" />
+        </div>
+      ) : (
+        <div class="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border-glass bg-card-glass">
+          <span class="text-[10px] text-text-faint">Portrait</span>
+        </div>
+      )
+    }
+
+    <!-- Info -->
+    <div class="min-w-0 flex-1">
+      <div class="flex flex-wrap items-center gap-2">
+        <h4 class="truncate text-[15px] font-semibold text-text-primary">{name}</h4>
+        <span class="shrink-0 rounded-md bg-accent/10 px-2 py-0.5 text-[11px] font-medium uppercase tracking-wider text-accent/70">
+          {type}
+        </span>
+      </div>
+      {playerName && (
+        <p class="mt-0.5 text-[12px] text-text-muted">Played by {playerName}</p>
+      )}
+      <p
+        class="mt-1 text-[13px] italic leading-snug text-text-voice/80"
+        style="font-family: var(--font-voice);"
+      >
+        {tagline}
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .entity-card {
+    transform: translateY(0) scale(1);
+  }
+  .entity-card:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 40px 4px rgba(218, 160, 64, 0.03);
+  }
+</style>
