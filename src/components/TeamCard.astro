@@ -1,7 +1,7 @@
 ---
 interface Props {
   name: string;
-  title: string;
+  title?: string;
   bio: string;
 }
 
@@ -15,6 +15,6 @@ const { name, title, bio } = Astro.props;
   <p class="mb-1.5 text-[18px] font-semibold text-text-primary md:text-[19px]">
     {name}
   </p>
-  <p class="mb-3 text-[14px] font-medium text-accent md:text-[15px]">{title}</p>
+  {title && <p class="mb-3 text-[14px] font-medium text-accent md:text-[15px]">{title}</p>}
   <p class="text-[15px] leading-relaxed text-text-muted md:text-[16px]">{bio}</p>
 </div>
