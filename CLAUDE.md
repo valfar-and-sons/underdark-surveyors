@@ -20,7 +20,7 @@ This is the marketing website for Loremaster, an AI-powered platform for tableto
 ## Design system
 The website's visual design is ported from the Loremaster React app (`~/projects/loremaster`). The source of truth for design tokens is the app's `frontend/src/index.css`. Key elements:
 - **Palette:** Deep plum background (#0a090c) with gold accent (#daa040)
-- **Fonts:** Space Grotesk (UI), Lora (narrative/voice text)
+- **Fonts:** Familjen Grotesk (UI), Literata (narrative/voice text)
 - **Cards:** Glassmorphism with gold-tinted borders and backdrop blur
 - **Effects:** Noise overlay texture, voice text shimmer animation
 

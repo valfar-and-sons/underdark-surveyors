@@ -4,8 +4,9 @@
 /* ── Design System Tokens (ported from Loremaster app) ───────── */
 
 @theme {
-  --font-ui: "Space Grotesk", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
-  --font-voice: "Lora", Georgia, serif;
+  --font-ui: "Familjen Grotesk", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+  --font-voice: "Literata", Georgia, serif;
+  --font-voice-display: "Lora", Georgia, serif;
 
   --color-accent: var(--lm-accent);
   --color-accent-hover: var(--lm-accent-hover);
@@ -110,7 +111,7 @@ h4 {
   line-height: 1.3;
 }
 
-/* Narrative / story text — Lora italic */
+/* Narrative / story text — Literata italic */
 .voice {
   font-family: var(--font-voice);
   font-style: italic;
