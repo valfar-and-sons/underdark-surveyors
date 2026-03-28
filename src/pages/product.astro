@@ -6,6 +6,7 @@ import EntityCardStatic from "../components/EntityCardStatic.astro";
 import ChatDemo from "../components/ChatDemo.astro";
 import NarrationPresetDemo from "../components/NarrationPresetDemo.astro";
 import QuestLogDemo from "../components/QuestLogDemo.astro";
+import TimelineDemo from "../components/TimelineDemo.astro";
 ---
 
 <BaseLayout
@@ -169,13 +170,19 @@ import QuestLogDemo from "../components/QuestLogDemo.astro";
     </section>
 
 
-    <div class="reveal mt-20 md:mt-28">
-      <FeatureSection
-        title="Watch your characters grow"
-        description="Each entity in the Codex has its own timeline, a visual history of every appearance, every key moment, every turning point. Scroll through a character's journey from introduction to their latest adventure."
-        reverse
-      />
-    </div>
+    <section class="reveal mt-20 grid items-center gap-10 md:mt-28 md:grid-cols-2 md:gap-16 md:[direction:rtl] md:[&>*]:[direction:ltr]">
+      <!-- Text -->
+      <div>
+        <h3 class="mb-3 text-[clamp(1.4rem,1.1rem+1.5vw,1.8rem)] font-semibold text-text-primary">
+          Watch your characters grow
+        </h3>
+        <p class="text-[16px] leading-[1.75] text-text-body md:text-[17px]">
+          Each entity in the Codex has its own timeline, a visual history of every appearance, every key moment, every turning point. Scroll through a character's journey from introduction to their latest adventure.
+        </p>
+      </div>
+      <!-- Timeline demo -->
+      <TimelineDemo />
+    </section>
 
     <!-- CTA (open, centered) -->
     <section class="reveal mx-auto max-w-[600px] py-20 text-center md:py-28">
