@@ -10,7 +10,7 @@ import TeamCard from "../components/TeamCard.astro";
 >
   <div class="mx-auto max-w-[1200px] px-[clamp(16px,4vw,28px)]">
     <!-- Mission -->
-    <section class="py-12 md:py-20">
+    <section class="reveal py-12 md:py-20">
       <GlassCard accentBar class="p-[clamp(2rem,1.5rem+2vw,3rem)]">
         <h1 class="text-[clamp(2rem,1.4rem+3vw,3rem)] font-bold">About Loremaster</h1>
         <div class="gold-divider my-6"></div>
@@ -23,37 +23,39 @@ import TeamCard from "../components/TeamCard.astro";
           table. But the logistics of running a campaign (taking notes, tracking NPCs, remembering
           what happened three sessions ago) can get in the way of the story itself.
         </p>
-        <p class="mt-4 max-w-[70ch] text-[clamp(1.05rem,1rem+0.4vw,1.2rem)] leading-[1.75] text-text-body">
-          So we built Loremaster: an AI-powered companion that handles the bookkeeping so you can
-          focus on what matters most: telling stories together.
-        </p>
       </GlassCard>
     </section>
 
     <!-- Team -->
     <section class="mb-16">
-      <h2 class="mb-8 text-[clamp(1.6rem,1.2rem+2vw,2.4rem)] font-semibold">Our Team</h2>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <TeamCard
-          name="Mark Derdzinski"
-          title="CEO"
-          bio="Brings deep experience leading AI engineering teams and designing agentic systems for real-world software applications."
-        />
-        <TeamCard
-          name="Daniel Ben-Zion"
-          title="CTO"
-          bio="Combines expertise in large-scale machine learning systems with a hands-on approach to building robust, production-ready AI infrastructure."
-        />
-        <TeamCard
-          name="Garrett Bredell"
-          title="Founding Product Lead"
-          bio="Draws on a background in product design and user research to create intuitive tools that support imaginative play."
-        />
+      <h2 class="reveal mb-8 text-[clamp(1.6rem,1.2rem+2vw,2.4rem)] font-semibold">Our Team</h2>
+      <div class="reveal-stagger grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="reveal">
+          <TeamCard
+            name="Mark Derdzinski"
+            title="CEO"
+            bio="Brings deep experience leading AI engineering teams and designing agentic systems for real-world software applications."
+          />
+        </div>
+        <div class="reveal">
+          <TeamCard
+            name="Daniel Ben-Zion"
+            title="CTO"
+            bio="Combines expertise in large-scale machine learning systems with a hands-on approach to building robust, production-ready AI infrastructure."
+          />
+        </div>
+        <div class="reveal">
+          <TeamCard
+            name="Garrett Bredell"
+            title="Founding Product Lead"
+            bio="Draws on a background in product design and user research to create intuitive tools that support imaginative play."
+          />
+        </div>
       </div>
     </section>
 
     <!-- Contact -->
-    <section class="pb-12 md:pb-20">
+    <section class="reveal pb-12 md:pb-20">
       <GlassCard class="p-[clamp(2rem,1.5rem+2vw,3rem)]">
         <h2 class="text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">Get in Touch</h2>
         <div class="gold-divider my-5"></div>
@@ -61,7 +63,7 @@ import TeamCard from "../components/TeamCard.astro";
           Have questions or want to learn more? We'd love to hear from you.
         </p>
         <a
-          class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_12px_28px_rgba(218,160,64,0.25)]"
+          class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_28px_rgba(218,160,64,0.25)]"
           href="mailto:contact@valfarandsons.com"
         >
           Contact us

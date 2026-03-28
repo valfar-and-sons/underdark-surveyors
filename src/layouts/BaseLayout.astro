@@ -81,5 +81,38 @@ const currentPath = Astro.url.pathname;
     </main>
 
     <Footer />
+
+    <script>
+      // Scroll-triggered reveal animations (site-wide)
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              if (entry.target.classList.contains("reveal-stagger")) {
+                entry.target.querySelectorAll(".reveal").forEach((child) => {
+                  child.classList.add("visible");
+                });
+              }
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+
+      document.querySelectorAll(".reveal:not(.reveal-stagger .reveal)").forEach((el) => {
+        observer.observe(el);
+      });
+
+      document.querySelectorAll(".reveal-stagger").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Connector line animations
+      document.querySelectorAll(".section-connector").forEach((el) => {
+        observer.observe(el);
+      });
+    </script>
   </body>
 </html>

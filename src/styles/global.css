@@ -156,6 +156,28 @@ h4 {
   }
 }
 
+@keyframes heroIn {
+  from {
+    opacity: 0;
+    filter: blur(16px);
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+
+.hero-cascade {
+  opacity: 0;
+  animation: heroIn 0.8s ease-out forwards;
+}
+.hero-cascade:nth-child(1) { animation-delay: 100ms; }
+.hero-cascade:nth-child(2) { animation-delay: 400ms; }
+.hero-cascade:nth-child(3) { animation-delay: 650ms; }
+.hero-cascade:nth-child(4) { animation-delay: 850ms; }
+
 @keyframes inkIn {
   from {
     opacity: 0;
@@ -188,9 +210,13 @@ h4 {
 
 /* Stagger delays for child elements */
 .reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
-.reveal-stagger > .reveal:nth-child(2) { transition-delay: 120ms; }
-.reveal-stagger > .reveal:nth-child(3) { transition-delay: 240ms; }
-.reveal-stagger > .reveal:nth-child(4) { transition-delay: 360ms; }
+.reveal-stagger > .reveal:nth-child(2) { transition-delay: 100ms; }
+.reveal-stagger > .reveal:nth-child(3) { transition-delay: 200ms; }
+.reveal-stagger > .reveal:nth-child(4) { transition-delay: 300ms; }
+.reveal-stagger > .reveal:nth-child(5) { transition-delay: 400ms; }
+.reveal-stagger > .reveal:nth-child(6) { transition-delay: 500ms; }
+.reveal-stagger > .reveal:nth-child(7) { transition-delay: 600ms; }
+.reveal-stagger > .reveal:nth-child(8) { transition-delay: 700ms; }
 
 /* Animated gold divider — grows from left on reveal */
 .gold-divider-animated {

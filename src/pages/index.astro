@@ -7,27 +7,27 @@ import FeatureCard from "../components/FeatureCard.astro";
 <BaseLayout title="Loremaster — AI Tools for Tabletop Storytelling">
   <div class="mx-auto max-w-[1200px] px-[clamp(16px,4vw,28px)]">
     <!-- Hero (centered, open) -->
-    <section class="reveal relative mx-auto max-w-[780px] py-20 text-center md:py-32">
+    <section class="relative mx-auto max-w-[780px] py-20 text-center md:py-32">
       <!-- Ambient glow (box-shadow for smooth rendering) -->
       <div
         class="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-0 w-0 -translate-x-1/2 -translate-y-1/2"
         style="box-shadow: 0 0 200px 120px rgba(218, 160, 64, 0.035), 0 0 400px 200px rgba(218, 160, 64, 0.02);"
       ></div>
-      <h1 class="voice-gradient text-[clamp(2.5rem,1.5rem+5vw,4.5rem)] font-bold leading-[1.1]" style="font-family: var(--font-voice); font-style: italic;">
+      <h1 class="hero-cascade voice-gradient text-[clamp(2.5rem,1.5rem+5vw,4.5rem)] font-bold leading-[1.1]" style="font-family: var(--font-voice); font-style: italic;">
         Stop taking notes.<br />Stay in the story.
       </h1>
-      <p class="mx-auto mt-6 max-w-[50ch] text-[clamp(1.15rem,1rem+0.5vw,1.4rem)] leading-relaxed text-text-body">
-        Upload a session. Loremaster generates a cinematic recap and tracks your world, session after session.
+      <p class="hero-cascade mx-auto mt-6 max-w-[50ch] text-[clamp(1.15rem,1rem+0.5vw,1.4rem)] leading-relaxed text-text-body">
+        Play your campaign while Loremaster generates a cinematic recap and tracks your world, session after session.
       </p>
-      <div class="mt-10">
+      <div class="hero-cascade mt-10">
         <a
-          class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_12px_28px_rgba(218,160,64,0.25)]"
+          class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_28px_rgba(218,160,64,0.25)]"
           href="https://loremaster.valfarandsons.com"
         >
           Try Loremaster Free
         </a>
       </div>
-      <p class="mt-4 text-[14px] text-text-muted">Free to start. No credit card required.</p>
+      <p class="hero-cascade mt-4 text-[14px] text-text-muted">Free to start. No credit card required.</p>
     </section>
 
     <!-- Hero Screenshot -->
@@ -132,10 +132,10 @@ import FeatureCard from "../components/FeatureCard.astro";
     <div class="section-connector my-12 md:my-16"></div>
 
     <!-- Feature Highlights (staggered) -->
-    <section class="reveal-stagger py-12 md:py-16">
-      <h2 class="text-center text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">Fits right into your game</h2>
+    <section class="py-12 md:py-16">
+      <h2 class="reveal text-center text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">Fits right into your game</h2>
       <div class="gold-divider-animated mx-auto mt-4 mb-12"></div>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="reveal-stagger grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <div class="reveal">
           <FeatureCard
             icon="🎙️"
@@ -179,7 +179,7 @@ import FeatureCard from "../components/FeatureCard.astro";
         </p>
         <div class="mt-8">
           <a
-            class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_12px_28px_rgba(218,160,64,0.25)]"
+            class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_28px_rgba(218,160,64,0.25)]"
             href="https://loremaster.valfarandsons.com"
           >
             Try Loremaster Free
@@ -189,47 +189,3 @@ import FeatureCard from "../components/FeatureCard.astro";
     </div>
   </div>
 </BaseLayout>
-
-<script>
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          if (entry.target.classList.contains("reveal-stagger")) {
-            entry.target.querySelectorAll(".reveal").forEach((child) => {
-              child.classList.add("visible");
-            });
-          }
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 },
-  );
-
-  document.querySelectorAll(".reveal:not(.reveal-stagger .reveal)").forEach((el) => {
-    observer.observe(el);
-  });
-
-  document.querySelectorAll(".reveal-stagger").forEach((el) => {
-    observer.observe(el);
-  });
-
-  // Connectors animate on scroll
-  const connectorObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          connectorObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.5 },
-  );
-
-  document.querySelectorAll(".section-connector").forEach((el) => {
-    connectorObserver.observe(el);
-  });
-</script>
