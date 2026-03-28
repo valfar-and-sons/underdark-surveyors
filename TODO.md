@@ -4,6 +4,8 @@
 - [ ] Update pricing page with actual plan details and tiers
 - [ ] Update FAQ pricing question once pricing is finalized
 - [ ] Replace screenshot placeholders with real UI screenshots (homepage hero, product page hero, all feature sections)
+- [ ] Replace Loremaster Voice quote on homepage with real generated content from an actual campaign
+- [ ] Add more real content examples throughout the site (session summaries, entity descriptions, AI chat exchanges)
 - [ ] Replace emoji icons on feature cards with SVG icons from the Loremaster app
 - [ ] Update domain references once new domain (e.g. askloremaster.com) is finalized
 - [ ] Update app URL placeholder (loremaster.valfarandsons.com) to final production URL

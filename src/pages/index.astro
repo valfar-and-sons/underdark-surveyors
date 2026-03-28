@@ -5,99 +5,231 @@ import FeatureCard from "../components/FeatureCard.astro";
 ---
 
 <BaseLayout title="Loremaster — AI Tools for Tabletop Storytelling">
-  <div class="mx-auto grid max-w-[1200px] gap-7 px-[clamp(16px,4vw,28px)] py-8 md:py-12">
-    <!-- Hero -->
-    <GlassCard accentBar class="p-[clamp(1.5rem,1rem+2vw,2.5rem)]">
-      <h1 class="text-[clamp(1.7rem,1.2rem+2vw,2.5rem)] font-bold">
-        Using AI to keep storytelling human.
+  <div class="mx-auto max-w-[1200px] px-[clamp(16px,4vw,28px)]">
+    <!-- Hero (centered, open) -->
+    <section class="reveal relative mx-auto max-w-[780px] py-20 text-center md:py-32">
+      <!-- Ambient glow (box-shadow for smooth rendering) -->
+      <div
+        class="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-0 w-0 -translate-x-1/2 -translate-y-1/2"
+        style="box-shadow: 0 0 200px 120px rgba(218, 160, 64, 0.035), 0 0 400px 200px rgba(218, 160, 64, 0.02);"
+      ></div>
+      <h1 class="voice-gradient text-[clamp(2.5rem,1.5rem+5vw,4.5rem)] font-bold leading-[1.1]" style="font-family: var(--font-voice); font-style: italic;">
+        Stop taking notes.<br />Stay in the story.
       </h1>
-      <div class="gold-divider my-5"></div>
-      <p class="voice max-w-[70ch] text-[clamp(1rem,0.95rem+0.3vw,1.15rem)]">
-        <em class="voice-shimmer not-italic">An AI-powered creative companion for tabletop campaigns.</em>
+      <p class="mx-auto mt-6 max-w-[50ch] text-[clamp(1.15rem,1rem+0.5vw,1.4rem)] leading-relaxed text-text-body">
+        Upload a session. Loremaster generates a cinematic recap and tracks your world, session after session.
       </p>
-      <p class="voice max-w-[70ch] text-[clamp(1rem,0.95rem+0.3vw,1.15rem)]">
-        Loremaster helps game masters and players stay in the moment,
-        remember what matters, and tell richer stories together.
-      </p>
-      <div class="mt-6">
+      <div class="mt-10">
         <a
-          class="inline-flex items-center rounded-[10px] bg-accent px-5 py-3 text-[15px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_8px_24px_rgba(218,160,64,0.2)]"
+          class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_12px_28px_rgba(218,160,64,0.25)]"
           href="https://loremaster.valfarandsons.com"
         >
-          Try Loremaster
+          Try Loremaster Free
         </a>
       </div>
-    </GlassCard>
+      <p class="mt-4 text-[14px] text-text-muted">Free to start. No credit card required.</p>
+    </section>
 
     <!-- Hero Screenshot -->
-    <div
-      class="overflow-hidden rounded-[14px] border border-card-border"
-      style="background: var(--lm-card-glass);"
-    >
-      <!-- Replace with a full-width campaign dashboard screenshot -->
-      <div class="flex aspect-[16/9] items-center justify-center">
-        <span class="text-[14px] text-text-faint">Screenshot coming soon</span>
+    <div class="reveal">
+      <div
+        class="overflow-hidden rounded-2xl border border-card-border"
+        style="background: var(--lm-card-glass); box-shadow: 0 16px 48px rgba(0,0,0,0.3), 0 0 80px 8px rgba(218,160,64,0.04), 0 0 160px 20px rgba(218,160,64,0.02);"
+      >
+        <!-- Replace with a full-width campaign dashboard screenshot -->
+        <div class="flex aspect-[16/9] items-center justify-center">
+          <span class="text-[15px] text-text-faint">Screenshot coming soon</span>
+        </div>
       </div>
     </div>
 
-    <!-- About (brief) -->
-    <GlassCard class="p-[clamp(1.25rem,0.9rem+1.6vw,2.25rem)]">
-      <h2 class="text-[clamp(1.2rem,1rem+1.2vw,1.6rem)]">Why Loremaster?</h2>
-      <div class="gold-divider my-4"></div>
-      <p class="mb-3 max-w-[70ch] text-[clamp(1rem,0.98rem+0.25vw,1.1rem)] text-text-body">
-        Campaigns are living stories, but managing them often feels like bookkeeping. Taking notes,
-        tracking NPCs, and remembering open plot lines can pull focus away from the story itself.
-      </p>
-      <p class="voice max-w-[70ch] text-[clamp(1rem,0.98rem+0.25vw,1.1rem)]">
-        Loremaster is an AI-assisted platform that keeps the story straight, offers flavorful
-        exposition when you need it, and helps players stay focused on what matters most: telling
-        stories together.
-      </p>
-    </GlassCard>
+    <div class="section-connector my-12 md:my-16"></div>
 
-    <!-- Feature Highlights -->
-    <section>
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <FeatureCard
-          icon="🎙️"
-          title="Session to story"
-          description="Upload a recording or transcript. Get narrative summaries, key events, and AI-generated scene illustrations back."
-        />
-        <FeatureCard
-          icon="📖"
-          title="The Codex"
-          description="Every character, location, and artifact tracked automatically. Loremaster finds new entities and suggests additions as you play."
-        />
-        <FeatureCard
-          icon="💬"
-          title="Ask Loremaster"
-          description="Chat with an AI that knows your entire campaign. Get recaps, look up details, or brainstorm where the story goes next."
-        />
+    <!-- Why Loremaster? (full-bleed, no card) -->
+    <section class="reveal mx-auto max-w-[680px] py-12 text-center md:py-20">
+      <h2 class="text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">Why Loremaster?</h2>
+      <div class="gold-divider-animated mx-auto mt-4 mb-8"></div>
+      <p class="mb-5 text-[clamp(1.1rem,1rem+0.5vw,1.3rem)] leading-[1.8] text-text-body">
+        Keeping track of everything in a campaign takes work. What exactly happened last time? Who was that NPC? What did the party promise to do? All of it pulls you out of the moment.
+      </p>
+      <p class="voice text-[clamp(1.1rem,1rem+0.5vw,1.3rem)]">
+        Loremaster keeps track of your world, so players can stay focused on what matters most: telling stories together.
+      </p>
+    </section>
+
+    <div class="section-connector my-12 md:my-16"></div>
+
+    <!-- Loremaster Voice quote -->
+    <div class="reveal mx-auto max-w-[720px]">
+      <div
+        class="relative overflow-hidden rounded-[14px] backdrop-blur-[12px]"
+        style="background: var(--lm-card-glass); border: 1px solid var(--lm-card-border); border-top: 1px solid var(--lm-card-border-top); padding: 28px 32px 32px 24px;"
+      >
+        <div
+          class="absolute left-0 top-0 bottom-0 w-[4px]"
+          style="background: var(--lm-accent-bar); border-radius: 14px 0 0 14px;"
+        ></div>
+        <p
+          class="voice-gradient text-[clamp(1.15rem,1rem+0.8vw,1.5rem)] leading-[1.75]"
+          style="font-family: var(--font-voice); font-style: italic;"
+        >
+          "The party gathered at the edge of the Wraithwood, their torches dimming against the mist. Somewhere ahead, the Thornkeep waited. No one spoke, but the weight of the promise they'd made in Graycliff hung between them like a blade."
+        </p>
       </div>
-      <p class="mt-5 text-center">
+      <p class="mt-4 text-center text-[14px] text-text-muted">
+        Generated by Loremaster from a real session
+      </p>
+    </div>
+
+    <div class="section-connector my-12 md:my-16"></div>
+
+    <!-- How it works (vertical timeline, full-bleed) -->
+    <section class="reveal mx-auto max-w-[660px] py-12 md:py-16">
+      <h2 class="text-center text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">How it works</h2>
+      <div class="gold-divider-animated mx-auto mt-4 mb-12"></div>
+      <div class="reveal-stagger relative grid gap-0">
+        <!-- Timeline line -->
+        <div
+          class="absolute left-[21px] top-[4px] bottom-[4px] w-px md:left-[23px]"
+          style="background: linear-gradient(to bottom, var(--lm-accent), rgba(218, 160, 64, 0.1));"
+        ></div>
+
+        <!-- Step 1 -->
+        <div class="reveal relative flex gap-6 pb-12 pl-1">
+          <div class="relative z-10 flex h-[43px] w-[43px] shrink-0 items-center justify-center rounded-full border border-accent bg-[#0a090c] text-[17px] font-semibold text-accent md:h-[47px] md:w-[47px]">
+            1
+          </div>
+          <div class="pt-2">
+            <h3 class="mb-2 text-[20px] font-semibold text-text-primary md:text-[22px]">Play your session</h3>
+            <p class="text-[16px] leading-relaxed text-text-body md:text-[17px]">Record or upload however you want. Audio, notes, transcripts: it all works.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="reveal relative flex gap-6 pb-12 pl-1">
+          <div class="relative z-10 flex h-[43px] w-[43px] shrink-0 items-center justify-center rounded-full border border-accent bg-[#0a090c] text-[17px] font-semibold text-accent md:h-[47px] md:w-[47px]">
+            2
+          </div>
+          <div class="pt-2">
+            <h3 class="mb-2 text-[20px] font-semibold text-text-primary md:text-[22px]">Get a recap</h3>
+            <p class="text-[16px] leading-relaxed text-text-body md:text-[17px]">Loremaster generates a cinematic summary, pulls out key events, and starts building your world.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="reveal relative flex gap-6 pl-1">
+          <div class="relative z-10 flex h-[43px] w-[43px] shrink-0 items-center justify-center rounded-full border border-accent bg-[#0a090c] text-[17px] font-semibold text-accent md:h-[47px] md:w-[47px]">
+            3
+          </div>
+          <div class="pt-2">
+            <h3 class="mb-2 text-[20px] font-semibold text-text-primary md:text-[22px]">Pick up where you left off</h3>
+            <p class="text-[16px] leading-relaxed text-text-body md:text-[17px]">Start your next session with everything fresh, or ask about anything that's happened so far.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-connector my-12 md:my-16"></div>
+
+    <!-- Feature Highlights (staggered) -->
+    <section class="reveal-stagger py-12 md:py-16">
+      <h2 class="text-center text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">Fits right into your game</h2>
+      <div class="gold-divider-animated mx-auto mt-4 mb-12"></div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="reveal">
+          <FeatureCard
+            icon="🎙️"
+            title="Relive every session"
+            description="Upload a recording or transcript and get a cinematic recap, key events, and scene illustrations you can actually read and share."
+          />
+        </div>
+        <div class="reveal">
+          <FeatureCard
+            icon="📖"
+            title="Your world, tracked automatically"
+            description="Characters, locations, and artifacts are captured as you play. Loremaster finds new entities and suggests updates without manual work."
+          />
+        </div>
+        <div class="reveal">
+          <FeatureCard
+            icon="💬"
+            title="Never lose the thread"
+            description="Ask anything about your campaign and get answers grounded in what actually happened, from last session to the very beginning."
+          />
+        </div>
+      </div>
+      <p class="mt-7 text-center">
         <a
           href="/product"
-          class="text-[14px] font-medium text-accent no-underline transition-opacity hover:opacity-80"
+          class="text-[15px] font-medium text-accent no-underline transition-opacity hover:opacity-80"
         >
           See all features &rarr;
         </a>
       </p>
     </section>
 
+    <div class="section-connector my-12 md:my-16"></div>
+
     <!-- CTA Banner -->
-    <GlassCard class="p-[clamp(1.5rem,1rem+2vw,2.5rem)] text-center">
-      <h2 class="text-[clamp(1.2rem,1rem+1.2vw,1.6rem)]">Ready to tell richer stories?</h2>
-      <p class="mx-auto mt-2 max-w-[50ch] text-text-body">
-        Join players and game masters who use Loremaster to focus on what matters most.
-      </p>
-      <div class="mt-5">
-        <a
-          class="inline-flex items-center rounded-[10px] bg-accent px-5 py-3 text-[15px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_8px_24px_rgba(218,160,64,0.2)]"
-          href="https://loremaster.valfarandsons.com"
-        >
-          Try Loremaster
-        </a>
-      </div>
-    </GlassCard>
+    <div class="reveal pb-16 md:pb-24">
+      <GlassCard class="p-[clamp(2.5rem,2rem+2vw,4rem)] text-center">
+        <h2 class="text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">Start your next session with a recap</h2>
+        <p class="mx-auto mt-4 max-w-[50ch] text-[17px] text-text-body">
+          Upload your last session and see what Loremaster generates for your campaign in seconds.
+        </p>
+        <div class="mt-8">
+          <a
+            class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_12px_28px_rgba(218,160,64,0.25)]"
+            href="https://loremaster.valfarandsons.com"
+          >
+            Try Loremaster Free
+          </a>
+        </div>
+      </GlassCard>
+    </div>
   </div>
 </BaseLayout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          if (entry.target.classList.contains("reveal-stagger")) {
+            entry.target.querySelectorAll(".reveal").forEach((child) => {
+              child.classList.add("visible");
+            });
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 },
+  );
+
+  document.querySelectorAll(".reveal:not(.reveal-stagger .reveal)").forEach((el) => {
+    observer.observe(el);
+  });
+
+  document.querySelectorAll(".reveal-stagger").forEach((el) => {
+    observer.observe(el);
+  });
+
+  // Connectors animate on scroll
+  const connectorObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          connectorObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 },
+  );
+
+  document.querySelectorAll(".section-connector").forEach((el) => {
+    connectorObserver.observe(el);
+  });
+</script>

@@ -9,11 +9,11 @@ const { title, description, icon } = Astro.props;
 ---
 
 <div
-  class="group rounded-[14px] border border-card-border p-6 backdrop-blur-[12px] transition-all duration-200 hover:border-card-hover-border"
+  class="group rounded-[14px] border border-card-border p-8 md:p-10 backdrop-blur-[12px] transition-all duration-200 hover:border-card-hover-border"
   style="background: var(--lm-card-glass);"
 >
-  <h3 class="mb-2 text-[17px] font-semibold text-text-primary">
+  <h3 class="mb-3 text-[21px] font-semibold text-text-primary md:text-[22px]">
     <span class="mr-2">{icon}</span>{title}
   </h3>
-  <p class="text-[14px] leading-relaxed text-text-body">{description}</p>
+  <p class="text-[16px] leading-relaxed text-text-body md:text-[17px]">{description}</p>
 </div>

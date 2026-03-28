@@ -128,6 +128,25 @@ h4 {
 }
 
 /* ── Animations ───────────────────────────────────────────────── */
+@keyframes voiceShimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Colorful gradient text — matches the app's "What would you like to know?" style */
+.voice-gradient {
+  background: var(--lm-shimmer-gradient);
+  background-size: 200% auto;
+  animation: voiceShimmer 5s linear infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 @keyframes stirsShimmer {
   0% {
     background-position: 150% center;
@@ -148,6 +167,62 @@ h4 {
     filter: blur(0px);
     transform: translateY(0);
   }
+}
+
+/* Scroll-triggered reveal — hidden by default, animated when .visible is added */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  filter: blur(4px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out,
+    filter 0.7s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Stagger delays for child elements */
+.reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger > .reveal:nth-child(2) { transition-delay: 120ms; }
+.reveal-stagger > .reveal:nth-child(3) { transition-delay: 240ms; }
+.reveal-stagger > .reveal:nth-child(4) { transition-delay: 360ms; }
+
+/* Animated gold divider — grows from left on reveal */
+.gold-divider-animated {
+  height: 1px;
+  background: var(--lm-accent);
+  opacity: 0.4;
+  width: 0;
+  transition: width 0.8s ease-out 0.2s;
+}
+
+.visible .gold-divider-animated,
+.gold-divider-animated.visible {
+  width: 6rem;
+}
+
+/* Vertical gold connector line between sections */
+.section-connector {
+  width: 1px;
+  height: 0;
+  margin: 0 auto;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(218, 160, 64, 0.25) 30%,
+    rgba(218, 160, 64, 0.25) 70%,
+    transparent
+  );
+  transition: height 0.8s ease-out 0.1s;
+}
+
+.section-connector.visible {
+  height: 120px;
 }
 
 .fade-in {

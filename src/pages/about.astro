@@ -8,30 +8,32 @@ import TeamCard from "../components/TeamCard.astro";
   title="About — Loremaster"
   description="Meet the team behind Loremaster. We're builders, researchers, and storytellers."
 >
-  <div class="mx-auto grid max-w-[1200px] gap-7 px-[clamp(16px,4vw,28px)] py-8 md:py-12">
+  <div class="mx-auto max-w-[1200px] px-[clamp(16px,4vw,28px)]">
     <!-- Mission -->
-    <GlassCard accentBar class="p-[clamp(1.5rem,1rem+2vw,2.5rem)]">
-      <h1 class="text-[clamp(1.7rem,1.2rem+2vw,2.5rem)] font-bold">About Loremaster</h1>
-      <div class="gold-divider my-5"></div>
-      <p class="voice max-w-[70ch] text-[clamp(1rem,0.95rem+0.3vw,1.15rem)]">
-        We're builders, researchers, and storytellers, experienced in AI and software engineering
-        and united by a shared love of tabletop RPGs.
-      </p>
-      <p class="mt-3 max-w-[70ch] text-[clamp(1rem,0.98rem+0.25vw,1.1rem)] text-text-body">
-        Loremaster was born from a simple belief: the best stories are told together around a
-        table. But the logistics of running a campaign (taking notes, tracking NPCs, remembering
-        what happened three sessions ago) can get in the way of the story itself.
-      </p>
-      <p class="mt-3 max-w-[70ch] text-[clamp(1rem,0.98rem+0.25vw,1.1rem)] text-text-body">
-        So we built Loremaster: an AI-powered companion that handles the bookkeeping so you can
-        focus on what matters most: telling stories together.
-      </p>
-    </GlassCard>
+    <section class="py-12 md:py-20">
+      <GlassCard accentBar class="p-[clamp(2rem,1.5rem+2vw,3rem)]">
+        <h1 class="text-[clamp(2rem,1.4rem+3vw,3rem)] font-bold">About Loremaster</h1>
+        <div class="gold-divider my-6"></div>
+        <p class="voice max-w-[70ch] text-[clamp(1.1rem,1rem+0.5vw,1.3rem)]">
+          We're builders, researchers, and storytellers, experienced in AI and software engineering
+          and united by a shared love of tabletop RPGs.
+        </p>
+        <p class="mt-4 max-w-[70ch] text-[clamp(1.05rem,1rem+0.4vw,1.2rem)] leading-[1.75] text-text-body">
+          Loremaster was born from a simple belief: the best stories are told together around a
+          table. But the logistics of running a campaign (taking notes, tracking NPCs, remembering
+          what happened three sessions ago) can get in the way of the story itself.
+        </p>
+        <p class="mt-4 max-w-[70ch] text-[clamp(1.05rem,1rem+0.4vw,1.2rem)] leading-[1.75] text-text-body">
+          So we built Loremaster: an AI-powered companion that handles the bookkeeping so you can
+          focus on what matters most: telling stories together.
+        </p>
+      </GlassCard>
+    </section>
 
     <!-- Team -->
-    <section>
-      <h2 class="mb-5 text-[clamp(1.2rem,1rem+1.2vw,1.6rem)] font-semibold">Our Team</h2>
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <section class="mb-16">
+      <h2 class="mb-8 text-[clamp(1.6rem,1.2rem+2vw,2.4rem)] font-semibold">Our Team</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <TeamCard
           name="Mark Derdzinski"
           title="CEO"
@@ -51,19 +53,21 @@ import TeamCard from "../components/TeamCard.astro";
     </section>
 
     <!-- Contact -->
-    <GlassCard class="p-[clamp(1.25rem,0.9rem+1.6vw,2.25rem)]">
-      <h2 class="text-[clamp(1.2rem,1rem+1.2vw,1.6rem)]">Get in Touch</h2>
-      <div class="gold-divider my-4"></div>
-      <p class="mb-4 text-text-body">
-        Have questions or want to learn more? We'd love to hear from you.
-      </p>
-      <a
-        class="inline-flex items-center rounded-[10px] bg-accent px-5 py-3 text-[15px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_8px_24px_rgba(218,160,64,0.2)]"
-        href="mailto:contact@valfarandsons.com"
-      >
-        Contact us
-      </a>
-      <p class="mt-3 text-[14px] text-text-muted">contact@valfarandsons.com</p>
-    </GlassCard>
+    <section class="pb-12 md:pb-20">
+      <GlassCard class="p-[clamp(2rem,1.5rem+2vw,3rem)]">
+        <h2 class="text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">Get in Touch</h2>
+        <div class="gold-divider my-5"></div>
+        <p class="mb-5 text-[16px] text-text-body md:text-[17px]">
+          Have questions or want to learn more? We'd love to hear from you.
+        </p>
+        <a
+          class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_12px_28px_rgba(218,160,64,0.25)]"
+          href="mailto:contact@valfarandsons.com"
+        >
+          Contact us
+        </a>
+        <p class="mt-4 text-[15px] text-text-muted">contact@valfarandsons.com</p>
+      </GlassCard>
+    </section>
   </div>
 </BaseLayout>

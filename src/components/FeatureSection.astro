@@ -20,19 +20,19 @@ const {
 
 <section
   class:list={[
-    "grid items-center gap-8 md:grid-cols-2 md:gap-12",
+    "grid items-center gap-10 md:grid-cols-2 md:gap-16",
     reverse && "md:[direction:rtl] md:[&>*]:[direction:ltr]",
   ]}
 >
   <!-- Text -->
   <div>
-    <h3 class="mb-3 text-[clamp(1.2rem,1rem+1vw,1.5rem)] font-semibold text-text-primary">
+    <h3 class="mb-3 text-[clamp(1.4rem,1.1rem+1.5vw,1.8rem)] font-semibold text-text-primary">
       {title}
     </h3>
-    <p class="text-[15px] leading-relaxed text-text-body">{description}</p>
+    <p class="text-[16px] leading-[1.75] text-text-body md:text-[17px]">{description}</p>
     {
       voiceQuote && (
-        <p class="voice mt-3 text-[15px]">{voiceQuote}</p>
+        <p class="voice mt-4 text-[16px] md:text-[17px]">{voiceQuote}</p>
       )
     }
   </div>
