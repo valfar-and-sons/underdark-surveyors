@@ -2,7 +2,7 @@
 interface Props {
   title: string;
   description: string;
-  icon: string;
+  icon?: string;
 }
 
 const { title, description, icon } = Astro.props;
@@ -13,7 +13,7 @@ const { title, description, icon } = Astro.props;
   style="background: var(--lm-card-glass);"
 >
   <h3 class="mb-3 text-[21px] font-semibold text-text-primary md:text-[22px]">
-    <span class="mr-2">{icon}</span>{title}
+    {icon && <span class="mr-2">{icon}</span>}{title}
   </h3>
   <p class="text-[16px] leading-relaxed text-text-body md:text-[17px]">{description}</p>
 </div>
