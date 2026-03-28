@@ -13,7 +13,7 @@ import FeatureCard from "../components/FeatureCard.astro";
         class="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-0 w-0 -translate-x-1/2 -translate-y-1/2"
         style="box-shadow: 0 0 200px 120px rgba(218, 160, 64, 0.035), 0 0 400px 200px rgba(218, 160, 64, 0.02);"
       ></div>
-      <h1 class="hero-cascade voice-gradient text-[clamp(2.5rem,1.5rem+5vw,4.5rem)] font-bold leading-[1.1]" style="font-family: var(--font-voice); font-style: italic;">
+      <h1 class="voice-gradient text-[clamp(2.5rem,1.5rem+5vw,4.5rem)] font-bold leading-[1.1]" style="font-family: var(--font-voice); font-style: italic; opacity: 0; animation: heroIn 0.8s ease-out 100ms forwards, voiceShimmer 5s linear infinite;">
         Stop taking notes.<br />Stay in the story.
       </h1>
       <p class="hero-cascade mx-auto mt-6 max-w-[50ch] text-[clamp(1.15rem,1rem+0.5vw,1.4rem)] leading-relaxed text-text-body">
@@ -73,7 +73,7 @@ import FeatureCard from "../components/FeatureCard.astro";
           class="voice-gradient text-[clamp(1.15rem,1rem+0.8vw,1.5rem)] leading-[1.75]"
           style="font-family: var(--font-voice); font-style: italic;"
         >
-          "The party gathered at the edge of the Wraithwood, their torches dimming against the mist. Somewhere ahead, the Thornkeep waited. No one spoke, but the weight of the promise they'd made in Graycliff hung between them like a blade."
+          The salt air has a way of binding strangers together. After a heavy night in Saltmarsh, Migli, Durn, and Joren faced a goblin ambush on the road to Seagrove. Though blood was spilled and Migli nearly fell, they stood their ground, learning quickly that the path ahead demands more than just shared gold.
         </p>
       </div>
       <p class="mt-4 text-center text-[14px] text-text-muted">
@@ -90,40 +90,40 @@ import FeatureCard from "../components/FeatureCard.astro";
       <div class="reveal-stagger relative grid gap-0">
         <!-- Timeline line -->
         <div
-          class="absolute left-[21px] top-[4px] bottom-[4px] w-px md:left-[23px]"
+          class="absolute left-[25px] top-[4px] bottom-[4px] w-px md:left-[27px]"
           style="background: linear-gradient(to bottom, var(--lm-accent), rgba(218, 160, 64, 0.1));"
         ></div>
 
         <!-- Step 1 -->
-        <div class="reveal relative flex gap-6 pb-12 pl-1">
-          <div class="relative z-10 flex h-[43px] w-[43px] shrink-0 items-center justify-center rounded-full border border-accent bg-[#0a090c] text-[17px] font-semibold text-accent md:h-[47px] md:w-[47px]">
+        <div class="reveal relative flex gap-7 pb-14 pl-1">
+          <div class="relative z-10 flex h-[51px] w-[51px] shrink-0 items-center justify-center rounded-full border border-accent bg-[#0a090c] text-[20px] text-accent md:h-[55px] md:w-[55px] md:text-[22px]" style="font-family: var(--font-voice); font-style: italic;">
             1
           </div>
-          <div class="pt-2">
-            <h3 class="mb-2 text-[20px] font-semibold text-text-primary md:text-[22px]">Play your session</h3>
-            <p class="text-[16px] leading-relaxed text-text-body md:text-[17px]">Record or upload however you want. Audio, notes, transcripts: it all works.</p>
+          <div class="pt-2.5">
+            <h3 class="mb-2.5 text-[22px] font-semibold text-text-primary md:text-[24px]">Play your session</h3>
+            <p class="text-[17px] leading-relaxed text-text-body md:text-[18px]">Record or upload however you want. Audio, notes, transcripts: it all works.</p>
           </div>
         </div>
 
         <!-- Step 2 -->
-        <div class="reveal relative flex gap-6 pb-12 pl-1">
-          <div class="relative z-10 flex h-[43px] w-[43px] shrink-0 items-center justify-center rounded-full border border-accent bg-[#0a090c] text-[17px] font-semibold text-accent md:h-[47px] md:w-[47px]">
+        <div class="reveal relative flex gap-7 pb-14 pl-1">
+          <div class="relative z-10 flex h-[51px] w-[51px] shrink-0 items-center justify-center rounded-full border border-accent bg-[#0a090c] text-[20px] text-accent md:h-[55px] md:w-[55px] md:text-[22px]" style="font-family: var(--font-voice); font-style: italic;">
             2
           </div>
-          <div class="pt-2">
-            <h3 class="mb-2 text-[20px] font-semibold text-text-primary md:text-[22px]">Get a recap</h3>
-            <p class="text-[16px] leading-relaxed text-text-body md:text-[17px]">Loremaster generates a cinematic summary, pulls out key events, and starts building your world.</p>
+          <div class="pt-2.5">
+            <h3 class="mb-2.5 text-[22px] font-semibold text-text-primary md:text-[24px]">Get a recap</h3>
+            <p class="text-[17px] leading-relaxed text-text-body md:text-[18px]">Loremaster generates a cinematic summary, pulls out key events, and starts building your world.</p>
           </div>
         </div>
 
         <!-- Step 3 -->
-        <div class="reveal relative flex gap-6 pl-1">
-          <div class="relative z-10 flex h-[43px] w-[43px] shrink-0 items-center justify-center rounded-full border border-accent bg-[#0a090c] text-[17px] font-semibold text-accent md:h-[47px] md:w-[47px]">
+        <div class="reveal relative flex gap-7 pl-1">
+          <div class="relative z-10 flex h-[51px] w-[51px] shrink-0 items-center justify-center rounded-full border border-accent bg-[#0a090c] text-[20px] text-accent md:h-[55px] md:w-[55px] md:text-[22px]" style="font-family: var(--font-voice); font-style: italic;">
             3
           </div>
-          <div class="pt-2">
-            <h3 class="mb-2 text-[20px] font-semibold text-text-primary md:text-[22px]">Pick up where you left off</h3>
-            <p class="text-[16px] leading-relaxed text-text-body md:text-[17px]">Start your next session with everything fresh, or ask about anything that's happened so far.</p>
+          <div class="pt-2.5">
+            <h3 class="mb-2.5 text-[22px] font-semibold text-text-primary md:text-[24px]">Pick up where you left off</h3>
+            <p class="text-[17px] leading-relaxed text-text-body md:text-[18px]">Start your next session with everything fresh, or ask about anything that's happened so far.</p>
           </div>
         </div>
       </div>
