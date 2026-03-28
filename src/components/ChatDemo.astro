@@ -3,15 +3,10 @@ const userQuestion = "What happened in our last session?";
 const loremasterResponse = "The party departed Saltmarsh at dawn, following rumors of a smuggler's cache hidden in the coastal caves. After a tense negotiation with the harbormaster, they discovered the caves were already occupied by a band of sahuagin scouts. The session ended with Migli barricading the cave entrance while Durn and Joren prepared for a fight.";
 ---
 
-<div
-  class="chat-demo overflow-hidden rounded-[14px] backdrop-blur-[12px]"
-  style="background: var(--lm-card-glass); border: 1px solid var(--lm-card-border); max-height: min(70vh, 520px);"
-  id="chat-demo"
->
-  <!-- Messages area -->
-  <div class="flex flex-col gap-5" style="padding: 20px 22px 16px;" id="chat-messages">
-    <!-- Empty state (visible initially) -->
-    <div class="flex items-center justify-center gap-3 py-6" id="chat-greeting">
+<div class="min-h-[420px]" id="chat-demo">
+  <!-- Phase 0: Greeting + input bar (no card, open on background, vertically centered) -->
+  <div class="flex min-h-[420px] w-full flex-col items-stretch justify-center" id="chat-empty-state">
+    <div class="flex items-center justify-center gap-3 py-8">
       <img src="/static/loremaster-logo.png" alt="" width="36" height="36" class="opacity-60" />
       <p
         class="voice-gradient text-[20px] md:text-[24px]"
@@ -20,59 +15,81 @@ const loremasterResponse = "The party departed Saltmarsh at dawn, following rumo
         What would you like to know?
       </p>
     </div>
-
-    <!-- User message (hidden initially) -->
-    <div class="hidden justify-end" id="chat-user-msg">
+    <div class="relative">
       <div
-        class="max-w-[85%] text-[15px] leading-[1.6]"
-        style="background: var(--lm-chat-user-bg); border: 1px solid var(--lm-chat-user-border); color: var(--lm-chat-input-text); padding: 10px 14px; border-radius: 14px 14px 4px 14px;"
+        class="rounded-[14px] text-[15px] backdrop-blur-[8px] transition-all"
+        style="background: var(--lm-chat-input-bg); color: var(--lm-chat-input-text); border: 1px solid var(--lm-chat-input-border); padding: 18px 52px 18px 20px; min-height: 60px;"
+        id="chat-input-display"
       >
-        {userQuestion}
+        <span class="text-text-faint" id="chat-placeholder">Ask the Loremaster...</span>
+        <span class="hidden" id="chat-typing"></span>
       </div>
-    </div>
-
-    <!-- Loading state (hidden initially) -->
-    <div class="hidden items-center gap-2.5" id="chat-loading">
-      <img src="/static/loremaster-logo.png" alt="" width="28" height="28" class="opacity-60" />
-      <span
-        class="voice-shimmer text-[15px]"
-        style="font-family: var(--font-voice); font-style: italic;"
-      >
-        The Loremaster stirs...
-      </span>
-    </div>
-
-    <!-- Loremaster response (hidden initially) -->
-    <div class="hidden items-start gap-3" id="chat-response">
-      <img src="/static/loremaster-logo.png" alt="" width="32" height="32" class="mt-0.5 shrink-0" />
-      <div
-        class="min-w-0 whitespace-pre-line text-[15px] italic leading-[1.8] md:text-[17px]"
-        style="font-family: var(--font-voice); color: var(--lm-voice-text);"
-        id="chat-response-text"
-      >
+      <div class="absolute bottom-3.5 right-3.5 flex h-8 w-8 items-center justify-center rounded-md text-text-faint" id="chat-send-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
       </div>
     </div>
   </div>
 
-  <!-- Divider -->
-  <div style="height: 1px; background: var(--lm-divider); flex-shrink: 0;"></div>
+  <!-- Phase 2+: Card container with conversation (hidden initially) -->
+  <div
+    class="hidden flex-col overflow-hidden rounded-[14px] backdrop-blur-[12px]"
+    style="background: var(--lm-card-glass); border: 1px solid var(--lm-card-border); height: 420px;"
+    id="chat-card"
+  >
+    <div class="flex flex-1 flex-col gap-5 overflow-y-auto" style="padding: 20px 22px 16px;">
+      <!-- User message -->
+      <div class="flex justify-end" id="chat-user-msg">
+        <div
+          class="max-w-[85%] text-[15px] leading-[1.6]"
+          style="background: var(--lm-chat-user-bg); border: 1px solid var(--lm-chat-user-border); color: var(--lm-chat-input-text); padding: 10px 14px; border-radius: 14px 14px 4px 14px;"
+        >
+          {userQuestion}
+        </div>
+      </div>
 
-  <!-- Input area -->
-  <div class="relative shrink-0" id="chat-input-area">
-    <div
-      class="rounded-none text-[14px] transition-all"
-      style="background: var(--lm-chat-input-bg); color: var(--lm-chat-input-text); padding: 13px 52px 13px 22px; min-height: 48px;"
-      id="chat-input-display"
-    >
-      <span class="text-text-faint" id="chat-placeholder">Ask the Loremaster...</span>
-      <span class="hidden" id="chat-typing"></span>
+      <!-- Loading state -->
+      <div class="hidden items-center gap-2.5" id="chat-loading">
+        <img src="/static/loremaster-logo.png" alt="" width="28" height="28" class="opacity-60" />
+        <span
+          class="voice-shimmer text-[15px]"
+          style="font-family: var(--font-voice); font-style: italic;"
+        >
+          The Loremaster stirs...
+        </span>
+      </div>
+
+      <!-- Loremaster response -->
+      <div class="hidden items-start gap-3" id="chat-response">
+        <img src="/static/loremaster-logo.png" alt="" width="32" height="32" class="mt-0.5 shrink-0" />
+        <div
+          class="min-w-0 whitespace-pre-line text-[15px] italic leading-[1.8] md:text-[17px]"
+          style="font-family: var(--font-voice); color: var(--lm-voice-text);"
+          id="chat-response-text"
+        >
+        </div>
+      </div>
     </div>
-    <!-- Send button -->
-    <div class="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-md text-text-faint" id="chat-send-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="22" y1="2" x2="11" y2="13"></line>
-        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-      </svg>
+
+    <!-- Divider -->
+    <div style="height: 1px; background: var(--lm-divider);"></div>
+
+    <!-- Compact input (inside card) -->
+    <div class="relative">
+      <div
+        class="text-[14px]"
+        style="background: var(--lm-chat-input-bg); color: var(--lm-chat-input-text); padding: 13px 52px 13px 22px; min-height: 48px;"
+      >
+        <span class="text-text-faint">Ask something...</span>
+      </div>
+      <div class="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-md text-text-faint">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </div>
     </div>
   </div>
 </div>
@@ -96,8 +113,8 @@ const loremasterResponse = "The party departed Saltmarsh at dawn, following rumo
   }
 
   function runDemo() {
-    const greeting = document.getElementById("chat-greeting");
-    const userMsg = document.getElementById("chat-user-msg");
+    const emptyState = document.getElementById("chat-empty-state");
+    const chatCard = document.getElementById("chat-card");
     const loading = document.getElementById("chat-loading");
     const response = document.getElementById("chat-response");
     const responseText = document.getElementById("chat-response-text");
@@ -109,7 +126,7 @@ const loremasterResponse = "The party departed Saltmarsh at dawn, following rumo
     const answer =
       "The party departed Saltmarsh at dawn, following rumors of a smuggler's cache hidden in the coastal caves. After a tense negotiation with the harbormaster, they discovered the caves were already occupied by a band of sahuagin scouts. The session ended with Migli barricading the cave entrance while Durn and Joren prepared for a fight.";
 
-    // Phase 1: Type question into input (800ms delay, then ~30ms per char)
+    // Phase 1: Type question into input
     setTimeout(() => {
       if (placeholder) placeholder.classList.add("hidden");
       if (typing) typing.classList.remove("hidden");
@@ -126,22 +143,13 @@ const loremasterResponse = "The party departed Saltmarsh at dawn, following rumo
       }, 35);
     }, 1000);
 
-    // Phase 2: Send message (input clears, user bubble appears)
+    // Phase 2: Send message — swap empty state for card with user bubble
     setTimeout(() => {
-      if (typing) {
-        typing.textContent = "";
-        typing.classList.add("hidden");
-      }
-      if (placeholder) placeholder.classList.remove("hidden");
-      if (sendBtn) {
-        sendBtn.style.background = "";
-        sendBtn.style.color = "";
-      }
-      if (greeting) greeting.style.display = "none";
-      if (userMsg) {
-        userMsg.classList.remove("hidden");
-        userMsg.classList.add("flex");
-        userMsg.style.animation = "heroIn 0.4s ease-out forwards";
+      if (emptyState) emptyState.style.display = "none";
+      if (chatCard) {
+        chatCard.classList.remove("hidden");
+        chatCard.classList.add("flex");
+        chatCard.style.animation = "heroIn 0.4s ease-out forwards";
       }
     }, 2800);
 
@@ -153,7 +161,7 @@ const loremasterResponse = "The party departed Saltmarsh at dawn, following rumo
       }
     }, 3200);
 
-    // Phase 4: Replace loading with response, word by word (extra pause for shimmer)
+    // Phase 4: Replace loading with response, word by word
     setTimeout(() => {
       if (loading) loading.style.display = "none";
       if (response) {
