@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import GlassCard from "../components/GlassCard.astro";
 import FeatureSection from "../components/FeatureSection.astro";
 ---
 
@@ -9,108 +8,91 @@ import FeatureSection from "../components/FeatureSection.astro";
   description="Loremaster: an AI-assisted platform for tabletop RPG campaigns. Manage sessions, track entities, and get AI-powered summaries."
 >
   <div class="mx-auto max-w-[1200px] px-[clamp(16px,4vw,28px)]">
-    <!-- Hero -->
-    <section class="reveal py-12 md:py-20">
-      <GlassCard accentBar class="p-[clamp(2rem,1.5rem+2vw,3rem)]">
-        <h1 class="text-[clamp(2rem,1.4rem+3vw,3rem)] font-bold">What is Loremaster?</h1>
-        <div class="gold-divider my-6"></div>
-        <p class="voice max-w-[70ch] text-[clamp(1.1rem,1rem+0.5vw,1.3rem)]">
-          An AI-powered creative companion for tabletop RPG campaigns. Loremaster helps you manage
-          your world, remember your story, and stay in the moment.
-        </p>
-        <div class="mt-8">
-          <a
-            class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_28px_rgba(218,160,64,0.25)]"
-            href="https://loremaster.valfarandsons.com"
-          >
-            Try Loremaster Free
-          </a>
-        </div>
-      </GlassCard>
+    <!-- Hero (open, centered) -->
+    <section class="reveal mx-auto max-w-[740px] py-16 text-center md:py-24">
+      <h1 class="text-[clamp(2.2rem,1.5rem+3.5vw,3.5rem)] font-bold leading-[1.1] tracking-tight">
+        What is Loremaster?
+      </h1>
+      <div class="gold-divider-animated mx-auto mt-5 mb-8"></div>
+      <p class="voice text-[clamp(1.1rem,1rem+0.5vw,1.3rem)]">
+        An AI-powered creative companion for tabletop RPG campaigns. Loremaster helps you manage
+        your world, remember your story, and stay in the moment.
+      </p>
+      <div class="mt-9">
+        <a
+          class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_28px_rgba(218,160,64,0.25)]"
+          href="https://loremaster.valfarandsons.com"
+        >
+          Try Loremaster Free
+        </a>
+      </div>
     </section>
 
-    <!-- Hero Screenshot -->
-    <div class="reveal mb-20">
-      <div
-        class="overflow-hidden rounded-2xl border border-card-border shadow-[0_16px_48px_rgba(0,0,0,0.3)]"
-        style="background: var(--lm-card-glass);"
+    <!-- Feature Sections with connectors -->
+
+    <div class="reveal">
+      <FeatureSection
+        title="Start your campaign in minutes"
+        description="A guided setup walks you through creating your campaign: name your world, define your party, choose a game system, and set the tone. Loremaster adapts to your style from the very first session."
+      />
+    </div>
+
+
+    <div class="reveal mt-20 md:mt-28">
+      <FeatureSection
+        title="Upload a session, get the full story back"
+        description="Drop in a session recording or transcript and Loremaster does the rest. It generates narrative summaries, extracts key events, and even creates a scene illustration, so you can relive the best moments without sifting through hours of audio."
+        reverse
+      />
+    </div>
+
+
+    <div class="reveal mt-20 md:mt-28">
+      <FeatureSection
+        title="The Codex: your campaign's living encyclopedia"
+        description="Every character, location, faction, and artifact gets its own entry in the Codex. As your campaign grows, Loremaster automatically surfaces new entities it finds in your sessions and suggests additions. You just review and approve."
+      />
+    </div>
+
+
+    <div class="reveal mt-20 md:mt-28">
+      <FeatureSection
+        title="Ask Loremaster anything about your world"
+        description="Chat with an AI that knows your entire campaign inside and out. Ask about that NPC from six sessions ago, get a recap before tonight's game, or brainstorm where the story might go next. Every answer is grounded in your actual sessions."
+        reverse
+      />
+    </div>
+
+
+    <div class="reveal mt-20 md:mt-28">
+      <FeatureSection
+        title="Track every thread with the Quest Log"
+        description="Open plot lines, unresolved mysteries, and active quests stay organized in one place. As sessions progress, Loremaster helps you track what's been resolved and what's still dangling, so nothing falls through the cracks."
+      />
+    </div>
+
+
+    <div class="reveal mt-20 md:mt-28">
+      <FeatureSection
+        title="Watch your characters grow"
+        description="Each entity in the Codex has its own timeline, a visual history of every appearance, every key moment, every turning point. Scroll through a character's journey from introduction to their latest adventure."
+        reverse
+      />
+    </div>
+
+    <!-- CTA (open, centered) -->
+    <section class="reveal mx-auto max-w-[600px] py-20 text-center md:py-28">
+      <h2 class="text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">Start your adventure</h2>
+      <div class="gold-divider-animated mx-auto mt-4 mb-6"></div>
+      <p class="mb-8 text-[17px] text-text-body">
+        Loremaster is ready to help you tell richer stories. Try it today.
+      </p>
+      <a
+        class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_28px_rgba(218,160,64,0.25)]"
+        href="https://loremaster.valfarandsons.com"
       >
-        <!-- Replace with a full-width campaign dashboard screenshot -->
-        <div class="flex aspect-[16/9] items-center justify-center">
-          <span class="text-[15px] text-text-faint">Campaign dashboard screenshot coming soon</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Feature Sections -->
-    <div class="grid gap-20 py-4 md:gap-28 md:py-8">
-      <div class="reveal">
-        <FeatureSection
-          title="Start your campaign in minutes"
-          description="A guided setup walks you through creating your campaign: name your world, define your party, choose a game system, and set the tone. Loremaster adapts to your style from the very first session."
-          voiceQuote="Whether you're running a gritty noir mystery or a high-fantasy epic, Loremaster meets you where your story lives."
-        />
-      </div>
-
-      <div class="reveal">
-        <FeatureSection
-          title="Upload a session, get the full story back"
-          description="Drop in a session recording or transcript and Loremaster does the rest. It generates narrative summaries, extracts key events, and even creates a scene illustration, so you can relive the best moments without sifting through hours of audio."
-          voiceQuote="Every session becomes a chapter in your campaign's living history."
-          reverse
-        />
-      </div>
-
-      <div class="reveal">
-        <FeatureSection
-          title="The Codex: your campaign's living encyclopedia"
-          description="Every character, location, faction, and artifact gets its own entry in the Codex. As your campaign grows, Loremaster automatically surfaces new entities it finds in your sessions and suggests additions. You just review and approve."
-          voiceQuote="No more forgotten NPCs or lost plot threads. The Codex remembers what you don't."
-        />
-      </div>
-
-      <div class="reveal">
-        <FeatureSection
-          title="Ask Loremaster anything about your world"
-          description="Chat with an AI that knows your entire campaign inside and out. Ask about that NPC from six sessions ago, get a recap before tonight's game, or brainstorm where the story might go next. Every answer is grounded in your actual sessions."
-          voiceQuote="What was the name of the merchant in Neverwinter? What did the party promise the forest spirit?"
-          reverse
-        />
-      </div>
-
-      <div class="reveal">
-        <FeatureSection
-          title="Track every thread with the Quest Log"
-          description="Open plot lines, unresolved mysteries, and active quests stay organized in one place. As sessions progress, Loremaster helps you track what's been resolved and what's still dangling, so nothing falls through the cracks."
-        />
-      </div>
-
-      <div class="reveal">
-        <FeatureSection
-          title="Watch your characters grow"
-          description="Each entity in the Codex has its own timeline, a visual history of every appearance, every key moment, every turning point. Scroll through a character's journey from introduction to their latest adventure."
-          voiceQuote="Every hero has a story. The timeline makes sure you never lose sight of it."
-          reverse
-        />
-      </div>
-    </div>
-
-    <!-- CTA -->
-    <div class="reveal py-16 md:py-20">
-      <GlassCard class="p-[clamp(2.5rem,2rem+2vw,4rem)] text-center">
-        <h2 class="text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">Start your adventure</h2>
-        <p class="mx-auto mt-4 max-w-[50ch] text-[17px] text-text-body">
-          Loremaster is ready to help you tell richer stories. Try it today.
-        </p>
-        <div class="mt-8">
-          <a
-            class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_28px_rgba(218,160,64,0.25)]"
-            href="https://loremaster.valfarandsons.com"
-          >
-            Try Loremaster Free
-          </a>
-        </div>
-      </GlassCard>
-    </div>
+        Try Loremaster Free
+      </a>
+    </section>
   </div>
 </BaseLayout>
