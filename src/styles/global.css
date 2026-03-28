@@ -72,6 +72,14 @@
   );
 
   --lm-ring: rgba(218, 160, 64, 0.45);
+
+  /* Chat surfaces */
+  --lm-chat-input-bg: rgba(14, 12, 18, 0.7);
+  --lm-chat-input-border: rgba(200, 195, 188, 0.08);
+  --lm-chat-input-border-active: rgba(218, 160, 64, 0.25);
+  --lm-chat-input-text: #fefdfa;
+  --lm-chat-user-bg: rgba(218, 160, 64, 0.08);
+  --lm-chat-user-border: rgba(218, 160, 64, 0.12);
 }
 
 /* ── Base Styles ──────────────────────────────────────────────── */
