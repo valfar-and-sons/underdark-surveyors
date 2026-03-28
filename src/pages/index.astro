@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GlassCard from "../components/GlassCard.astro";
 import FeatureCard from "../components/FeatureCard.astro";
+import HeroSessionCarousel from "../components/HeroSessionCarousel.astro";
 ---
 
 <BaseLayout title="Loremaster — AI Tools for Tabletop Storytelling">
@@ -31,17 +32,9 @@ import FeatureCard from "../components/FeatureCard.astro";
       <p class="hero-cascade mt-4 text-[14px] text-text-muted">Free to start. No credit card required.</p>
     </section>
 
-    <!-- Hero Screenshot -->
+    <!-- Hero Session Carousel -->
     <div class="reveal">
-      <div
-        class="overflow-hidden rounded-2xl border border-card-border"
-        style="background: var(--lm-card-glass); box-shadow: 0 16px 48px rgba(0,0,0,0.3), 0 0 80px 8px rgba(218,160,64,0.04), 0 0 160px 20px rgba(218,160,64,0.02);"
-      >
-        <!-- Replace with a full-width campaign dashboard screenshot -->
-        <div class="flex aspect-[16/9] items-center justify-center">
-          <span class="text-[15px] text-text-faint">Screenshot coming soon</span>
-        </div>
-      </div>
+      <HeroSessionCarousel />
     </div>
 
     <div class="section-connector my-12 md:my-16"></div>
