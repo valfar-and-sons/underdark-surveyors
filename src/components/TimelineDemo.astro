@@ -112,19 +112,24 @@ const entries = [
     }
   </div>
 
-  <!-- Indicator pills -->
-  <div class="flex items-center justify-center gap-1.5 pb-4">
+  <!-- Indicator pills (padded hit area for easier clicking) -->
+  <div class="flex items-center justify-center gap-1 pb-4">
     {
       entries.map((_, i) => (
         <button
-          class="timeline-pill rounded-full transition-all duration-300"
+          class="flex items-center justify-center px-1 py-2"
           data-index={i}
-          style={
-            i === entries.length - 1
-              ? "width: 20px; height: 6px; background: var(--lm-accent);"
-              : "width: 6px; height: 6px; background: rgba(168, 158, 148, 0.4);"
-          }
-        />
+        >
+          <span
+            class="timeline-pill block rounded-full transition-all duration-300"
+            data-index={i}
+            style={
+              i === entries.length - 1
+                ? "width: 20px; height: 6px; background: var(--lm-accent);"
+                : "width: 6px; height: 6px; background: rgba(168, 158, 148, 0.4);"
+            }
+          />
+        </button>
       ))
     }
   </div>
@@ -185,16 +190,29 @@ const entries = [
       });
     }
 
+    let isScrolling = false;
+
     function scrollToCard(index: number) {
+      isScrolling = true;
+      setActive(index);
       const card = cards[index] as HTMLElement;
       const scrollLeft = card.offsetLeft - (carousel.offsetWidth - card.offsetWidth) / 2;
       carousel.scrollTo({ left: scrollLeft, behavior: "smooth" });
-      setActive(index);
+      setTimeout(() => { isScrolling = false; }, 500);
     }
 
     // Click handlers for dots, pills, and inactive cards
     dots.forEach((d) => d.addEventListener("click", () => scrollToCard(Number((d as HTMLElement).dataset.index))));
-    pills.forEach((p) => p.addEventListener("click", () => scrollToCard(Number((p as HTMLElement).dataset.index))));
+    // Pill buttons (parent buttons wrapping the visual pill spans)
+    demo.querySelectorAll(".timeline-pill").forEach((pill) => {
+      const btn = pill.closest("button");
+      if (btn) {
+        btn.addEventListener("click", () => {
+          const index = btn.dataset.index;
+          if (index != null) scrollToCard(Number(index));
+        });
+      }
+    });
     cards.forEach((c) => {
       c.addEventListener("click", () => {
         const i = Number((c as HTMLElement).dataset.index);
@@ -205,15 +223,54 @@ const entries = [
     // Track scroll position to update active state
     const observer = new IntersectionObserver(
       (entries) => {
+        if (isScrolling) return;
         entries.forEach((entry) => {
           if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
             const index = Number((entry.target as HTMLElement).dataset.index);
             setActive(index);
+            activeIndex = index;
           }
         });
       },
       { root: carousel, threshold: 0.6 },
     );
     cards.forEach((c) => observer.observe(c));
+
+    // Auto-scroll
+    let activeIndex = totalCards - 1;
+    let autoTimer: ReturnType<typeof setInterval> | null = null;
+    let userInteracted = false;
+
+    function autoAdvance() {
+      const nextIndex = (activeIndex + 1) % totalCards;
+      scrollToCard(nextIndex);
+      activeIndex = nextIndex;
+    }
+
+    function startAuto() {
+      if (!autoTimer && !userInteracted) {
+        autoTimer = setInterval(autoAdvance, 2000);
+      }
+    }
+
+    function stopAuto() {
+      if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+    }
+
+    // Stop auto-scroll on any user interaction, restart on mouse leave
+    const stopAndMark = () => { stopAuto(); userInteracted = true; };
+    dots.forEach((d) => d.addEventListener("click", stopAndMark));
+    demo.querySelectorAll(".timeline-pill").forEach((pill) => {
+      const btn = pill.closest("button");
+      if (btn) btn.addEventListener("click", stopAndMark);
+    });
+    cards.forEach((c) => c.addEventListener("click", stopAndMark));
+    demo.addEventListener("mouseenter", stopAuto);
+    demo.addEventListener("mouseleave", () => {
+      userInteracted = false;
+      startAuto();
+    });
+
+    startAuto();
   }
 </script>
