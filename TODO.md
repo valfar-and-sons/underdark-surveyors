@@ -6,15 +6,11 @@
 - [ ] Update domain references once new domain (e.g. askloremaster.com) is finalized
 - [ ] Update app URL placeholder (loremaster.valfarandsons.com) to final production URL
 - [ ] Review and finalize legal docs (Privacy Policy, Terms of Service, Subprocessors) with legal counsel
-- [ ] Add entity portrait images to Codex marquee cards (currently using placeholders for some)
 - [ ] Replace chat demo content with a real campaign Q&A exchange
-- [ ] Add more session illustrations for hero carousel variety
 
 ## Design
 - [ ] Review mobile responsive layout across all pages and breakpoints
 - [ ] Visual QA pass comparing website to Loremaster app for brand consistency
-- [ ] Consider adding testimonials/social proof section to homepage
-- [ ] Consider adding a "supported game systems" badge strip to homepage
 
 ## Infrastructure
 - [ ] Configure GitHub Pages source to use GitHub Actions (not branch deploy)
