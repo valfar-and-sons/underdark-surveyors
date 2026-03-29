@@ -1,0 +1,121 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GlassCard from "../components/GlassCard.astro";
+
+const faqs = [
+  {
+    question: "What is Loremaster?",
+    answer:
+      "Loremaster is an AI-powered platform for tabletop RPG campaigns. It helps game masters and players manage their world, track characters and storylines, and get AI-generated summaries and insights, so you can spend less time on bookkeeping and more time telling stories.",
+  },
+  {
+    question: "What game systems does Loremaster support?",
+    answer:
+      "Loremaster is system-agnostic and supports every tabletop RPG system, including homebrew. Whether you're playing D&D 5e, Pathfinder, Call of Cthulhu, Blades in the Dark, or something you built yourself, Loremaster adapts its tone and terminology to match.",
+  },
+  {
+    question: "Do I have to record my sessions?",
+    answer:
+      "No. Audio recording is one way to get content into Loremaster, but you can also upload written transcripts, paste session notes, or enter information manually. Loremaster works with whatever you give it.",
+  },
+  {
+    question: "What does the AI actually do?",
+    answer:
+      "When you upload a session (audio or text), Loremaster generates a narrative summary, extracts key events, identifies characters, locations, and items, and can even create a scene illustration. You can also chat with the AI to ask questions about your campaign, get recaps, or brainstorm ideas. Every answer is grounded in your actual sessions.",
+  },
+  {
+    question: "Can I use Loremaster for a campaign that's already in progress?",
+    answer:
+      "Yes. During campaign setup, you can provide context about your existing world, characters, and story so far. Loremaster is designed to pick up mid-campaign and start building from wherever you are.",
+  },
+  {
+    question: "Who can see my campaign data?",
+    answer:
+      "Only you and the people you share your campaign with can access your data. We do not sell your data to third parties or use it to train AI models. For full details on how we handle and store your data, see our <a href='/privacy'>Privacy Policy</a>.",
+  },
+  {
+    question: "How much does Loremaster cost?",
+    answer:
+      "We're finalizing pricing details. In the meantime, you can try Loremaster for free.",
+  },
+  {
+    question: "What happens to my audio recordings?",
+    answer:
+      "Audio recordings you upload are stored securely and used only to generate transcripts and session content. You can delete your recordings at any time. See our <a href='/privacy'>Privacy Policy</a> for full details on data retention.",
+  },
+];
+---
+
+<BaseLayout
+  title="FAQ — Loremaster"
+  description="Frequently asked questions about Loremaster, the AI-powered platform for tabletop RPG campaigns."
+>
+  <div class="mx-auto max-w-[860px] px-[clamp(16px,4vw,28px)]">
+    <div class="reveal py-12 md:py-20">
+      <h1 class="text-[clamp(2rem,1.4rem+3vw,3rem)] font-bold text-text-primary">
+        Frequently Asked Questions
+      </h1>
+      <div class="gold-divider mt-5"></div>
+    </div>
+
+    <div class="reveal-stagger grid gap-4 pb-12">
+      {
+        faqs.map((faq) => (
+          <div class="reveal">
+            <details class="faq-item group rounded-[14px] border border-card-border backdrop-blur-[12px] transition-colors duration-200 hover:border-card-hover-border" style="background: var(--lm-card-glass);">
+              <summary class="flex cursor-pointer items-center justify-between gap-4 px-6 py-5 text-[17px] font-semibold text-text-primary md:px-8 md:py-6 md:text-[18px]">
+                {faq.question}
+                <span class="faq-chevron shrink-0 text-text-muted transition-transform duration-200">
+                  <svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </summary>
+              <div class="px-6 pb-6 md:px-8 md:pb-8">
+                <p class="text-[15px] leading-[1.75] text-text-body md:text-[16px]" set:html={faq.answer} />
+              </div>
+            </details>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="reveal pb-12 md:pb-20">
+      <GlassCard class="p-7 text-center md:p-10">
+        <p class="text-[17px] text-text-body">
+          Still have questions?
+        </p>
+        <p class="mt-3">
+          <a
+            href="mailto:contact@valfarandsons.com"
+            class="text-[16px] font-medium text-accent no-underline transition-opacity hover:opacity-80"
+          >
+            Get in touch &rarr;
+          </a>
+        </p>
+      </GlassCard>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .faq-item summary {
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-item a {
+    color: var(--lm-accent);
+    text-decoration: underline;
+    text-decoration-color: rgba(218, 160, 64, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+  .faq-item a:hover {
+    text-decoration-color: var(--lm-accent);
+  }
+</style>

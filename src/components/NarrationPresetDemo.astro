@@ -1,0 +1,98 @@
+---
+const presets = [
+  { key: "storyteller", label: "Storyteller", description: "Warm, grounded narration with quiet confidence." },
+  { key: "epic_bard", label: "Epic Bard", description: "Theatrical tales of heroism and triumph." },
+  { key: "sage", label: "Sage", description: "Measured insights grounded in ancient lore." },
+  { key: "witty_chronicler", label: "Witty Chronicler", description: "Clever commentary with sharp observational humor." },
+  { key: "grim_narrator", label: "Grim Narrator", description: "Somber storytelling that leans into peril and consequence." },
+  { key: "just_the_facts", label: "Just the Facts", description: "Clear, concise recaps focused on what happened." },
+];
+---
+
+<div
+  class="overflow-hidden rounded-[14px] border border-card-border backdrop-blur-[12px]"
+  style="background: var(--lm-card-glass);"
+>
+  <!-- Header -->
+  <div class="border-b py-5 text-center" style="border-color: var(--lm-divider);">
+    <p class="text-[11px] font-semibold uppercase tracking-wider text-accent/50">Step 3 of 5</p>
+    <h4 class="mt-1 text-[18px] font-semibold text-text-primary">Choose a narration style</h4>
+  </div>
+
+  <!-- Preset grid -->
+  <div class="grid grid-cols-2 gap-2.5 p-4 sm:grid-cols-3" id="narration-grid">
+    {
+      presets.map((preset, i) => (
+        <button
+          class:list={[
+            "narration-preset cursor-pointer rounded-lg border px-3.5 py-3 text-center transition-all duration-200",
+            i === 0
+              ? "selected border-accent/30"
+              : "border-border-glass hover:border-card-hover-border",
+          ]}
+          data-key={preset.key}
+          data-description={preset.description}
+        >
+          <p class="text-[14px] font-semibold text-text-primary">{preset.label}</p>
+        </button>
+      ))
+    }
+  </div>
+
+  <!-- Voice description reveal (fixed height to prevent layout shift) -->
+  <div class="flex h-[110px] items-center justify-center border-t px-6 md:h-[100px] md:px-8" style="border-color: var(--lm-divider);">
+    <p
+      class="voice-gradient text-center text-[18px] leading-relaxed transition-all duration-300 md:text-[20px]"
+      style="font-family: var(--font-voice-display); font-style: italic;"
+      id="narration-description"
+    >
+      Warm, grounded narration with quiet confidence.
+    </p>
+  </div>
+</div>
+
+<script>
+  const grid = document.getElementById("narration-grid");
+  const descEl = document.getElementById("narration-description");
+
+  if (grid && descEl) {
+    grid.addEventListener("click", (e) => {
+      const btn = (e.target as HTMLElement).closest(".narration-preset") as HTMLElement | null;
+      if (!btn) return;
+
+      // Deselect all
+      grid.querySelectorAll(".narration-preset").forEach((el) => {
+        el.classList.remove("selected", "border-accent/30");
+        el.classList.add("border-border-glass");
+      });
+
+      // Select clicked
+      btn.classList.remove("border-border-glass");
+      btn.classList.add("selected", "border-accent/30");
+
+      // Animate description change
+      const desc = btn.dataset.description;
+      if (desc) {
+        descEl.style.opacity = "0";
+        descEl.style.filter = "blur(4px)";
+        setTimeout(() => {
+          descEl.textContent = desc;
+          descEl.style.opacity = "1";
+          descEl.style.filter = "blur(0)";
+        }, 200);
+      }
+    });
+  }
+</script>
+
+<style>
+  .narration-preset {
+    background: var(--lm-surface-glass);
+  }
+  .narration-preset.selected {
+    background: rgba(218, 160, 64, 0.12);
+  }
+  .narration-preset:not(.selected):hover {
+    background: var(--lm-card-hover-bg);
+  }
+</style>

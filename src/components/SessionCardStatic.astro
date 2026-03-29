@@ -1,0 +1,58 @@
+---
+interface Props {
+  title: string;
+  date: string;
+  tagline: string;
+  image?: string;
+}
+
+const { title, date, tagline, image } = Astro.props;
+---
+
+<div
+  class="session-card rounded-xl border border-border-glass p-4 backdrop-blur-md transition-all duration-300 hover:border-card-hover-border hover:bg-card-hover-bg md:p-5"
+  style="background: var(--lm-surface-glass);"
+>
+  <div class="flex items-center gap-3 sm:gap-4">
+    <div class="min-w-0 flex-1">
+      <h4 class="text-[15px] font-semibold text-text-primary">
+        {title}
+      </h4>
+      <div class="mt-0.5 flex items-center gap-1.5 text-[12px] text-text-body">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <span>{date}</span>
+      </div>
+      <p class="mt-1 text-[12px] italic leading-snug text-text-voice/70 sm:text-[13px] sm:leading-relaxed" style="font-family: var(--font-voice);">
+        {tagline}
+      </p>
+    </div>
+    {
+      image ? (
+        <img
+          src={image}
+          alt=""
+          class="h-20 w-28 shrink-0 rounded-lg object-cover object-[center_25%] sm:h-24 sm:w-32"
+        />
+      ) : (
+        <div class="flex h-20 w-28 shrink-0 items-center justify-center rounded-lg bg-card-glass sm:h-24 sm:w-32">
+          <span class="text-[11px] text-text-faint">Illustration</span>
+        </div>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .session-card {
+    transform: translateY(0) scale(1);
+  }
+  .session-card:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 40px 4px rgba(218, 160, 64, 0.03);
+  }
+</style>

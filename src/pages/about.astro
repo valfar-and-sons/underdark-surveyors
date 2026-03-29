@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TeamCard from "../components/TeamCard.astro";
+---
+
+<BaseLayout
+  title="About — Loremaster"
+  description="Meet the team behind Loremaster. We're builders, researchers, and storytellers."
+>
+  <div class="mx-auto max-w-[1200px] px-[clamp(16px,4vw,28px)]">
+    <!-- Mission (open, centered) -->
+    <section class="reveal mx-auto max-w-[720px] py-16 text-center md:py-24">
+      <h1 class="text-[clamp(2.2rem,1.5rem+3.5vw,3.5rem)] font-bold leading-[1.1] tracking-tight">
+        About Loremaster
+      </h1>
+      <div class="gold-divider-animated mx-auto mt-5 mb-8"></div>
+      <p class="voice text-[clamp(1.1rem,1rem+0.5vw,1.3rem)]">
+        We're builders, researchers, and storytellers, experienced in AI and software engineering
+        and united by a shared love of tabletop RPGs.
+      </p>
+    </section>
+
+    <div class="section-connector my-12 md:my-16"></div>
+
+    <!-- Team -->
+    <section class="py-8 md:py-12">
+      <h2 class="reveal mb-4 text-center text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">Our Team</h2>
+      <div class="gold-divider-animated mx-auto mb-12"></div>
+      <div class="reveal-stagger mx-auto grid max-w-[1000px] gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="reveal">
+          <TeamCard
+            name="Mark Derdzinski"
+            bio="Brings deep experience leading AI engineering teams and designing agentic systems for real-world software applications."
+          />
+        </div>
+        <div class="reveal">
+          <TeamCard
+            name="Daniel Ben-Zion"
+            bio="Combines expertise in large-scale machine learning systems with a hands-on approach to building robust, production-ready AI infrastructure."
+          />
+        </div>
+        <div class="reveal">
+          <TeamCard
+            name="Garrett Bredell"
+            bio="Draws on a background in product design and user research to create intuitive tools that support imaginative play."
+          />
+        </div>
+      </div>
+    </section>
+
+    <div class="section-connector my-12 md:my-16"></div>
+
+    <!-- Contact (open, centered) -->
+    <section class="reveal mx-auto max-w-[600px] py-12 text-center md:py-20">
+      <h2 class="text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">Get in Touch</h2>
+      <div class="gold-divider-animated mx-auto mt-4 mb-6"></div>
+      <p class="mb-8 text-[16px] text-text-body md:text-[17px]">
+        Have questions or want to learn more? We'd love to hear from you.
+      </p>
+      <a
+        class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_28px_rgba(218,160,64,0.25)]"
+        href="mailto:contact@valfarandsons.com"
+      >
+        Contact us
+      </a>
+      <p class="mt-4 text-[15px] text-text-muted">contact@valfarandsons.com</p>
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,176 @@
+---
+const quests = [
+  {
+    id: "oyster",
+    title: "Search for the Great Blue Oyster",
+    tagline: "Durn Barnaclebeard obsessively seeks a legendary, elusive great blue oyster.",
+    status: "active",
+    updates: [
+      { session: "Of Owls and Oysters", summary: "During combat, Durn flew into a rage invoking the great blue oyster and left an oyster shell on the defeated bandit leader." },
+      { session: "An Alliance of Salt and Steel", summary: "Durn's quest for the great blue oyster led him to Saltmarsh, where he formed an alliance with Migli and Joren." },
+    ],
+  },
+  {
+    id: "manor",
+    title: "The Shadows of Old Brack Manor",
+    tagline: "Investigate the haunted Brack estate to cleanse a family legacy and secure a vital dwarven alliance.",
+    status: "active",
+    startOpen: true,
+    updates: [
+      { session: "The Stain of Brack Manor", summary: "Joren received a blessing from Darvin Brack to cleanse the family name. The party gathered local lore, hired a guide, and fought giant weasels at the manor gates." },
+      { session: "Of Owls and Oysters", summary: "Manistrad Copperlocks hired the party to investigate strange noises from the caverns beneath the abandoned manor." },
+    ],
+  },
+  {
+    id: "shipment",
+    title: "Investigate Manistrad's Missing Shipment",
+    tagline: "The stolen dwarven shipment has been recovered and returned to Manistrad Copperlocks.",
+    status: "completed",
+    updates: [
+      { session: "The Stain of Brack Manor", summary: "Joren confirmed the task complete before the party set out on a new mission." },
+      { session: "Of Owls and Oysters", summary: "The party tracked the loot to the Sea Grove, ambushed the bandits, and recovered the shipment." },
+      { session: "An Alliance of Salt and Steel", summary: "Migli was hired to investigate a missing shipment and formed a party after receiving a lead on the Mar-kart family." },
+    ],
+  },
+];
+---
+
+<div
+  class="flex flex-col overflow-hidden rounded-[14px] backdrop-blur-[12px]"
+  style="background: var(--lm-card-glass); border: 1px solid var(--lm-card-border); height: 480px;"
+  id="quest-demo"
+>
+  <!-- Tab bar -->
+  <div class="shrink-0 flex gap-2 border-b px-4 py-3" style="border-color: var(--lm-divider);">
+    <button
+      class="quest-tab rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors"
+      data-tab="active"
+      style="background: rgba(218, 160, 64, 0.12); color: var(--lm-accent);"
+    >
+      Active <span class="ml-0.5 text-[11px] opacity-50">2</span>
+    </button>
+    <button
+      class="quest-tab rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors"
+      data-tab="completed"
+      style="color: var(--lm-text-muted);"
+    >
+      Completed <span class="ml-0.5 text-[11px] opacity-50">1</span>
+    </button>
+  </div>
+
+  <!-- Quest cards -->
+  <div class="scrollbar-hide flex flex-1 flex-col gap-2.5 overflow-y-auto p-4" id="quest-list">
+    {
+      quests.map((quest) => (
+        <div
+          class="quest-card rounded-xl border border-border-glass p-4 transition-all duration-300"
+          style="background: var(--lm-surface-glass);"
+          data-id={quest.id}
+          data-status={quest.status}
+          data-animate={quest.animateToCompleted ? "true" : undefined}
+        >
+          {/* Header */}
+          <button class="quest-header flex w-full items-start justify-between gap-2 text-left">
+            <div class="min-w-0 flex-1">
+              <div class="flex flex-wrap items-center gap-2">
+                <h4 class="text-[15px] font-semibold text-text-primary">{quest.title}</h4>
+                <span
+                  class="quest-badge shrink-0 rounded-md px-2 py-0.5 text-[11px] font-medium uppercase tracking-wider"
+                  style={quest.status === "active"
+                    ? "background: rgba(218, 160, 64, 0.12); color: rgba(218, 160, 64, 0.8);"
+                    : "background: rgba(168, 158, 148, 0.1); color: var(--lm-text-muted);"
+                  }
+                >
+                  {quest.status}
+                </span>
+              </div>
+              <p class="mt-0.5 text-[13px] italic text-text-voice/80" style="font-family: var(--font-voice);">
+                {quest.tagline}
+              </p>
+            </div>
+            <svg
+              class="quest-chevron mt-1 shrink-0 text-text-muted transition-transform duration-200"
+              style={quest.startOpen ? "transform: rotate(180deg);" : ""}
+              width="16" height="16" viewBox="0 0 16 16" fill="none"
+            >
+              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          {/* Expandable details */}
+          <div class:list={["quest-details", !quest.startOpen && "hidden"]}>
+            <div class="mt-3 border-t pt-3" style="border-color: var(--lm-divider);">
+              <div class="flex flex-col gap-2.5">
+                {quest.updates.map((update) => (
+                  <div class="flex gap-2.5">
+                    <div class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full" style="background: rgba(218, 160, 64, 0.3);" />
+                    <div>
+                      <p class="text-[12px] text-accent/60">{update.session}</p>
+                      <p class="text-[13px] leading-[1.6] text-text-body">{update.summary}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const demoEl = document.getElementById("quest-demo");
+  if (demoEl) {
+    // Tab switching
+    const tabs = demoEl.querySelectorAll(".quest-tab");
+    const cards = demoEl.querySelectorAll(".quest-card");
+
+    function showTab(tab: string) {
+      tabs.forEach((t) => {
+        const el = t as HTMLElement;
+        if (el.dataset.tab === tab) {
+          el.style.background = "rgba(218, 160, 64, 0.12)";
+          el.style.color = "var(--lm-accent)";
+        } else {
+          el.style.background = "";
+          el.style.color = "var(--lm-text-muted)";
+        }
+      });
+
+      cards.forEach((c) => {
+        const card = c as HTMLElement;
+        if (card.dataset.status === tab || tab === "all") {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    tabs.forEach((t) => {
+      t.addEventListener("click", () => {
+        showTab((t as HTMLElement).dataset.tab || "active");
+      });
+    });
+
+    // Expand/collapse
+    demoEl.querySelectorAll(".quest-header").forEach((header) => {
+      header.addEventListener("click", () => {
+        const card = header.closest(".quest-card");
+        if (!card) return;
+        const details = card.querySelector(".quest-details");
+        const chevron = card.querySelector(".quest-chevron");
+        if (details && chevron) {
+          const isOpen = !details.classList.contains("hidden");
+          details.classList.toggle("hidden");
+          (chevron as HTMLElement).style.transform = isOpen ? "" : "rotate(180deg)";
+        }
+      });
+    });
+
+    // Show active tab initially
+    showTab("active");
+
+  }
+</script>

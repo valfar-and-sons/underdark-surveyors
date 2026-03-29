@@ -1,0 +1,202 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FeatureSection from "../components/FeatureSection.astro";
+import SessionCardStatic from "../components/SessionCardStatic.astro";
+import EntityCardStatic from "../components/EntityCardStatic.astro";
+import ChatDemo from "../components/ChatDemo.astro";
+import NarrationPresetDemo from "../components/NarrationPresetDemo.astro";
+import QuestLogDemo from "../components/QuestLogDemo.astro";
+import TimelineDemo from "../components/TimelineDemo.astro";
+---
+
+<BaseLayout
+  title="What is Loremaster"
+  description="Loremaster: an AI-assisted platform for tabletop RPG campaigns. Manage sessions, track entities, and get AI-powered summaries."
+>
+  <div class="mx-auto max-w-[1200px] px-[clamp(16px,4vw,28px)]">
+    <!-- Hero (open, centered) -->
+    <section class="reveal mx-auto max-w-[740px] py-16 text-center md:py-24">
+      <h1 class="text-[clamp(2.2rem,1.5rem+3.5vw,3.5rem)] font-bold leading-[1.1] tracking-tight">
+        What is Loremaster?
+      </h1>
+      <div class="gold-divider-animated mx-auto mt-5 mb-8"></div>
+      <p class="voice text-[clamp(1.1rem,1rem+0.5vw,1.3rem)]">
+        An AI-powered creative companion for tabletop RPG campaigns. Loremaster helps you manage
+        your world, remember your story, and stay in the moment.
+      </p>
+      <div class="mt-9">
+        <a
+          class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_28px_rgba(218,160,64,0.25)]"
+          href="https://loremaster.valfarandsons.com"
+        >
+          Try Loremaster Free
+        </a>
+      </div>
+    </section>
+
+    <!-- Feature Sections with connectors -->
+
+    <section class="reveal grid items-center gap-10 md:grid-cols-2 md:gap-16">
+      <!-- Text -->
+      <div>
+        <h3 class="mb-3 text-[clamp(1.4rem,1.1rem+1.5vw,1.8rem)] font-semibold text-text-primary">
+          Start your campaign in minutes
+        </h3>
+        <p class="text-[16px] leading-[1.75] text-text-body md:text-[17px]">
+          A guided setup walks you through creating your campaign: name your world, define your party, choose a game system, and set the tone. Loremaster adapts to your style from the very first session.
+        </p>
+      </div>
+      <!-- Narration preset grid -->
+      <NarrationPresetDemo />
+    </section>
+
+
+    <section class="reveal mt-20 grid items-center gap-10 md:mt-28 md:grid-cols-2 md:gap-16 md:[direction:rtl] md:[&>*]:[direction:ltr]">
+      <!-- Text -->
+      <div>
+        <h3 class="mb-3 text-[clamp(1.4rem,1.1rem+1.5vw,1.8rem)] font-semibold text-text-primary">
+          Upload a session, get the full story back
+        </h3>
+        <p class="text-[16px] leading-[1.75] text-text-body md:text-[17px]">
+          Drop in a session recording or transcript and Loremaster does the rest. It generates narrative summaries, extracts key events, and even creates a scene illustration, so you can relive the best moments without sifting through hours of audio.
+        </p>
+      </div>
+      <!-- Session cards -->
+      <div class="flex flex-col gap-3">
+        <SessionCardStatic
+          title="The Stain of Brack Manor"
+          date="September 16, 2025"
+          tagline="When a job to quiet strange noises becomes a mission to cleanse a family's name, you find the real monsters aren't just in the house, but buried right outside the door."
+          image="/static/session-brack.png"
+        />
+        <SessionCardStatic
+          title="Of Owls and Oysters"
+          date="September 11, 2025"
+          tagline="With one job done, a new one pulls them toward an old manor bearing a familiar name. Now they must discover what secrets are buried in the caverns below, and what makes them wail in the dark."
+          image="/static/session-owls.png"
+        />
+        <SessionCardStatic
+          title="An Alliance of Salt and Steel"
+          date="September 3, 2025"
+          tagline="You find the strangest company on the road. A mad hermit, a disgraced wizard, and a cunning smuggler, all drawn together by a single rumor and bound by the blood they spilled to survive their first day."
+          image="/static/session-alliance.png"
+        />
+      </div>
+    </section>
+
+
+    <section class="reveal mt-20 grid items-center gap-10 md:mt-28 md:grid-cols-2 md:gap-16">
+      <!-- Text -->
+      <div>
+        <h3 class="mb-3 text-[clamp(1.4rem,1.1rem+1.5vw,1.8rem)] font-semibold text-text-primary">
+          The Codex: your campaign's living encyclopedia
+        </h3>
+        <p class="text-[16px] leading-[1.75] text-text-body md:text-[17px]">
+          Every character, location, faction, and artifact gets its own entry in the Codex. As your campaign grows, Loremaster automatically surfaces new entities it finds in your sessions and suggests additions. You just review and approve.
+        </p>
+      </div>
+      <!-- Vertical marquee of entity cards -->
+      <div class="relative h-[400px] overflow-hidden md:h-[480px]">
+        <!-- Fade edges top and bottom -->
+        <div class="pointer-events-none absolute left-0 right-0 top-0 z-10 h-12 bg-gradient-to-b from-[#0a090c] to-transparent"></div>
+        <div class="pointer-events-none absolute left-0 right-0 bottom-0 z-10 h-12 bg-gradient-to-t from-[#0a090c] to-transparent"></div>
+        <!-- Scrolling track (duplicated for seamless loop) -->
+        <div class="marquee-track-vertical flex flex-col gap-3">
+          <EntityCardStatic name="Arcaadi" type="NPC" image="/static/entity-arcaadi.png"
+            tagline="A shrewd black market dealer at The Bell, providing crucial intel and passage back into The Deep." />
+          <EntityCardStatic name="Bioelectrical Fungus Sample" type="Item" image="/static/entity-fungus.png"
+            tagline="A sample of an incurable bio-electrical fungus that infects and destroys androids." />
+          <EntityCardStatic name="Braggsy" type="PC" playerName="Garrett" image="/static/entity-braggsy.png"
+            tagline="A roguish ace pilot who owes a debt and pilots a uniquely customized ship, aiding the party's illicit escape." />
+          <EntityCardStatic name="Buck Tanner" type="PC" playerName="Mark" image="/static/entity-buck.png"
+            tagline="The grim negotiator, axe in hand, navigating the void's hungry maw for his crew." />
+          <EntityCardStatic name="Commander Kilroy" type="NPC" image="/static/entity-kilroy.png"
+            tagline="Commander who orchestrated Operation Orpheus and secured the vital artifact." />
+          <EntityCardStatic name="Dr Vinterstrauss" type="NPC" image="/static/entity-vinterstrauss.png"
+            tagline="A morally ambiguous biologist fascinated by advanced technology, seeking schematics from The Deep." />
+          <EntityCardStatic name="Eden" type="Location" image="/static/entity-eden.png"
+            tagline="A zone of bio-mechanical horrors on Floor 2 where The Minotaur is imprisoned." />
+          <EntityCardStatic name="Etheric Flux Coil" type="Item" image="/static/entity-flux-coil.png"
+            tagline="A vital component required to repair Braggsy's jump drive and enable interstellar travel." />
+          <!-- Duplicate set for seamless loop -->
+          <EntityCardStatic name="Arcaadi" type="NPC" image="/static/entity-arcaadi.png"
+            tagline="A shrewd black market dealer at The Bell, providing crucial intel and passage back into The Deep." />
+          <EntityCardStatic name="Bioelectrical Fungus Sample" type="Item" image="/static/entity-fungus.png"
+            tagline="A sample of an incurable bio-electrical fungus that infects and destroys androids." />
+          <EntityCardStatic name="Braggsy" type="PC" playerName="Garrett" image="/static/entity-braggsy.png"
+            tagline="A roguish ace pilot who owes a debt and pilots a uniquely customized ship, aiding the party's illicit escape." />
+          <EntityCardStatic name="Buck Tanner" type="PC" playerName="Mark" image="/static/entity-buck.png"
+            tagline="The grim negotiator, axe in hand, navigating the void's hungry maw for his crew." />
+          <EntityCardStatic name="Commander Kilroy" type="NPC" image="/static/entity-kilroy.png"
+            tagline="Commander who orchestrated Operation Orpheus and secured the vital artifact." />
+          <EntityCardStatic name="Dr Vinterstrauss" type="NPC" image="/static/entity-vinterstrauss.png"
+            tagline="A morally ambiguous biologist fascinated by advanced technology, seeking schematics from The Deep." />
+          <EntityCardStatic name="Eden" type="Location" image="/static/entity-eden.png"
+            tagline="A zone of bio-mechanical horrors on Floor 2 where The Minotaur is imprisoned." />
+          <EntityCardStatic name="Etheric Flux Coil" type="Item" image="/static/entity-flux-coil.png"
+            tagline="A vital component required to repair Braggsy's jump drive and enable interstellar travel." />
+        </div>
+      </div>
+    </section>
+
+
+    <section class="reveal mt-20 grid items-center gap-10 md:mt-28 md:grid-cols-2 md:gap-16 md:[direction:rtl] md:[&>*]:[direction:ltr]">
+      <!-- Text -->
+      <div>
+        <h3 class="mb-3 text-[clamp(1.4rem,1.1rem+1.5vw,1.8rem)] font-semibold text-text-primary">
+          Ask Loremaster anything about your world
+        </h3>
+        <p class="text-[16px] leading-[1.75] text-text-body md:text-[17px]">
+          Chat with an AI that knows your entire campaign inside and out. Ask about that NPC from six sessions ago, get a recap before tonight's game, or brainstorm where the story might go next. Every answer is grounded in your actual sessions.
+        </p>
+      </div>
+      <!-- Chat demo -->
+      <ChatDemo />
+    </section>
+
+
+    <section class="reveal mt-20 grid items-center gap-10 md:mt-28 md:grid-cols-2 md:gap-16">
+      <!-- Text -->
+      <div
+        <h3 class="mb-3 text-[clamp(1.4rem,1.1rem+1.5vw,1.8rem)] font-semibold text-text-primary">
+          Track every thread with the Quest Log
+        </h3>
+        <p class="text-[16px] leading-[1.75] text-text-body md:text-[17px]">
+          Open plot lines, unresolved mysteries, and active quests stay organized in one place. As sessions progress, Loremaster helps you track what's been resolved and what's still dangling, so nothing falls through the cracks.
+        </p>
+      </div>
+      <!-- Quest log demo -->
+      <QuestLogDemo />
+    </section>
+
+
+    <section class="reveal mt-20 grid items-center gap-10 md:mt-28 md:grid-cols-2 md:gap-16 md:[direction:rtl] md:[&>*]:[direction:ltr]">
+      <!-- Text -->
+      <div>
+        <h3 class="mb-3 text-[clamp(1.4rem,1.1rem+1.5vw,1.8rem)] font-semibold text-text-primary">
+          Watch your characters grow
+        </h3>
+        <p class="text-[16px] leading-[1.75] text-text-body md:text-[17px]">
+          Each entity in the Codex has its own timeline, a visual history of every appearance, every key moment, every turning point. Scroll through a character's journey from introduction to their latest adventure.
+        </p>
+      </div>
+      <!-- Timeline demo -->
+      <TimelineDemo />
+    </section>
+
+    <!-- CTA (open, centered) -->
+    <section class="reveal mx-auto max-w-[600px] py-20 text-center md:py-28">
+      <h2 class="text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">Start your adventure</h2>
+      <div class="gold-divider-animated mx-auto mt-4 mb-6"></div>
+      <p class="mb-8 text-[17px] text-text-body">
+        Loremaster is ready to help you tell richer stories. Try it today.
+      </p>
+      <a
+        class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_28px_rgba(218,160,64,0.25)]"
+        href="https://loremaster.valfarandsons.com"
+      >
+        Try Loremaster Free
+      </a>
+    </section>
+  </div>
+</BaseLayout>

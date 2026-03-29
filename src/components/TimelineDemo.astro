@@ -1,0 +1,276 @@
+---
+const character = {
+  name: "Durn Barnaclebeard",
+  type: "PC",
+  playerName: "Garrett",
+};
+
+const entries = [
+  {
+    session: "An Alliance of Salt and Steel",
+    date: "Sep 3, 2025",
+    events: [
+      "Arrived in Saltmarsh driven by his obsessive search for the great blue oyster.",
+      "Formed an unlikely alliance with Migli Strongbreath and Joren Brack.",
+    ],
+  },
+  {
+    session: "Of Owls and Oysters",
+    date: "Sep 11, 2025",
+    events: [
+      "Flew into a barbarian rage during the bandit ambush, invoking the great blue oyster.",
+      "Left an oyster shell on the defeated bandit leader as a grim calling card.",
+    ],
+  },
+  {
+    session: "The Stain of Brack Manor",
+    date: "Sep 16, 2025",
+    events: [
+      "Helped fight off giant weasels at the overgrown gates of Old Brack Manor.",
+      "Stood ready with the party at the threshold, prepared to enter the haunted estate.",
+    ],
+  },
+];
+---
+
+<div
+  class="overflow-hidden rounded-[14px] backdrop-blur-[12px]"
+  style="background: var(--lm-card-glass); border: 1px solid var(--lm-card-border);"
+  id="timeline-demo"
+>
+  <!-- Character header -->
+  <div class="flex items-center gap-4 border-b px-5 py-5 md:px-6 md:py-6" style="border-color: var(--lm-divider);">
+    <div class="h-16 w-16 shrink-0 overflow-hidden rounded-xl border-2 border-border-glass shadow-lg md:h-20 md:w-20">
+      <img src="/static/entity-durn.png" alt="Durn Barnaclebeard" class="h-full w-full object-cover" />
+    </div>
+    <div>
+      <div class="flex flex-wrap items-center gap-2">
+        <h4 class="text-[20px] font-semibold text-text-primary md:text-[22px]">{character.name}</h4>
+        <span class="rounded-md bg-accent/10 px-2 py-0.5 text-[11px] font-medium uppercase tracking-wider text-accent/70">
+          {character.type}
+        </span>
+      </div>
+      <p class="mt-0.5 text-[13px] text-text-muted">Played by {character.playerName}</p>
+      <p class="mt-1 text-[13px] italic text-text-voice/80" style="font-family: var(--font-voice);">
+        A weathered hermit driven by an obsessive, near-mad quest to find the legendary great blue oyster.
+      </p>
+    </div>
+  </div>
+
+  <!-- Dot track -->
+  <div class="flex items-center justify-center gap-0 px-8 pt-5 pb-1">
+    {
+      entries.map((entry, i) => (
+        <>
+          <div class="flex flex-col items-center">
+            <button
+              class="timeline-dot rounded-full transition-all duration-200"
+              data-index={i}
+              style={
+                i === entries.length - 1
+                  ? "width: 9px; height: 9px; background: var(--lm-accent); border: 1.5px solid var(--lm-accent);"
+                  : "width: 7px; height: 7px; background: var(--lm-panel-bg); border: 1.5px solid rgba(168, 158, 148, 0.4);"
+              }
+            />
+            <span class="mt-1.5 text-[10px] uppercase text-text-faint">
+              {entry.date.split(",")[0].replace("Sep ", "Sep ")}
+            </span>
+          </div>
+          {i < entries.length - 1 && (
+            <div class="mb-4 h-px flex-1" style="background: var(--lm-border-glass);" />
+          )}
+        </>
+      ))
+    }
+  </div>
+
+  <!-- Card carousel -->
+  <div
+    class="scrollbar-hide flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 py-4"
+    id="timeline-carousel"
+    style="scroll-behavior: smooth;"
+  >
+    {
+      entries.map((entry, i) => (
+        <div
+          class="timeline-card w-[85%] shrink-0 snap-center rounded-xl border border-border-glass p-4 transition-all duration-300"
+          style={`background: var(--lm-surface-glass); ${i === entries.length - 1 ? "" : "opacity: 0.4; filter: saturate(0.5);"}`}
+          data-index={i}
+        >
+          <p class="text-[14px] font-semibold text-accent/80">{entry.session}</p>
+          <p class="mt-0.5 text-[11px] text-text-faint">{entry.date}</p>
+          <div class="mt-3 flex flex-col gap-2">
+            {entry.events.map((evt) => (
+              <div class="flex gap-2.5">
+                <div class="mt-[7px] h-[7px] w-[7px] shrink-0 rounded-full border" style="border-color: rgba(218, 160, 64, 0.4);" />
+                <p class="text-[13px] leading-[1.65] text-text-body">{evt}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Indicator pills (padded hit area for easier clicking) -->
+  <div class="flex items-center justify-center gap-1 pb-4">
+    {
+      entries.map((_, i) => (
+        <button
+          class="flex items-center justify-center px-1 py-2"
+          data-index={i}
+        >
+          <span
+            class="timeline-pill block rounded-full transition-all duration-300"
+            data-index={i}
+            style={
+              i === entries.length - 1
+                ? "width: 20px; height: 6px; background: var(--lm-accent);"
+                : "width: 6px; height: 6px; background: rgba(168, 158, 148, 0.4);"
+            }
+          />
+        </button>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const demo = document.getElementById("timeline-demo");
+  const carousel = document.getElementById("timeline-carousel");
+
+  if (demo && carousel) {
+    const cards = demo.querySelectorAll(".timeline-card");
+    const dots = demo.querySelectorAll(".timeline-dot");
+    const pills = demo.querySelectorAll(".timeline-pill");
+    const totalCards = cards.length;
+
+    // Scroll to newest (last) card on load
+    setTimeout(() => {
+      const lastCard = cards[totalCards - 1] as HTMLElement;
+      carousel.scrollLeft = lastCard.offsetLeft - carousel.offsetWidth * 0.075;
+    }, 100);
+
+    function setActive(index: number) {
+      cards.forEach((c, i) => {
+        const el = c as HTMLElement;
+        if (i === index) {
+          el.style.opacity = "1";
+          el.style.filter = "";
+        } else {
+          el.style.opacity = "0.4";
+          el.style.filter = "saturate(0.5)";
+        }
+      });
+
+      dots.forEach((d, i) => {
+        const el = d as HTMLElement;
+        if (i === index) {
+          el.style.width = "9px";
+          el.style.height = "9px";
+          el.style.background = "var(--lm-accent)";
+          el.style.borderColor = "var(--lm-accent)";
+        } else {
+          el.style.width = "7px";
+          el.style.height = "7px";
+          el.style.background = "var(--lm-panel-bg)";
+          el.style.borderColor = "rgba(168, 158, 148, 0.4)";
+        }
+      });
+
+      pills.forEach((p, i) => {
+        const el = p as HTMLElement;
+        if (i === index) {
+          el.style.width = "20px";
+          el.style.background = "var(--lm-accent)";
+        } else {
+          el.style.width = "6px";
+          el.style.background = "rgba(168, 158, 148, 0.4)";
+        }
+      });
+    }
+
+    let isScrolling = false;
+
+    function scrollToCard(index: number) {
+      isScrolling = true;
+      setActive(index);
+      const card = cards[index] as HTMLElement;
+      const scrollLeft = card.offsetLeft - (carousel.offsetWidth - card.offsetWidth) / 2;
+      carousel.scrollTo({ left: scrollLeft, behavior: "smooth" });
+      setTimeout(() => { isScrolling = false; }, 500);
+    }
+
+    // Click handlers for dots, pills, and inactive cards
+    dots.forEach((d) => d.addEventListener("click", () => scrollToCard(Number((d as HTMLElement).dataset.index))));
+    // Pill buttons (parent buttons wrapping the visual pill spans)
+    demo.querySelectorAll(".timeline-pill").forEach((pill) => {
+      const btn = pill.closest("button");
+      if (btn) {
+        btn.addEventListener("click", () => {
+          const index = btn.dataset.index;
+          if (index != null) scrollToCard(Number(index));
+        });
+      }
+    });
+    cards.forEach((c) => {
+      c.addEventListener("click", () => {
+        const i = Number((c as HTMLElement).dataset.index);
+        if ((c as HTMLElement).style.opacity !== "1") scrollToCard(i);
+      });
+    });
+
+    // Track scroll position to update active state
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isScrolling) return;
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+            const index = Number((entry.target as HTMLElement).dataset.index);
+            setActive(index);
+            activeIndex = index;
+          }
+        });
+      },
+      { root: carousel, threshold: 0.6 },
+    );
+    cards.forEach((c) => observer.observe(c));
+
+    // Auto-scroll
+    let activeIndex = totalCards - 1;
+    let autoTimer: ReturnType<typeof setInterval> | null = null;
+    let userInteracted = false;
+
+    function autoAdvance() {
+      const nextIndex = (activeIndex + 1) % totalCards;
+      scrollToCard(nextIndex);
+      activeIndex = nextIndex;
+    }
+
+    function startAuto() {
+      if (!autoTimer && !userInteracted) {
+        autoTimer = setInterval(autoAdvance, 2000);
+      }
+    }
+
+    function stopAuto() {
+      if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+    }
+
+    // Stop auto-scroll on any user interaction, restart on mouse leave
+    const stopAndMark = () => { stopAuto(); userInteracted = true; };
+    dots.forEach((d) => d.addEventListener("click", stopAndMark));
+    demo.querySelectorAll(".timeline-pill").forEach((pill) => {
+      const btn = pill.closest("button");
+      if (btn) btn.addEventListener("click", stopAndMark);
+    });
+    cards.forEach((c) => c.addEventListener("click", stopAndMark));
+    demo.addEventListener("mouseenter", stopAuto);
+    demo.addEventListener("mouseleave", () => {
+      userInteracted = false;
+      startAuto();
+    });
+
+    startAuto();
+  }
+</script>
