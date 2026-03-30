@@ -3,8 +3,8 @@
 ## Content
 - [ ] Update pricing page with actual plan details and tiers (page exists but hidden from nav)
 - [ ] Update FAQ pricing question once pricing is finalized
-- [ ] Update domain references once new domain (e.g. askloremaster.com) is finalized
-- [ ] Update app URL placeholder (loremaster.valfarandsons.com) to final production URL
+- [x] Update domain references to askloremaster.com
+- [x] Update app URL to app.askloremaster.com
 - [ ] Review and finalize legal docs (Privacy Policy, Terms of Service, Subprocessors) with legal counsel
 - [ ] Replace chat demo content with a real campaign Q&A exchange
 

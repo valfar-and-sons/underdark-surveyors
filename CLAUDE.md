@@ -7,7 +7,7 @@ This is the marketing website for Loremaster, an AI-powered platform for tableto
 - **Framework:** Astro v6 (static site generation)
 - **Styling:** Tailwind CSS v4 via `@tailwindcss/vite`
 - **Deploy:** GitHub Pages via `.github/workflows/deploy.yml`
-- **Domain:** www.valfarandsons.com (transitioning to a Loremaster-branded domain)
+- **Domain:** www.askloremaster.com
 
 ## Project structure
 - `src/pages/` - Site pages (each `.astro` file becomes a route)
@@ -27,7 +27,7 @@ The website's visual design is ported from the Loremaster React app (`~/projects
 ## Branding rules
 - **User-facing copy** should reference "Loremaster", not "Valfar and Sons"
 - **Legal documents and footer copyright** should use the full legal entity name "Valfar and Sons, Inc."
-- The app URL placeholder is `loremaster.valfarandsons.com` (will change when the new domain is finalized)
+- The app URL is `app.askloremaster.com`
 
 ## Copy guidelines
 - Avoid obvious signs of AI-generated text. Specifically:
