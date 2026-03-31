@@ -7,6 +7,7 @@ const { currentPath } = Astro.props;
 
 const navLinks = [
   { href: "/product", label: "What is Loremaster" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/faq", label: "FAQ" },
 ];
 ---
@@ -52,9 +53,15 @@ const navLinks = [
       }
       <a
         href="https://app.askloremaster.com"
+        class="inline-flex items-center rounded-[10px] border border-accent/40 px-4 py-2 text-[14px] font-semibold text-accent no-underline transition-all duration-200 hover:-translate-y-px hover:border-accent hover:bg-accent/10"
+      >
+        Log In
+      </a>
+      <a
+        href="mailto:contact@valfarandsons.com?subject=Loremaster%20Early%20Access%20Request&body=Hi%2C%20I%27d%20like%20to%20request%20early%20access%20to%20Loremaster.%20Thanks!"
         class="inline-flex items-center rounded-[10px] bg-accent px-4 py-2 text-[14px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_8px_24px_rgba(218,160,64,0.2)]"
       >
-        Try Loremaster Free
+        Request Early Access
       </a>
     </div>
 
@@ -101,9 +108,15 @@ const navLinks = [
       }
       <a
         href="https://app.askloremaster.com"
+        class="mobile-nav-link mt-1 inline-flex items-center justify-center rounded-[10px] border border-accent/40 px-4 py-2.5 text-[15px] font-semibold text-accent no-underline transition-colors hover:border-accent hover:bg-accent/10"
+      >
+        Log In
+      </a>
+      <a
+        href="mailto:contact@valfarandsons.com?subject=Loremaster%20Early%20Access%20Request&body=Hi%2C%20I%27d%20like%20to%20request%20early%20access%20to%20Loremaster.%20Thanks!"
         class="mobile-nav-link mt-1 inline-flex items-center justify-center rounded-[10px] bg-accent px-4 py-2.5 text-[15px] font-semibold text-[#1a1520] no-underline"
       >
-        Try Loremaster Free
+        Request Early Access
       </a>
     </div>
   </div>
