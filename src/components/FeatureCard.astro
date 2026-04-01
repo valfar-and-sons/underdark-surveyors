@@ -2,18 +2,23 @@
 interface Props {
   title: string;
   description: string;
-  icon?: string;
 }
 
-const { title, description, icon } = Astro.props;
+const { title, description } = Astro.props;
+const hasIcon = Astro.slots.has("icon");
 ---
 
 <div
   class="group rounded-[14px] border border-card-border p-8 md:p-10 backdrop-blur-[12px] transition-all duration-200 hover:border-card-hover-border"
   style="background: var(--lm-card-glass);"
 >
-  <h3 class="mb-3 text-[21px] font-semibold text-text-primary md:text-[22px]">
-    {icon && <span class="mr-2">{icon}</span>}{title}
+  <h3 class="mb-3 flex items-center gap-2.5 text-[21px] font-semibold text-text-primary md:text-[22px]">
+    {hasIcon && (
+      <span class="inline-flex h-6 w-6 shrink-0 text-accent">
+        <slot name="icon" />
+      </span>
+    )}
+    {title}
   </h3>
   <p class="text-[16px] leading-relaxed text-text-body md:text-[17px]">{description}</p>
 </div>
