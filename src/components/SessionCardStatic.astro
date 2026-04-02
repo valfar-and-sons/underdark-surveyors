@@ -35,7 +35,7 @@ const { title, date, tagline, image } = Astro.props;
       image ? (
         <img
           src={image}
-          alt=""
+          alt={`Session illustration: ${title}`}
           class="h-20 w-28 shrink-0 rounded-lg object-cover object-[center_25%] sm:h-24 sm:w-32"
         />
       ) : (

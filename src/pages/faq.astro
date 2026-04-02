@@ -44,11 +44,24 @@ const faqs = [
       "Audio recordings you upload are stored securely and used only to generate transcripts and session content. You can delete your recordings at any time. See our <a href='/privacy'>Privacy Policy</a> for full details on data retention.",
   },
 ];
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer.replace(/<[^>]+>/g, ""),
+    },
+  })),
+};
 ---
 
 <BaseLayout
   title="FAQ — Loremaster"
   description="Frequently asked questions about Loremaster, the AI-powered platform for tabletop RPG campaigns."
+  jsonLd={faqSchema}
 >
   <div class="mx-auto max-w-[860px] px-[clamp(16px,4vw,28px)]">
     <div class="reveal py-12 md:py-20">
