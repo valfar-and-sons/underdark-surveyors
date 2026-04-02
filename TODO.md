@@ -9,5 +9,5 @@
 - [ ] Review mobile responsive layout across all pages and breakpoints
 
 ## Infrastructure
-- [ ] Remove noindex/nofollow robot meta tags when ready to go public
+- [x] Remove noindex/nofollow robot meta tags when ready to go public
 - [ ] Remove early access banner from legal pages when out of early access
