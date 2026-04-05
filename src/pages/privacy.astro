@@ -5,7 +5,7 @@ import LegalLayout from "../layouts/LegalLayout.astro";
 <LegalLayout
   title="Privacy Policy"
   description="Learn how Loremaster protects your campaign data, what we collect, and how we handle audio recordings and session content."
-  lastUpdated="March 27, 2026"
+  lastUpdated="April 5, 2026"
 >
   <p>
     This Privacy Policy explains how Valfar and Sons, Inc. ("Valfar and Sons," "we," "us," or
@@ -64,6 +64,12 @@ import LegalLayout from "../layouts/LegalLayout.astro";
   <ul>
     <li>Audio recordings (including associated file metadata such as duration, time uploaded, and file size)</li>
   </ul>
+  <p>
+    Audio submitted for transcription may be processed using speaker identification
+    (diarization) technology that analyzes vocal characteristics to distinguish between
+    speakers. For details on how speaker identification data is handled, see
+    <a href="#speaker-identification">Section 1H (Speaker Identification Processing)</a> below.
+  </p>
 
   <h3>E) Transcripts</h3>
   <p>If you use transcription features, we may collect and store:</p>
@@ -94,6 +100,28 @@ import LegalLayout from "../layouts/LegalLayout.astro";
     <li>Performance metrics (latency, feature reliability)</li>
     <li>Cookies or similar technologies (as needed for login sessions and basic functionality)</li>
   </ul>
+
+  <h3 id="speaker-identification">H) Speaker Identification Processing</h3>
+  <p>
+    When you use transcription features, Loremaster may process uploaded audio using
+    speaker identification (diarization) to generate speaker-labeled transcripts. This
+    process analyzes vocal characteristics to distinguish between different speakers in
+    a recording.
+  </p>
+  <p>
+    Speaker identification data is retained as part of the transcript. For details on
+    how long this data is kept and when it is deleted, see
+    <a href="#speaker-id-retention">Speaker Identification Data Retention</a> below.
+  </p>
+  <p>
+    Audio is sent to a third-party provider for processing. For details on which
+    providers we use, see our <a href="/subprocessors">Subprocessors page</a>.
+  </p>
+  <p>
+    You are responsible for obtaining consent from all speakers before uploading audio
+    for transcription. For more on your consent obligations, see
+    <a href="/terms#speaker-identification">Section 5.6 of our Terms of Service</a>.
+  </p>
 
   <h2>2) How We Use Your Information</h2>
   <p>We use the information we collect for the following purposes:</p>
@@ -164,6 +192,27 @@ import LegalLayout from "../layouts/LegalLayout.astro";
   <p>
     <strong>Note:</strong> Deletion may not be immediate and may take time to fully propagate
     through our systems, including backups.
+  </p>
+
+  <h3 id="speaker-id-retention">Speaker Identification Data Retention</h3>
+  <p>
+    Speaker identification data generated during diarization is retained as part of
+    the transcript. The related data that you control is retained as follows:
+  </p>
+  <ul>
+    <li>
+      <strong>Audio recordings:</strong> retained until you delete them through the
+      Service or request deletion by contacting us.
+    </li>
+    <li>
+      <strong>Transcripts (including speaker identification data and speaker labels):</strong>
+      retained until you delete them through the Service or request data deletion.
+    </li>
+  </ul>
+  <p>
+    Upon data deletion, all associated audio, transcripts, and speaker identification
+    data are deleted, except where retention is required for legal compliance, dispute
+    resolution, or backup integrity.
   </p>
 
   <h2>5) How We Share Information (Third Parties / Subprocessors)</h2>
