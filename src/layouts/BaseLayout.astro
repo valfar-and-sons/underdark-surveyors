@@ -7,12 +7,14 @@ interface Props {
   title: string;
   description?: string;
   jsonLd?: Record<string, unknown>;
+  breadcrumbLabel?: string;
 }
 
 const {
   title,
   description = "Loremaster is an AI-assisted platform that helps tabletop RPG groups run richer campaigns.",
   jsonLd,
+  breadcrumbLabel,
 } = Astro.props;
 const currentPath = Astro.url.pathname;
 const canonicalUrl = new URL(currentPath, Astro.site).href;
@@ -25,6 +27,25 @@ const orgSchema = {
   url: "https://www.askloremaster.com",
   logo: "https://www.askloremaster.com/static/loremaster-logo.png",
 };
+
+const breadcrumbSchema = breadcrumbLabel ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.askloremaster.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: breadcrumbLabel,
+      item: canonicalUrl,
+    },
+  ],
+} : null;
 ---
 
 <!doctype html>
@@ -40,6 +61,8 @@ const orgSchema = {
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Loremaster" />
+    <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -47,14 +70,11 @@ const orgSchema = {
     <meta name="theme-color" content="#0a090c" />
     <meta name="robots" content="index, follow" />
     <link rel="icon" href="/static/loremaster-logo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400;1,7..72,600&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href="/fonts/familjen-grotesk-latin-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/lora-latin-italic.woff2" as="font" type="font/woff2" crossorigin />
 
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 
     <!-- Google Analytics -->

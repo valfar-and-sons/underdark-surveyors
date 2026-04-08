@@ -5,7 +5,21 @@ import FeatureCard from "../components/FeatureCard.astro";
 import HeroSessionCarousel from "../components/HeroSessionCarousel.astro";
 ---
 
-<BaseLayout title="Loremaster — AI Tools for Tabletop Storytelling">
+<BaseLayout title="Loremaster — AI Tools for Tabletop Storytelling" description="Loremaster records your D&D and TTRPG sessions, generates cinematic recaps, tracks NPCs and locations, and lets you chat with AI about your campaign. Free during early access." jsonLd={{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Loremaster",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Web",
+  "description": "AI-powered platform for tabletop RPG campaign management. Session recaps, world tracking, and campaign chat for D&D and TTRPG groups.",
+  "url": "https://www.askloremaster.com",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/LimitedAvailability"
+  }
+}}>
   <div class="mx-auto max-w-[1200px] px-[clamp(16px,4vw,28px)]">
     <!-- Hero (centered, open) -->
     <section class="relative mx-auto max-w-[780px] py-20 text-center md:py-32">
