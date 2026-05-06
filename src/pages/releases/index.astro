@@ -1,0 +1,66 @@
+---
+import { marked } from "marked";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import GlassCard from "../../components/GlassCard.astro";
+import ReleaseContent from "../../components/ReleaseContent.astro";
+import releases from "../../data/releases.json";
+
+const description = "Release notes for Loremaster. See what's new in each version.";
+
+const rendered = releases.map((entry: { tag: string; body: string }) => ({
+  tag: entry.tag,
+  html: marked.parse(entry.body) as string,
+}));
+
+const recent = rendered.slice(0, 3);
+const older = rendered.slice(3);
+---
+
+<BaseLayout
+  title="Release Notes | Loremaster"
+  description={description}
+  breadcrumbLabel="Release Notes"
+>
+  <div class="mx-auto max-w-[800px] px-[clamp(16px,4vw,28px)] py-12 md:py-16">
+    <header class="mb-10">
+      <h1 class="mb-3 text-[clamp(1.75rem,1.4rem+1.5vw,2.25rem)] font-bold text-text-primary">
+        Release Notes
+      </h1>
+      <div class="gold-divider mt-4"></div>
+    </header>
+
+    <div class="flex flex-col gap-6">
+      {
+        recent.map((entry) => (
+          <GlassCard class="px-6 py-6 md:px-8 md:py-8">
+            <ReleaseContent html={entry.html} />
+          </GlassCard>
+        ))
+      }
+
+      {
+        older.length > 0 && (
+          <details class="older-releases group">
+            <summary class="cursor-pointer list-none rounded-[14px] border border-card-border px-6 py-4 text-center text-[14px] font-medium text-text-muted transition-colors hover:border-card-hover-border hover:text-text-primary">
+              <span class="group-open:hidden">Show older releases ({older.length})</span>
+              <span class="hidden group-open:inline">Hide older releases</span>
+            </summary>
+            <div class="mt-6 flex flex-col gap-6">
+              {older.map((entry) => (
+                <GlassCard class="px-6 py-6 md:px-8 md:py-8">
+                  <ReleaseContent html={entry.html} />
+                </GlassCard>
+              ))}
+            </div>
+          </details>
+        )
+      }
+    </div>
+
+<style>
+  .older-releases > summary::-webkit-details-marker {
+    display: none;
+  }
+</style>
+  </div>
+</BaseLayout>

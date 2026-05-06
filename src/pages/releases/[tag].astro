@@ -1,0 +1,51 @@
+---
+import { marked } from "marked";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import GlassCard from "../../components/GlassCard.astro";
+import ReleaseContent from "../../components/ReleaseContent.astro";
+
+export async function getStaticPaths() {
+  const data = (await import("../../data/releases.json")).default as Array<{
+    tag: string;
+    body: string;
+  }>;
+  return data.map((entry) => ({
+    params: { tag: entry.tag },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: { tag: string; body: string };
+}
+
+const { entry } = Astro.props;
+const html = marked.parse(entry.body) as string;
+const description = `Loremaster ${entry.tag} release notes. See what's new in this version.`;
+---
+
+<BaseLayout
+  title={`${entry.tag} | Loremaster Release Notes`}
+  description={description}
+  breadcrumbLabel={`${entry.tag} Release Notes`}
+>
+  <div class="mx-auto max-w-[800px] px-[clamp(16px,4vw,28px)] py-12 md:py-16">
+    <nav class="mb-6 text-[13px] text-text-muted">
+      <a href="/releases" class="hover:text-accent">← All releases</a>
+    </nav>
+
+    <header class="mb-8">
+      <p class="mb-2 text-[12px] font-medium uppercase tracking-widest text-text-muted">
+        Release
+      </p>
+      <h1 class="text-[clamp(1.75rem,1.4rem+1.5vw,2.25rem)] font-bold text-text-primary">
+        {entry.tag}
+      </h1>
+      <div class="gold-divider mt-4"></div>
+    </header>
+
+    <GlassCard class="px-6 py-6 md:px-8 md:py-8">
+      <ReleaseContent html={html} />
+    </GlassCard>
+  </div>
+</BaseLayout>

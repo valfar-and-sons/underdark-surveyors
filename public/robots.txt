@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /releases.json
 
 Sitemap: https://www.askloremaster.com/sitemap-index.xml
