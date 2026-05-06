@@ -1,0 +1,88 @@
+---
+interface Props {
+  html: string;
+}
+
+const { html } = Astro.props;
+---
+
+<div class="release-content" set:html={html} />
+
+<style>
+  .release-content :global(h1),
+  .release-content :global(h2) {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--lm-text-primary);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .release-content :global(h1):first-child,
+  .release-content :global(h2):first-child {
+    margin-top: 0;
+  }
+
+  .release-content :global(h3) {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--lm-text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .release-content :global(p) {
+    color: var(--lm-text-body);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+
+  .release-content :global(ul),
+  .release-content :global(ol) {
+    color: var(--lm-text-body);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+  }
+
+  .release-content :global(ul) {
+    list-style-type: disc;
+  }
+
+  .release-content :global(ol) {
+    list-style-type: decimal;
+  }
+
+  .release-content :global(li) {
+    margin-bottom: 0.4rem;
+  }
+
+  .release-content :global(strong) {
+    color: var(--lm-text-primary);
+    font-weight: 600;
+  }
+
+  .release-content :global(a) {
+    color: var(--lm-accent);
+    text-decoration: underline;
+    text-decoration-color: rgba(218, 160, 64, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  .release-content :global(a:hover) {
+    text-decoration-color: var(--lm-accent);
+  }
+
+  .release-content :global(code) {
+    background: rgba(218, 160, 64, 0.08);
+    color: var(--lm-text-primary);
+    padding: 0.1rem 0.35rem;
+    border-radius: 0.25rem;
+    font-size: 0.85em;
+  }
+</style>

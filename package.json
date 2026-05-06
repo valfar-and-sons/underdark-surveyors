@@ -4,14 +4,16 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "dev": "npm run prebuild && astro dev",
+    "build": "npm run prebuild && astro build",
+    "preview": "astro preview",
+    "prebuild": "node scripts/fetch-release-notes.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.1",
+    "marked": "^16.4.2",
     "tailwindcss": "^4.2.2"
   }
 }
