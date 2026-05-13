@@ -15,7 +15,15 @@ This is the marketing website for Loremaster, an AI-powered platform for tableto
 - `src/components/` - Reusable components (Header, Footer, GlassCard, FeatureCard, etc.)
 - `src/styles/global.css` - Design system tokens, animations, utility classes
 - `public/` - Static assets served as-is (images, CNAME, legacy HTML pages)
+- `scripts/` - Site build helpers only (e.g. `fetch-release-notes.mjs` runs as `prebuild`)
+- `marketing/` - Auxiliary marketing collateral (flyers, decks, social assets). **Not** part of the public site. Each artifact lives in its own folder with everything needed to build it. See `marketing/README.md`.
 - `TODO.md` - Outstanding work items for this redesign
+
+## Marketing collateral
+- Anything intended for outreach, events, or physical handouts (not the live site) goes under `marketing/<artifact-type>/<name>/`.
+- Builds output to a local `dist/` inside each artifact folder (git-ignored by the global `dist/` rule).
+- Shared brand assets (fonts, logos) are pulled from the site's `public/` directory so the brand stays in sync — do not duplicate them under `marketing/`.
+- Do **not** put marketing artifacts under `scripts/` or `src/pages/`.
 
 ## Design system
 The website's visual design is ported from the Loremaster React app (`~/projects/loremaster`). The source of truth for design tokens is the app's `frontend/src/index.css`. Key elements:
