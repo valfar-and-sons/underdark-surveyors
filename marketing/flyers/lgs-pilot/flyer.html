@@ -53,7 +53,6 @@
 
       :root {
         --lm-accent: #daa040;
-        --lm-accent-soft: rgba(218, 160, 64, 0.45);
         --lm-accent-faint: rgba(218, 160, 64, 0.18);
         --lm-bg-base: #0a090c;
         --lm-card: rgba(20, 16, 26, 0.78);
@@ -110,7 +109,7 @@
         color: var(--lm-text-primary);
         display: flex;
         flex-direction: column;
-        padding: 0.5in 0.62in 0.42in;
+        padding: 0.4in 0.55in 0.35in;
         box-sizing: border-box;
       }
 
@@ -127,20 +126,7 @@
       }
 
 
-      .corner {
-        position: absolute;
-        width: 44px;
-        height: 44px;
-        border-color: var(--lm-accent-soft);
-        opacity: 0.5;
-        z-index: 0;
-      }
-      .corner.tl { top: 0.3in; left: 0.32in; border-top: 1px solid; border-left: 1px solid; }
-      .corner.tr { top: 0.3in; right: 0.32in; border-top: 1px solid; border-right: 1px solid; }
-      .corner.bl { bottom: 0.3in; left: 0.32in; border-bottom: 1px solid; border-left: 1px solid; }
-      .corner.br { bottom: 0.3in; right: 0.32in; border-bottom: 1px solid; border-right: 1px solid; }
-
-      .page > *:not(.corner) {
+      .page > * {
         position: relative;
         z-index: 1;
       }
@@ -548,11 +534,6 @@
   </head>
   <body>
     <main class="page">
-      <span class="corner tl"></span>
-      <span class="corner tr"></span>
-      <span class="corner bl"></span>
-      <span class="corner br"></span>
-
       <!-- Brand bar -->
       <header class="brand">
         <div class="brand-left">
