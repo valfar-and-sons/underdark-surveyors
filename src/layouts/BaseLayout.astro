@@ -113,6 +113,16 @@ const breadcrumbSchema = breadcrumbLabel ? {
 
     <Footer />
 
+    <script is:inline>
+      // If a Clerk session cookie is present on .askloremaster.com, the visitor
+      // is signed into the app — swap the "Log In" CTA to "Open App".
+      if (document.cookie.split("; ").some((c) => c.startsWith("__session="))) {
+        document.querySelectorAll("[data-app-cta]").forEach((el) => {
+          el.textContent = "Open App";
+        });
+      }
+    </script>
+
     <script>
       // Scroll-triggered reveal animations (site-wide)
       const observer = new IntersectionObserver(
