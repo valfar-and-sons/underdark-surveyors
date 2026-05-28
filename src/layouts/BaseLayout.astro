@@ -77,6 +77,15 @@ const breadcrumbSchema = breadcrumbLabel ? {
     {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 
+    <script is:inline>
+      // Read the app-CTA hint cookie before <body> parses. If a previous page
+      // load already confirmed the visitor is signed in, the inline script
+      // right after <Header /> can render the CTA as "Open App" before paint.
+      window.__lmAppCta = document.cookie
+        .split("; ")
+        .some((c) => c === "lm_app_cta=1");
+    </script>
+
     <!-- Google Analytics -->
     <script
       async
@@ -107,6 +116,17 @@ const breadcrumbSchema = breadcrumbLabel ? {
 
     <Header currentPath={currentPath} />
 
+    <script is:inline>
+      // Pre-paint label swap: if the hint cookie said the visitor was signed
+      // in on a previous page load, fix the CTAs immediately so the user
+      // doesn't see "Log In" flash to "Open App" after the Clerk fetch lands.
+      if (window.__lmAppCta) {
+        document.querySelectorAll("[data-app-cta]").forEach((el) => {
+          el.textContent = "Open App";
+        });
+      }
+    </script>
+
     <main class="relative z-10">
       <slot />
     </main>
@@ -114,21 +134,32 @@ const breadcrumbSchema = breadcrumbLabel ? {
     <Footer />
 
     <script is:inline>
-      // Ask Clerk whether the visitor has an active session. The Frontend API
-      // is the same endpoint clerk-js calls under the hood; doing the fetch
-      // directly avoids shipping the full SDK for what is just a label swap.
-      // Requires the production Clerk instance to be live on
-      // clerk.askloremaster.com and www.askloremaster.com to be in Clerk's
-      // allowed origins so the CORS preflight passes.
+      // Ask Clerk whether the visitor has an active session, then cache the
+      // answer in a hint cookie on .askloremaster.com so the next page load
+      // can render the right CTA before paint. The cookie carries no auth
+      // value — it's a presentation hint, validated by Clerk on every visit.
       fetch("https://clerk.askloremaster.com/v1/client", {
         credentials: "include",
       })
         .then((r) => (r.ok ? r.json() : null))
         .then((data) => {
-          if (data?.response?.sessions?.some((s) => s.status === "active")) {
+          const signedIn = !!data?.response?.sessions?.some(
+            (s) => s.status === "active",
+          );
+          if (signedIn) {
             document.querySelectorAll("[data-app-cta]").forEach((el) => {
               el.textContent = "Open App";
             });
+            document.cookie =
+              "lm_app_cta=1; Domain=.askloremaster.com; Path=/; Max-Age=2592000; Secure; SameSite=Lax";
+          } else if (data) {
+            // Clerk responded and the visitor is signed out — clear any stale
+            // hint cookie so we don't show "Open App" on the next visit.
+            document.querySelectorAll("[data-app-cta]").forEach((el) => {
+              el.textContent = "Log In";
+            });
+            document.cookie =
+              "lm_app_cta=; Domain=.askloremaster.com; Path=/; Max-Age=0; Secure; SameSite=Lax";
           }
         })
         .catch(() => {});
