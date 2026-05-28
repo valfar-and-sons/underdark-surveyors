@@ -113,6 +113,27 @@ const breadcrumbSchema = breadcrumbLabel ? {
 
     <Footer />
 
+    <script is:inline>
+      // Ask Clerk whether the visitor has an active session. The Frontend API
+      // is the same endpoint clerk-js calls under the hood; doing the fetch
+      // directly avoids shipping the full SDK for what is just a label swap.
+      // Requires the production Clerk instance to be live on
+      // clerk.askloremaster.com and www.askloremaster.com to be in Clerk's
+      // allowed origins so the CORS preflight passes.
+      fetch("https://clerk.askloremaster.com/v1/client", {
+        credentials: "include",
+      })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (data?.response?.sessions?.some((s) => s.status === "active")) {
+            document.querySelectorAll("[data-app-cta]").forEach((el) => {
+              el.textContent = "Open App";
+            });
+          }
+        })
+        .catch(() => {});
+    </script>
+
     <script>
       // Scroll-triggered reveal animations (site-wide)
       const observer = new IntersectionObserver(
