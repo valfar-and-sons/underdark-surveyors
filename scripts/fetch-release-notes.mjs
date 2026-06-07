@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { mkdir, writeFile } from "node:fs/promises"
+import { access, mkdir, writeFile } from "node:fs/promises"
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 
@@ -71,6 +71,37 @@ async function fetchBody(downloadUrl) {
   return await res.text()
 }
 
+const PUBLIC_PATH = resolve(ROOT, "public/releases.json")
+const DATA_PATH = resolve(ROOT, "src/data/releases.json")
+
+async function fileExists(path) {
+  try {
+    await access(path)
+    return true
+  } catch {
+    return false
+  }
+}
+
+// The pages import src/data/releases.json statically, so it must exist for the
+// build to compile. When a fetch fails we keep any cached copy that's already
+// on disk; only a completely fresh checkout gets an empty list written so the
+// build can still proceed.
+async function ensureFallback() {
+  const haveData = await fileExists(DATA_PATH)
+  const havePublic = await fileExists(PUBLIC_PATH)
+  if (haveData && havePublic) {
+    console.warn("Keeping existing releases.json (using cached release notes).")
+    return
+  }
+  const empty = "[]\n"
+  await mkdir(dirname(PUBLIC_PATH), { recursive: true })
+  await mkdir(dirname(DATA_PATH), { recursive: true })
+  if (!havePublic) await writeFile(PUBLIC_PATH, empty)
+  if (!haveData) await writeFile(DATA_PATH, empty)
+  console.warn("No cached releases.json found; wrote an empty list so the build can continue.")
+}
+
 async function main() {
   console.log(`Fetching release notes from ${REPO_OWNER}/${REPO_NAME}/${NOTES_PATH}...`)
   const files = await fetchListing()
@@ -93,17 +124,23 @@ async function main() {
   entries.sort((a, b) => compareSemver(b.tag, a.tag))
 
   const json = JSON.stringify(entries, null, 2) + "\n"
-  const publicPath = resolve(ROOT, "public/releases.json")
-  const dataPath = resolve(ROOT, "src/data/releases.json")
-  await mkdir(dirname(publicPath), { recursive: true })
-  await mkdir(dirname(dataPath), { recursive: true })
-  await writeFile(publicPath, json)
-  await writeFile(dataPath, json)
+  await mkdir(dirname(PUBLIC_PATH), { recursive: true })
+  await mkdir(dirname(DATA_PATH), { recursive: true })
+  await writeFile(PUBLIC_PATH, json)
+  await writeFile(DATA_PATH, json)
 
   console.log(`Wrote ${entries.length} entries to public/releases.json and src/data/releases.json`)
 }
 
-main().catch((err) => {
-  console.error(err)
-  process.exit(1)
+main().catch(async (err) => {
+  // Release notes are non-critical: a fetch failure (offline, missing token,
+  // GitHub hiccup) shouldn't break the site build. Warn, fall back to cached
+  // or empty data, and exit cleanly.
+  console.warn(`Skipping release-notes refresh: ${err.message}`)
+  try {
+    await ensureFallback()
+  } catch (fallbackErr) {
+    console.error(`Failed to write fallback releases.json: ${fallbackErr.message}`)
+    process.exit(1)
+  }
 })

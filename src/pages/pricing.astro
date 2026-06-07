@@ -2,86 +2,266 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GlassCard from "../components/GlassCard.astro";
 
-const included = [
+// All four plan cards render side by side in one row. `kind` drives how each
+// card is presented: the free trial and premium cards have no price toggle,
+// the paid cards swap their price with the monthly/annual switch. The cards are
+// informational only; actual signup and billing happen inside the app. Prices
+// and limits mirror the app's billing config
+// (frontend/src/lib/billing-constants.ts and the tier grants seed).
+const cards = [
   {
-    title: "Unlimited campaigns",
-    description: "Run as many campaigns as you want, with no caps on sessions or players.",
+    kind: "free",
+    name: "Free trial",
+    badge: "60 days",
+    tagline: "Try it with your table",
+    features: ["3 sessions", "3 images", "1 campaign"],
   },
   {
-    title: "AI-generated recaps",
-    description: "Upload audio or text and get narrative summaries, key events, and scene art.",
+    kind: "paid",
+    name: "Casual",
+    tagline: "For groups that meet now and then",
+    monthly: "$3",
+    annual: "$28.80",
+    annualNote: "$28.80 billed yearly",
+    features: ["1 session per month", "10 images per month", "1 campaign"],
+    featured: false,
   },
   {
-    title: "The Codex",
-    description: "Automatically track every character, location, faction, and item across your world.",
+    kind: "paid",
+    name: "Standard",
+    tagline: "For groups that play every week",
+    monthly: "$8",
+    annual: "$76.80",
+    annualNote: "$76.80 billed yearly",
+    features: ["5 sessions per month", "10 images per month", "1 campaign"],
+    featured: true,
   },
   {
-    title: "Campaign chat",
-    description: "Ask anything about your campaign and get answers grounded in your actual sessions.",
-  },
-  {
-    title: "Quest Log",
-    description: "Keep track of open plot threads, active quests, and unresolved mysteries.",
-  },
-  {
-    title: "Entity timelines",
-    description: "See the full history of any character or place across every session they appear in.",
+    kind: "premium",
+    name: "Premium",
+    badge: "Coming soon",
+    tagline: "For groups who want more sessions and more features",
+    features: ["More sessions and images", "Multiple campaigns at once", "Access to premium features"],
   },
 ];
+
+// Everything every plan can do, shown as a simple list of feature names.
+const sharedFeatures = [
+  "Session recaps",
+  "Scene illustrations",
+  "The Codex",
+  "Ask Loremaster chat",
+  "Quest Log",
+  "Entity timelines",
+];
+
+// Supplemental pay-as-you-go credits (one-time top-ups for active subscribers).
+const credits = [
+  {
+    name: "Session credit",
+    price: "$2",
+    unit: "each",
+    description: "Process one more session beyond your monthly limit.",
+  },
+  {
+    name: "Image credits",
+    price: "$3",
+    unit: "for 10",
+    description: "Generate 10 more illustrations beyond your monthly limit.",
+  },
+];
+
+const checkPath =
+  "M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z";
 ---
 
 <BaseLayout
   title="Pricing — Loremaster"
-  description="Loremaster is free during invite-only early access. All features included: AI session recaps, campaign tracking, the Codex, quest log, and more for your TTRPG group."
+  description="Start free, then pick the plan that fits your table. Casual for occasional groups, Standard for weekly play, plus pay-as-you-go credits and Premium on the way."
   breadcrumbLabel="Pricing"
 >
   <div class="mx-auto max-w-[1200px] px-[clamp(16px,4vw,28px)]">
     <!-- Hero -->
-    <section class="reveal mx-auto max-w-[740px] py-16 text-center md:py-24">
+    <section class="reveal mx-auto max-w-[820px] py-16 text-center md:py-24">
       <h1 class="text-[clamp(2.2rem,1.5rem+3.5vw,3.5rem)] font-bold leading-[1.1] tracking-tight">
-        Pricing
+        Start free, then play your way
       </h1>
       <div class="gold-divider-animated mx-auto mt-5 mb-8"></div>
       <p class="voice text-[clamp(1.1rem,1rem+0.5vw,1.3rem)]">
-        Loremaster is in invite-only early access. Everything is free while we build alongside our testers.
+        Try Loremaster with your group at no cost. When you're ready, choose a plan that matches how much Loremaster your table needs, from the occasional one-shot to a weekly campaign.
+      </p>
+      <div class="mt-9">
+        <a
+          class="inline-flex items-center justify-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_28px_rgba(218,160,64,0.25)]"
+          href="https://app.askloremaster.com/waitlist"
+        >
+          Start your free trial
+        </a>
+        <p class="mt-3 text-[14px] text-text-muted">60 days free. No card required.</p>
+      </div>
+    </section>
+
+    <!-- Billing interval toggle -->
+    <section class="reveal flex flex-col items-center gap-3">
+      <div
+        class="inline-flex items-center rounded-full border border-card-border p-1"
+        style="background: var(--lm-card-glass);"
+        role="group"
+        aria-label="Billing interval"
+      >
+        <button
+          type="button"
+          data-interval-btn="monthly"
+          class="interval-btn rounded-full px-5 py-2 text-[14px] font-semibold transition-colors duration-200"
+          aria-pressed="true"
+        >
+          Monthly
+        </button>
+        <button
+          type="button"
+          data-interval-btn="annual"
+          class="interval-btn inline-flex items-center gap-2 rounded-full px-5 py-2 text-[14px] font-semibold transition-colors duration-200"
+          aria-pressed="false"
+        >
+          Annual
+          <span class="rounded-full bg-[#1a1520] px-2 py-0.5 text-[10px] font-semibold tracking-wide text-accent uppercase">
+            Save 20%
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Plan cards: free trial, Casual, Standard, Premium -->
+    <section class="reveal-stagger mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        cards.map((card) => (
+          <div class="reveal h-full">
+            <GlassCard
+              class:list={[
+                "flex h-full flex-col p-6",
+                card.featured && "border-accent/30 ring-1 ring-accent/15",
+                card.kind === "premium" && "border-dashed border-accent/25",
+              ]}
+            >
+              <div class="mb-1 flex min-h-[28px] flex-wrap items-center gap-2">
+                <h3 class="text-[22px] font-bold text-text-primary">{card.name}</h3>
+                {card.featured && (
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-accent uppercase">
+                    Most popular
+                  </span>
+                )}
+                {card.badge && (
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-accent uppercase">
+                    {card.badge}
+                  </span>
+                )}
+              </div>
+              <p class="min-h-[40px] text-[13px] leading-snug text-text-muted">{card.tagline}</p>
+
+              {/* Price block — height reserved so all cards align */}
+              <div class="mt-5 min-h-[58px]">
+                {card.kind === "paid" && (
+                  <>
+                    <div class="flex items-baseline gap-1.5">
+                      <span
+                        class="price-amount text-[40px] font-bold leading-none text-accent"
+                        data-monthly={card.monthly}
+                        data-annual={card.annual}
+                      >
+                        {card.monthly}
+                      </span>
+                      <span
+                        class="price-suffix text-[15px] text-text-muted"
+                        data-monthly="/mo"
+                        data-annual="/yr"
+                      >
+                        /mo
+                      </span>
+                    </div>
+                    <p class="price-note mt-2 h-[16px] text-[12px] text-text-muted" data-annual={card.annualNote} />
+                  </>
+                )}
+                {card.kind === "free" && (
+                  <span class="text-[40px] font-bold leading-none text-accent">Free</span>
+                )}
+                {card.kind === "premium" && (
+                  <span class="text-[22px] font-semibold leading-none text-text-body">Coming soon</span>
+                )}
+              </div>
+
+              <div class="gold-divider my-5" />
+
+              <ul class="grid content-start gap-2.5">
+                {card.features.map((feature) => (
+                  <li class="flex items-start gap-2.5">
+                    <svg class="mt-0.5 h-[18px] w-[18px] shrink-0 text-accent" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d={checkPath} clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-[14px] font-medium leading-snug text-text-primary">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </GlassCard>
+          </div>
+        ))
+      }
+    </section>
+
+    <!-- Shared features -->
+    <section class="reveal mx-auto mt-16 max-w-[920px] md:mt-20">
+      <h2 class="text-center text-[clamp(1.6rem,1.2rem+1.5vw,2.2rem)] font-bold tracking-tight">
+        Every plan includes
+      </h2>
+      <div class="gold-divider-animated mx-auto mt-4 mb-8"></div>
+      <ul class="mx-auto grid max-w-[820px] gap-x-10 gap-y-5 sm:grid-cols-2 md:grid-cols-3">
+        {
+          sharedFeatures.map((feature) => (
+            <li class="flex items-center gap-3">
+              <svg class="h-6 w-6 shrink-0 text-accent" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d={checkPath} clip-rule="evenodd" />
+              </svg>
+              <span class="text-[18px] font-medium leading-snug text-text-primary">{feature}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- Pay-as-you-go credits -->
+    <section class="reveal mx-auto mt-20 max-w-[920px] md:mt-28">
+      <div class="mx-auto max-w-[600px] text-center">
+        <h2 class="text-[clamp(1.6rem,1.2rem+1.5vw,2.2rem)] font-bold tracking-tight">
+          Need a little more?
+        </h2>
+        <div class="gold-divider-animated mx-auto mt-4 mb-6"></div>
+        <p class="text-[16px] leading-relaxed text-text-body">
+          Add credits any time to go past your monthly limits. One-time purchase, applied right away, and they never expire.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2">
+        {
+          credits.map((credit) => (
+            <GlassCard class="flex flex-col p-7">
+              <h3 class="text-[20px] font-bold text-text-primary">{credit.name}</h3>
+              <div class="mt-3 flex items-baseline gap-1.5">
+                <span class="text-[32px] font-bold leading-none text-accent">{credit.price}</span>
+                <span class="text-[15px] text-text-muted">{credit.unit}</span>
+              </div>
+              <p class="mt-4 text-[15px] leading-relaxed text-text-body">{credit.description}</p>
+            </GlassCard>
+          ))
+        }
+      </div>
+      <p class="mt-6 text-center text-[13px] text-text-muted">
+        Credits are available on any paid plan.
       </p>
     </section>
 
-    <!-- Early Access card -->
-    <section class="reveal mx-auto max-w-[520px]">
-      <GlassCard class="p-8 md:p-10">
-        <div class="mb-6 flex items-center gap-3">
-          <h2 class="text-[24px] font-bold text-text-primary md:text-[28px]">Early Access</h2>
-          <span class="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-accent uppercase">Invite Only</span>
-        </div>
-        <p class="text-[40px] font-bold text-accent md:text-[48px]">Free</p>
-        <p class="mt-1 text-[15px] text-text-muted">All features included during early access</p>
-        <div class="gold-divider my-6"></div>
-        <ul class="grid gap-3">
-          {included.map((item) => (
-            <li class="flex items-start gap-3">
-              <svg class="mt-0.5 h-5 w-5 shrink-0 text-accent" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <span class="text-[15px] leading-snug text-text-body">{item.title}</span>
-            </li>
-          ))}
-        </ul>
-        <div class="mt-8">
-          <a
-            class="inline-flex w-full items-center justify-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_28px_rgba(218,160,64,0.25)]"
-            href="https://app.askloremaster.com/waitlist"
-          >
-            Request Early Access
-          </a>
-        </div>
-      </GlassCard>
-    </section>
-
     <!-- Bottom note -->
-    <section class="reveal mx-auto max-w-[600px] py-16 text-center md:py-24">
+    <section class="reveal mx-auto max-w-[600px] py-20 text-center md:py-28">
       <p class="text-[16px] leading-relaxed text-text-body">
-        We're working closely with early access groups to shape pricing before launch. Have questions about what comes next?
+        Loremaster is in invite-only early access. Have questions about plans or what comes next?
       </p>
       <p class="mt-4">
         <a
@@ -93,4 +273,42 @@ const included = [
       </p>
     </section>
   </div>
+
+  <script is:inline>
+    (function () {
+      const buttons = document.querySelectorAll("[data-interval-btn]");
+      const amounts = document.querySelectorAll(".price-amount");
+      const suffixes = document.querySelectorAll(".price-suffix");
+      const notes = document.querySelectorAll(".price-note");
+
+      const ACTIVE = ["bg-accent", "text-[#1a1520]"];
+      const INACTIVE = ["text-text-body"];
+
+      function selectInterval(interval) {
+        buttons.forEach((btn) => {
+          const isActive = btn.getAttribute("data-interval-btn") === interval;
+          btn.setAttribute("aria-pressed", String(isActive));
+          ACTIVE.forEach((c) => btn.classList.toggle(c, isActive));
+          INACTIVE.forEach((c) => btn.classList.toggle(c, !isActive));
+        });
+        amounts.forEach((el) => {
+          el.textContent = el.getAttribute("data-" + interval) || el.textContent;
+        });
+        suffixes.forEach((el) => {
+          el.textContent = el.getAttribute("data-" + interval) || el.textContent;
+        });
+        notes.forEach((el) => {
+          el.textContent = interval === "annual" ? el.getAttribute("data-annual") || "" : "";
+        });
+      }
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () =>
+          selectInterval(btn.getAttribute("data-interval-btn")),
+        );
+      });
+
+      selectInterval("monthly");
+    })();
+  </script>
 </BaseLayout>
