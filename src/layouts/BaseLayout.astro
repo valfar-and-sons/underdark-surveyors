@@ -99,6 +99,44 @@ const breadcrumbSchema = breadcrumbLabel ? {
       gtag("js", new Date());
       gtag("config", "G-403NYCTQR9");
     </script>
+    <script is:inline>
+      // Fire the "Signup" conversion event when any link to the app's sign-up
+      // page is clicked. For plain left clicks we hold navigation until gtag
+      // confirms the event was sent (or a timeout passes), because the event
+      // can be lost when the page unloads. The timeout fallback also covers
+      // ad blockers: gtag() is defined inline above, so it always "exists",
+      // but the library that drains dataLayer may never load.
+      document.addEventListener("click", function (event) {
+        var target = event.target instanceof Element ? event.target : null;
+        var link =
+          target &&
+          target.closest('a[href^="https://app.askloremaster.com/sign-up"]');
+        if (!link) return;
+
+        var opensElsewhere =
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey ||
+          event.button !== 0 ||
+          link.target === "_blank";
+        if (opensElsewhere) {
+          // This page stays open, so the event can send normally.
+          gtag("event", "Signup");
+          return;
+        }
+
+        event.preventDefault();
+        var navigated = false;
+        var go = function () {
+          if (navigated) return;
+          navigated = true;
+          window.location.href = link.href;
+        };
+        gtag("event", "Signup", { event_callback: go, event_timeout: 1000 });
+        setTimeout(go, 1100);
+      });
+    </script>
   </head>
 
   <body>
