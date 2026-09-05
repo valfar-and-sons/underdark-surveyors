@@ -2,52 +2,353 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GlassCard from "../components/GlassCard.astro";
 
-const faqs = [
+// FAQ content lives here as data so the FAQPage schema and the rendered page
+// always match. Each question has a stable `id` used as its anchor, so support
+// can deep-link to a single answer (e.g. /faq#consent). Answers are HTML
+// strings; keep links relative and copy free of em-dashes.
+const sections = [
   {
-    question: "What is Loremaster?",
-    answer:
-      "Loremaster is an AI-powered platform for tabletop RPG campaigns. It helps game masters and players manage their world, track characters and storylines, and get AI-generated summaries and insights, so you can spend less time on bookkeeping and more time telling stories.",
+    id: "basics",
+    title: "The basics",
+    items: [
+      {
+        id: "what-is-loremaster",
+        question: "What is Loremaster?",
+        answer:
+          "Loremaster is an AI scribe for your D&D or tabletop RPG campaign. Record or upload a session and it writes a story-style recap, keeps track of the characters, places, and quests in your world, and answers questions about anything that's happened so far. You play. Loremaster remembers. See <a href='/product'>what Loremaster does</a> for a closer look.",
+      },
+      {
+        id: "ai-dungeon-master",
+        question: "Is Loremaster an AI Dungeon Master?",
+        answer:
+          "No, and it never will be. Loremaster doesn't write your campaign, run your game, or replace anyone's creativity. It takes the notes so you don't have to, and the story stays yours.",
+      },
+      {
+        id: "game-systems",
+        question: "What game systems does Loremaster support?",
+        answer:
+          "All of them. D&D, Pathfinder, Call of Cthulhu, Blades in the Dark, your own homebrew: if you can play it at a table, Loremaster can chronicle it. It follows your story, not the rulebook.",
+      },
+      {
+        id: "languages",
+        question: "What languages does Loremaster support?",
+        answer: "English, for now. Loremaster listens closely, but so far it only speaks the one tongue.",
+      },
+      {
+        id: "who-makes-loremaster",
+        question: "Who makes Loremaster?",
+        answer:
+          "A small team of builders and lifelong tabletop players. Meet us on the <a href='/about'>About page</a>.",
+      },
+      {
+        id: "how-is-it-different",
+        question: "How is Loremaster different from other AI note-taking tools?",
+        answer:
+          "Recaps that read like a story, not a bulleted list. A narration style you pick. Illustrations for every session and every character. And a 60-day free trial with no card required, so your whole table can try it properly before deciding.",
+      },
+    ],
   },
   {
-    question: "What game systems does Loremaster support?",
-    answer:
-      "Loremaster is system-agnostic and supports every tabletop RPG system, including homebrew. Whether you're playing D&D 5e, Pathfinder, Call of Cthulhu, Blades in the Dark, or something you built yourself, Loremaster adapts its tone and terminology to match.",
+    id: "recording",
+    title: "Recording and uploading",
+    items: [
+      {
+        id: "do-i-have-to-record",
+        question: "Do I have to record my sessions?",
+        answer:
+          "No. Recording is the easiest way to get a session into Loremaster, but you can upload a written transcript instead.",
+      },
+      {
+        id: "in-person",
+        question: "Does Loremaster work for in-person games?",
+        answer:
+          "Yes. A phone or a USB microphone in the middle of the table works well. If you can understand the recording, so can Loremaster.",
+      },
+      {
+        id: "online-games",
+        question: "What about online games on Discord or a video call?",
+        answer:
+          "Record the call with whatever your group already uses, then upload the file. You can also add Loremaster to your Discord server and ask it questions with <code>/ask</code>.",
+      },
+      {
+        id: "audio-formats",
+        question: "What audio formats and file sizes are supported?",
+        answer:
+          "MP3, M4A, WAV, AAC, and most other common formats. Recordings can be up to 6 hours and 500 MB. One recording makes one session.",
+      },
+      {
+        id: "transcripts-and-notes",
+        question: "Can I upload a transcript or notes instead of audio?",
+        answer:
+          "Yes. Upload a transcript as a text or Markdown file and Loremaster treats it like any other session. Background notes, backstories, and old recaps can go into your Campaign Prologue, which Loremaster turns into an opening chapter for your campaign.",
+      },
+      {
+        id: "campaign-in-progress",
+        question: "Can I use Loremaster for a campaign that's already in progress?",
+        answer:
+          "Yes. When you create a campaign, tell Loremaster what's happened so far. It writes a Session Zero from your notes, and every session after that builds on it.",
+      },
+      {
+        id: "processing-time",
+        question: "How long does processing take?",
+        answer:
+          "Usually a few minutes, and rarely more than ten. You can close the tab and come back. If you upload several at once, they process in order.",
+      },
+      {
+        id: "transcription-accuracy",
+        question: "How accurate is transcription with made-up names?",
+        answer:
+          "Better than you'd think! Loremaster learns the names in your campaign and listens for them, so Thraxxus the Unburnt comes through spelled the way you spelled him. If a name still slips, tell Loremaster in chat and it fixes it everywhere it appears.",
+      },
+      {
+        id: "speaker-identification",
+        question: "Does Loremaster know who was speaking?",
+        answer:
+          "Yes. Loremaster tells speakers apart and matches them to the players and characters in your campaign. When you upload, you choose who was at the table that night.",
+      },
+      {
+        id: "cross-talk",
+        question: "What about cross-talk and out-of-character banter?",
+        answer:
+          "Every table has it, and Loremaster expects it. Rules debates, snack runs, and the argument about whether a bag of holding floats all get set aside, so your recap and Codex only pick up what happened in the story.",
+      },
+      {
+        id: "processing-failures",
+        question: "What happens if processing fails?",
+        answer:
+          "You're never charged for a session that fails. The session page explains what went wrong and gives you a Retry button. If it keeps failing, use Report an issue in the app.",
+      },
+      {
+        id: "direct-mentions",
+        question: "Can we talk to Loremaster during a session?",
+        answer:
+          "Yes! Say \"Hey Loremaster, remember the innkeeper owes us fifty gold\" mid-session and it saves the note alongside the recap. Handy for the things you know you'll forget.",
+      },
+    ],
   },
   {
-    question: "Do I have to record my sessions?",
-    answer:
-      "No. Audio recording is one way to get content into Loremaster, but you can also upload written transcripts, paste session notes, or enter information manually. Loremaster works with whatever you give it.",
+    id: "features",
+    title: "What Loremaster makes",
+    items: [
+      {
+        id: "recap-contents",
+        question: "What's in a session recap?",
+        answer:
+          "A title, a summary written in your chosen narration style, a list of key events, a few memorable quotes from around the table, and a scene illustration. Behind the scenes, Loremaster also updates your Codex, Quest Log, and timelines with everything that happened.",
+      },
+      {
+        id: "narration-style",
+        question: "Can I change the tone of the recaps?",
+        answer:
+          "Yes. Pick a narration style for your campaign, from Storyteller to Epic Bard to Just the Facts, and change it any time. It shapes every recap and the way Loremaster talks in chat.",
+      },
+      {
+        id: "editing",
+        question: "Can I edit what the AI wrote?",
+        answer:
+          "Yes, all of it. Recaps, Codex entries, quests, and timelines are editable in the app. Or just tell Loremaster in chat what to change.",
+      },
+      {
+        id: "the-codex",
+        question: "What is the Codex?",
+        answer:
+          "The Codex is your campaign's encyclopedia. Every character, place, faction, item, and event gets an entry with a description, a portrait, and a timeline. Loremaster keeps it updated after every session. Changes to player characters wait for your approval. Everything else is filed automatically.",
+      },
+      {
+        id: "fix-names-and-merge",
+        question: "Can Loremaster fix a misspelled name or merge duplicate entries?",
+        answer:
+          "Yes. Tell Loremaster in chat: \"Rename Kaelin to Caelan everywhere\" or \"The Hooded Stranger and Marcus are the same person.\" It shows you the planned changes and applies them only when you say so.",
+      },
+      {
+        id: "quest-log-timelines-chronicle",
+        question: "What are the Quest Log, timelines, and the Chronicle?",
+        answer:
+          "The Quest Log tracks every thread your party is pulling on and whether it's active, done, or abandoned. Timelines show the history of each character and place, session by session. The Chronicle is a short summary of the whole campaign so far, perfect for catching up a new player.",
+      },
+      {
+        id: "image-generation-off",
+        question: "Can I turn image generation off?",
+        answer:
+          "Yes. Each campaign has a switch in settings. Everything else works the same, and you can still upload your own art.",
+      },
+      {
+        id: "ask-loremaster",
+        question: "What can I ask Loremaster?",
+        answer:
+          "Anything about your campaign. Who was the merchant in session four? What did we promise the Duke? Answers come from your own sessions, and Loremaster says so when it doesn't know. Ask in the app or in Discord with <code>/ask</code>.",
+      },
+      {
+        id: "sharing",
+        question: "Can I share recaps with my players or on social media?",
+        answer:
+          "Yes. Everyone in your campaign sees recaps in the app. You can also copy a recap as text, download it as a one-page PDF, or save it as an image card for social media or your group chat.",
+      },
+    ],
   },
   {
-    question: "What does the AI actually do?",
-    answer:
-      "When you upload a session (audio or text), Loremaster generates a narrative summary, extracts key events, identifies characters, locations, and items, and can even create a scene illustration. You can also chat with the AI to ask questions about your campaign, get recaps, or brainstorm ideas. Every answer is grounded in your actual sessions.",
+    id: "group",
+    title: "Playing with your group",
+    items: [
+      {
+        id: "player-accounts",
+        question: "Do my players need accounts? Do they have to pay?",
+        answer:
+          "Players need a free account to view the campaign. They don't need to pay. One plan covers the whole campaign.",
+      },
+      {
+        id: "inviting-players",
+        question: "How do I invite my players?",
+        answer:
+          "Send an email invite from campaign settings. Players accept from their home page, and if they haven't signed up yet, the invite waits for them.",
+      },
+      {
+        id: "roles",
+        question: "What can players do compared to the GM?",
+        answer:
+          "You choose. Viewers can read everything, ask questions, and download recaps. Editors can also upload sessions and edit the Codex and Quest Log. The campaign owner manages members and settings.",
+      },
+      {
+        id: "gm-only-notes",
+        question: "Can I hide GM-only notes or spoilers from players?",
+        answer:
+          "Not today. Everyone in a campaign sees the same recaps and Codex, so keep secrets out of the recording or edit the recap before players read it.",
+      },
+      {
+        id: "multiple-campaigns",
+        question: "Can I run more than one campaign?",
+        answer:
+          "Yes. Create and join as many as you like. Each paid plan covers one campaign at a time, and you can switch which one from Account Settings.",
+      },
+      {
+        id: "sponsoring",
+        question: "What does sponsoring a campaign mean?",
+        answer:
+          "Sponsoring means your plan pays for a campaign. Its sessions and images come out of your monthly allowance, no matter who uploads. A campaign only needs one sponsor.",
+      },
+      {
+        id: "player-pays",
+        question: "Can a player pay instead of the GM?",
+        answer: "Yes. Anyone in the campaign can sponsor it with their own plan.",
+      },
+    ],
   },
   {
-    question: "Can I use Loremaster for a campaign that's already in progress?",
-    answer:
-      "Yes. During campaign setup, you can provide context about your existing world, characters, and story so far. Loremaster is designed to pick up mid-campaign and start building from wherever you are.",
+    id: "plans",
+    title: "Plans and billing",
+    items: [
+      {
+        id: "cost",
+        question: "How much does Loremaster cost?",
+        answer:
+          "Every account starts with a free 60-day trial. After that, Casual is $3 a month for occasional groups and Standard is $8 a month for weekly groups. Annual billing saves 20 percent. See the <a href='/pricing'>Pricing page</a> for details.",
+      },
+      {
+        id: "free-trial",
+        question: "What's included in the free trial? Do I need a card?",
+        answer:
+          "60 days, 3 sessions, 3 images, 1 campaign, and every feature we have. No card required. That's enough to run a short arc with your group and decide for yourselves.",
+      },
+      {
+        id: "what-counts-as-a-session",
+        question: "What counts as a session?",
+        answer:
+          "One recording or transcript, up to 6 hours, processed once. Failed sessions and retries don't count.",
+      },
+      {
+        id: "rollover",
+        question: "Do unused sessions roll over?",
+        answer:
+          "Your monthly plan allowance doesn't. It resets each month whether you used it or not. Credits you buy as top-ups are different: they never expire and carry over until you use them.",
+      },
+      {
+        id: "hitting-your-limit",
+        question: "What happens when I hit my limit?",
+        answer:
+          "Loremaster tells you before you upload. Buy a session credit, upgrade, or wait for your monthly reset. Nothing in your campaign is affected.",
+      },
+      {
+        id: "credits",
+        question: "How do credits work?",
+        answer:
+          "Credits are one-time top-ups for subscribers: buy an extra session or a pack of images whenever you need them. They never expire and are only used after your monthly allowance runs out. Current prices are on the <a href='/pricing'>Pricing page</a>.",
+      },
+      {
+        id: "annual-billing",
+        question: "Can I pay annually?",
+        answer:
+          "Yes, and it saves 20 percent. Your monthly allowance still refreshes every month.",
+      },
+      {
+        id: "sign-in",
+        question: "How do I sign in?",
+        answer:
+          "With Google, Discord, or an email and password. You can manage sign-in methods and turn on two-factor authentication in Account Settings.",
+      },
+    ],
   },
   {
-    question: "Who can see my campaign data?",
-    answer:
-      "Only you and the people you share your campaign with can access your data. We do not sell your data to third parties or use it to train AI models. For full details on how we handle and store your data, see our <a href='/privacy'>Privacy Policy</a>.",
-  },
-  {
-    question: "How much does Loremaster cost?",
-    answer:
-      "We're finalizing pricing details. In the meantime, you can try Loremaster for free.",
-  },
-  {
-    question: "What happens to my audio recordings?",
-    answer:
-      "Audio recordings you upload are stored securely and used only to generate transcripts and session content. You can delete your recordings at any time. See our <a href='/privacy'>Privacy Policy</a> for full details on data retention.",
+    id: "privacy",
+    title: "Privacy, consent, and AI",
+    items: [
+      {
+        id: "who-can-see-my-data",
+        question: "Who can see my campaign data?",
+        answer:
+          "Only you and the people you invite. Campaigns are private, with no public pages or links. We never sell your data. See our <a href='/privacy'>Privacy Policy</a> for the details.",
+      },
+      {
+        id: "audio-recordings",
+        question: "What happens to my audio recordings?",
+        answer:
+          "Recordings are stored securely and used to create your transcript and recap. Deleting a session or campaign removes its audio too.",
+      },
+      {
+        id: "ai-training",
+        question: "Is my data used to train AI models?",
+        answer:
+          "No. Loremaster does not use your recordings, transcripts, or campaign content to train AI models.",
+      },
+      {
+        id: "consent",
+        question: "Do my players need to consent to being recorded?",
+        answer:
+          "Yes. Recording people without their knowledge is illegal in many places and rude everywhere. Before your first upload, Loremaster asks you to confirm everyone has agreed. Have the conversation at Session Zero. Most players are happy to be off note duty.",
+      },
+      {
+        id: "delete-my-data",
+        question: "How do I delete my data?",
+        answer:
+          "Delete any session from its page, or delete a whole campaign from its settings. To close your account, email <a href='mailto:support@valfarandsons.com'>support@valfarandsons.com</a>.",
+      },
+      {
+        id: "stance-on-ai",
+        question: "What's your stance on AI at the table?",
+        answer:
+          "AI is a sensitive topic in tabletop spaces, so we'll be plain. Loremaster doesn't write your campaign, run your game, or stand in for anyone's creativity. It's a scribe. It listens, remembers, and retells, so the people at the table can play. If AI illustrations aren't for your table, you can turn them off.",
+      },
+      {
+        id: "ai-mistakes",
+        question: "Can the AI get things wrong?",
+        answer:
+          "Sometimes. Even the best scribe misspells a name or credits the wrong rogue with the killing blow. Everything is editable, player character updates wait for your approval, and you can ask Loremaster in chat to fix a mistake everywhere it appears.",
+      },
+      {
+        id: "whats-new",
+        question: "Where can I see what's new?",
+        answer:
+          "Check the <a href='/releases'>Release Notes page</a>. We ship updates every week or two, and we like to show our work.",
+      },
+    ],
   },
 ];
+
+const allItems = sections.flatMap((section) => section.items);
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
+  mainEntity: allItems.map((faq) => ({
     "@type": "Question",
     name: faq.question,
     acceptedAnswer: {
@@ -59,77 +360,379 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="FAQ — Loremaster"
-  description="Common questions about Loremaster: supported game systems, how AI session recaps work, data privacy, pricing, and getting started with your D&D or tabletop RPG campaign."
+  title="Loremaster FAQ: AI Session Recaps for D&D and Tabletop RPGs"
+  description="Answers about Loremaster, the AI scribe for D&D and tabletop RPG campaigns: recording in-person and online sessions, session recaps, the Codex, playing with your group, plans, privacy, and consent."
   breadcrumbLabel="FAQ"
   jsonLd={faqSchema}
 >
-  <div class="mx-auto max-w-[860px] px-[clamp(16px,4vw,28px)]">
-    <div class="reveal py-12 md:py-20">
-      <h1 class="text-[clamp(2rem,1.4rem+3vw,3rem)] font-bold text-text-primary">
+  <div class="mx-auto max-w-[1100px] px-[clamp(16px,4vw,28px)]">
+    <!-- Hero -->
+    <section class="relative mx-auto max-w-[720px] py-14 text-center md:py-20">
+      <div
+        class="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-0 w-0 -translate-x-1/2 -translate-y-1/2"
+        style="box-shadow: 0 0 200px 120px rgba(218, 160, 64, 0.035), 0 0 400px 200px rgba(218, 160, 64, 0.02);"
+      ></div>
+      <h1 class="hero-cascade text-[clamp(2.2rem,1.5rem+3.5vw,3.5rem)] font-bold leading-[1.1] tracking-tight">
         Frequently Asked Questions
       </h1>
-      <div class="gold-divider mt-5"></div>
+      <div class="gold-divider-animated visible mx-auto mt-5 mb-7"></div>
+      <p class="hero-cascade voice text-[clamp(1.1rem,1rem+0.5vw,1.3rem)]">
+        Everything to know before your next D&D or tabletop session.
+      </p>
+
+      <!-- Search -->
+      <form class="hero-cascade relative mx-auto mt-9 max-w-[560px]" role="search" onsubmit="return false">
+        <label for="faq-search" class="sr-only">Search the FAQ</label>
+        <svg
+          class="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-text-faint"
+          viewBox="0 0 20 20"
+          fill="none"
+          aria-hidden="true"
+        >
+          <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5" />
+          <path d="M13 13l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+        <input
+          id="faq-search"
+          type="search"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="What would you like to know?"
+          class="faq-search w-full rounded-[14px] py-[17px] pl-[52px] pr-[52px] text-[16px] backdrop-blur-[8px] transition-colors duration-200 md:text-[17px]"
+        />
+        <button
+          type="button"
+          id="faq-search-clear"
+          class="absolute right-3 top-1/2 hidden h-8 w-8 -translate-y-1/2 place-items-center rounded-md text-text-muted transition-colors hover:text-text-primary"
+          aria-label="Clear search"
+        >
+          <svg viewBox="0 0 16 16" class="h-4 w-4" fill="none" aria-hidden="true">
+            <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </button>
+      </form>
+      <p id="faq-search-status" class="mt-3 min-h-[20px] text-[14px] text-text-muted" aria-live="polite"></p>
+    </section>
+
+    <!-- Body: contents rail + sections -->
+    <div class="grid grid-cols-[minmax(0,1fr)] gap-8 pb-8 md:grid-cols-[200px_minmax(0,1fr)] md:gap-14 lg:grid-cols-[220px_minmax(0,1fr)]">
+      <!-- Contents (sticky rail on desktop, scrolling strip on mobile) -->
+      <nav class="faq-contents min-w-0 md:sticky md:top-[96px] md:self-start" aria-label="FAQ sections">
+        <ul class="scrollbar-hide -mx-[clamp(16px,4vw,28px)] flex gap-1 overflow-x-auto px-[clamp(16px,4vw,28px)] md:mx-0 md:flex-col md:overflow-visible md:px-0">
+          {
+            sections.map((section) => (
+              <li class="shrink-0">
+                <a
+                  href={`#${section.id}`}
+                  data-contents-link={section.id}
+                  class="faq-contents-link block whitespace-nowrap rounded-full px-3.5 py-2 text-[14px] font-medium text-text-body no-underline transition-colors duration-200 hover:text-text-primary md:rounded-none md:border-l md:border-card-border md:px-4 md:py-2 md:text-[15px]"
+                >
+                  {section.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <!-- Sections -->
+      <div class="min-w-0">
+        {
+          sections.map((section, index) => (
+            <section
+              id={section.id}
+              data-faq-section
+              class:list={["faq-section scroll-mt-[120px] md:scroll-mt-[96px]", index > 0 && "mt-14 md:mt-16"]}
+            >
+              <h2 class="mb-4 text-[clamp(1.35rem,1.1rem+1.2vw,1.7rem)] font-semibold text-text-primary">
+                {section.title}
+              </h2>
+              <GlassCard class="faq-panel">
+                {section.items.map((faq) => (
+                  <details id={faq.id} class="faq-item scroll-mt-[120px] md:scroll-mt-[96px]" data-faq-item>
+                    <summary class="flex cursor-pointer items-start justify-between gap-5 px-5 py-[18px] text-[16px] font-semibold text-text-primary md:px-7 md:py-5 md:text-[17px]">
+                      <h3 data-faq-question>{faq.question}</h3>
+                      <span class="faq-toggle mt-[3px] grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full text-accent" aria-hidden="true">
+                        <svg viewBox="0 0 12 12" class="h-[11px] w-[11px]" fill="none">
+                          <path class="faq-toggle-v" d="M6 1v10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                          <path d="M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                      </span>
+                    </summary>
+                    <div class="faq-answer px-5 pb-6 pt-0 md:px-7">
+                      <p
+                        class="max-w-[68ch] text-[15.5px] leading-[1.75] text-text-body md:text-[16px]"
+                        data-faq-answer
+                        set:html={faq.answer}
+                      />
+                    </div>
+                  </details>
+                ))}
+              </GlassCard>
+            </section>
+          ))
+        }
+
+        <!-- Empty search state -->
+        <div id="faq-empty" class="hidden py-16 text-center">
+          <p class="voice text-[clamp(1.05rem,1rem+0.4vw,1.2rem)]">The Loremaster has no record of that one.</p>
+          <p class="mt-3 text-[15px] text-text-body">
+            <a class="faq-link" href="mailto:contact@valfarandsons.com">Ask us directly</a> and we'll get back to you.
+          </p>
+        </div>
+      </div>
     </div>
 
-    <div class="reveal-stagger grid gap-4 pb-12">
-      {
-        faqs.map((faq) => (
-          <div class="reveal">
-            <details class="faq-item group rounded-[14px] border border-card-border backdrop-blur-[12px] transition-colors duration-200 hover:border-card-hover-border" style="background: var(--lm-card-glass);">
-              <summary class="flex cursor-pointer items-center justify-between gap-4 px-6 py-5 text-[17px] font-semibold text-text-primary md:px-8 md:py-6 md:text-[18px]">
-                {faq.question}
-                <span class="faq-chevron shrink-0 text-text-muted transition-transform duration-200">
-                  <svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                </span>
-              </summary>
-              <div class="px-6 pb-6 md:px-8 md:pb-8">
-                <p class="text-[15px] leading-[1.75] text-text-body md:text-[16px]" set:html={faq.answer} />
-              </div>
-            </details>
-          </div>
-        ))
-      }
-    </div>
+    <div class="section-connector my-10 md:my-14"></div>
 
-    <div class="reveal pb-12 md:pb-20">
-      <GlassCard class="p-7 text-center md:p-10">
-        <p class="text-[17px] text-text-body">
-          Still have questions?
-        </p>
-        <p class="mt-3">
-          <a
-            href="mailto:contact@valfarandsons.com"
-            class="text-[16px] font-medium text-accent no-underline transition-opacity hover:opacity-80"
-          >
-            Get in touch &rarr;
-          </a>
-        </p>
-      </GlassCard>
-    </div>
+    <!-- Closing -->
+    <section id="contact" class="reveal mx-auto max-w-[640px] scroll-mt-[96px] pb-16 text-center md:pb-24">
+      <h2 class="text-[clamp(1.6rem,1.2rem+2vw,2.4rem)]">Still have questions?</h2>
+      <div class="gold-divider-animated mx-auto mt-4 mb-6"></div>
+      <p class="text-[clamp(1rem,0.95rem+0.4vw,1.15rem)] leading-[1.8] text-text-body">
+        We're happy to help. Email
+        <a class="faq-link" href="mailto:contact@valfarandsons.com">contact@valfarandsons.com</a>
+        and a real person will write back. Or skip the reading and see for yourself.
+      </p>
+      <div class="mt-8">
+        <a
+          class="inline-flex items-center rounded-xl bg-accent px-10 py-[18px] text-[18px] font-semibold text-[#1a1520] no-underline transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_28px_rgba(218,160,64,0.25)]"
+          href="https://app.askloremaster.com/sign-up"
+        >
+          Try Loremaster Free
+        </a>
+      </div>
+      <p class="mt-4 text-[14px] text-text-muted">Free for 60 days. No card required.</p>
+    </section>
   </div>
 </BaseLayout>
 
 <style>
+  /* Search field, styled after the Ask Loremaster input in the app */
+  .faq-search {
+    background: var(--lm-chat-input-bg);
+    color: var(--lm-chat-input-text);
+    border: 1px solid var(--lm-chat-input-border);
+  }
+  .faq-search::placeholder {
+    color: var(--lm-text-faint);
+  }
+  .faq-search:focus {
+    outline: none;
+    border-color: var(--lm-chat-input-border-active);
+    box-shadow: 0 0 0 3px rgba(218, 160, 64, 0.08);
+  }
+  .faq-search::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  /* Contents rail */
+  .faq-contents-link[aria-current="true"] {
+    color: var(--lm-text-primary);
+    background: var(--lm-accent-muted);
+  }
+  @media (min-width: 768px) {
+    .faq-contents-link[aria-current="true"] {
+      background: transparent;
+      border-left-color: var(--lm-accent);
+    }
+  }
+  .faq-contents-link.is-empty {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  /* Section panel: one glass surface, hairline dividers between questions */
+  .faq-item + .faq-item {
+    border-top: 1px solid var(--lm-divider);
+  }
   .faq-item summary {
     list-style: none;
+    transition: color 0.2s;
   }
   .faq-item summary::-webkit-details-marker {
     display: none;
   }
-  .faq-item[open] .faq-chevron {
-    transform: rotate(180deg);
+  .faq-item summary h3 {
+    font: inherit;
+    line-height: inherit;
+    color: inherit;
+    margin: 0;
   }
-  .faq-item a {
+  .faq-item summary:hover {
+    color: var(--lm-accent-hover);
+  }
+  .faq-item[open] summary {
+    color: var(--lm-accent);
+  }
+  .faq-toggle {
+    background: var(--lm-accent-muted);
+    transition: transform 0.25s ease;
+  }
+  .faq-item[open] .faq-toggle {
+    transform: rotate(45deg);
+  }
+  .faq-item.is-hidden {
+    display: none;
+  }
+  .faq-section.is-hidden {
+    display: none;
+  }
+
+  /* Smooth open/close where the browser supports animating details */
+  @supports (interpolate-size: allow-keywords) {
+    .faq-item {
+      interpolate-size: allow-keywords;
+    }
+    .faq-item::details-content {
+      block-size: 0;
+      overflow: hidden;
+      transition:
+        block-size 0.28s ease,
+        content-visibility 0.28s allow-discrete;
+    }
+    .faq-item[open]::details-content {
+      block-size: auto;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .faq-item::details-content,
+    .faq-toggle {
+      transition: none;
+    }
+  }
+
+  /* Inline links and code inside answers */
+  .faq-item a,
+  .faq-link {
     color: var(--lm-accent);
     text-decoration: underline;
     text-decoration-color: rgba(218, 160, 64, 0.3);
-    text-underline-offset: 2px;
+    text-underline-offset: 3px;
     transition: text-decoration-color 0.2s;
   }
-  .faq-item a:hover {
+  .faq-item a:hover,
+  .faq-link:hover {
     text-decoration-color: var(--lm-accent);
   }
+  .faq-item code {
+    font-size: 0.92em;
+    padding: 0.1em 0.4em;
+    border-radius: 6px;
+    background: var(--lm-accent-muted);
+    color: var(--lm-accent);
+  }
+  .faq-item mark {
+    background: rgba(218, 160, 64, 0.22);
+    color: inherit;
+    border-radius: 3px;
+  }
 </style>
+
+<script>
+  const input = document.getElementById("faq-search") as HTMLInputElement | null;
+  const clearBtn = document.getElementById("faq-search-clear");
+  const status = document.getElementById("faq-search-status");
+  const empty = document.getElementById("faq-empty");
+  const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-faq-section]"));
+  const items = Array.from(document.querySelectorAll<HTMLDetailsElement>("[data-faq-item]"));
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-contents-link]"));
+
+  // Cache the plain text of each question and answer once.
+  const index = items.map((item) => ({
+    item,
+    text: (item.textContent || "").toLowerCase().replace(/\s+/g, " "),
+  }));
+
+  function setActiveLink(id: string | null) {
+    links.forEach((link) => {
+      if (link.dataset.contentsLink === id) link.setAttribute("aria-current", "true");
+      else link.removeAttribute("aria-current");
+    });
+  }
+
+  // Search: filter questions, hide empty sections, open matches when few.
+  function applySearch() {
+    const query = (input?.value || "").trim().toLowerCase();
+    const terms = query.split(/\s+/).filter(Boolean);
+    let shown = 0;
+
+    index.forEach(({ item, text }) => {
+      const match = terms.length === 0 || terms.every((t) => text.includes(t));
+      item.classList.toggle("is-hidden", !match);
+      if (match) shown += 1;
+      if (terms.length === 0) item.open = false;
+    });
+
+    sections.forEach((section) => {
+      const visible = section.querySelectorAll("[data-faq-item]:not(.is-hidden)").length > 0;
+      section.classList.toggle("is-hidden", !visible);
+      const link = links.find((l) => l.dataset.contentsLink === section.id);
+      link?.classList.toggle("is-empty", !visible);
+    });
+
+    if (terms.length > 0 && shown <= 3) {
+      index.forEach(({ item }) => {
+        if (!item.classList.contains("is-hidden")) item.open = true;
+      });
+    }
+
+    if (clearBtn) clearBtn.classList.toggle("hidden", terms.length === 0);
+    if (empty) empty.classList.toggle("hidden", !(terms.length > 0 && shown === 0));
+    if (status) {
+      status.textContent =
+        terms.length === 0 ? "" : shown === 0 ? "" : shown === 1 ? "1 answer" : `${shown} answers`;
+    }
+  }
+
+  input?.addEventListener("input", applySearch);
+  clearBtn?.addEventListener("click", () => {
+    if (!input) return;
+    input.value = "";
+    applySearch();
+    input.focus();
+  });
+
+  // Deep links: /faq#consent opens that answer and scrolls to it.
+  function openFromHash() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (target instanceof HTMLDetailsElement) {
+      if (input && input.value) {
+        input.value = "";
+        applySearch();
+      }
+      target.open = true;
+      target.closest(".reveal")?.classList.add("visible");
+      target.scrollIntoView({ block: "start" });
+    }
+  }
+  openFromHash();
+  window.addEventListener("hashchange", openFromHash);
+
+  // Scrollspy for the contents rail: the last section whose top has passed the header.
+  let ticking = false;
+  function updateActive() {
+    ticking = false;
+    let current: string | null = null;
+    const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    sections.forEach((section) => {
+      if (section.classList.contains("is-hidden")) return;
+      if (section.getBoundingClientRect().top <= 140) current = section.id;
+      if (nearBottom) current = section.id;
+    });
+    setActiveLink(current ?? sections[0]?.id ?? null);
+  }
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateActive);
+      }
+    },
+    { passive: true },
+  );
+  updateActive();
+</script>
