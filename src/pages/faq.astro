@@ -15,7 +15,7 @@ const sections = [
         id: "what-is-loremaster",
         question: "What is Loremaster?",
         answer:
-          "Loremaster is an AI scribe for your tabletop RPG campaign. Record or upload a session and it writes a story-style recap, keeps track of the characters, places, and quests in your world, and answers questions about anything that's happened so far. You play. Loremaster remembers.",
+          "Loremaster is an AI scribe for your D&D or tabletop RPG campaign. Record or upload a session and it writes a story-style recap, keeps track of the characters, places, and quests in your world, and answers questions about anything that's happened so far. You play. Loremaster remembers. See <a href='/product'>what Loremaster does</a> for a closer look.",
       },
       {
         id: "ai-dungeon-master",
@@ -360,8 +360,8 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="FAQ — Loremaster"
-  description="Answers about Loremaster: recording in-person and online sessions, supported game systems, how recaps and the Codex work, playing with your group, plans and billing, privacy, and consent."
+  title="Loremaster FAQ: AI Session Recaps for D&D and Tabletop RPGs"
+  description="Answers about Loremaster, the AI scribe for D&D and tabletop RPG campaigns: recording in-person and online sessions, session recaps, the Codex, playing with your group, plans, privacy, and consent."
   breadcrumbLabel="FAQ"
   jsonLd={faqSchema}
 >
@@ -377,7 +377,7 @@ const faqSchema = {
       </h1>
       <div class="gold-divider-animated visible mx-auto mt-5 mb-7"></div>
       <p class="hero-cascade voice text-[clamp(1.1rem,1rem+0.5vw,1.3rem)]">
-        Everything you might want to know before your first session.
+        Everything to know before your next D&D or tabletop session.
       </p>
 
       <!-- Search -->
@@ -451,7 +451,7 @@ const faqSchema = {
                 {section.items.map((faq) => (
                   <details id={faq.id} class="faq-item scroll-mt-[120px] md:scroll-mt-[96px]" data-faq-item>
                     <summary class="flex cursor-pointer items-start justify-between gap-5 px-5 py-[18px] text-[16px] font-semibold text-text-primary md:px-7 md:py-5 md:text-[17px]">
-                      <span data-faq-question>{faq.question}</span>
+                      <h3 data-faq-question>{faq.question}</h3>
                       <span class="faq-toggle mt-[3px] grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full text-accent" aria-hidden="true">
                         <svg viewBox="0 0 12 12" class="h-[11px] w-[11px]" fill="none">
                           <path class="faq-toggle-v" d="M6 1v10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
@@ -552,6 +552,12 @@ const faqSchema = {
   }
   .faq-item summary::-webkit-details-marker {
     display: none;
+  }
+  .faq-item summary h3 {
+    font: inherit;
+    line-height: inherit;
+    color: inherit;
+    margin: 0;
   }
   .faq-item summary:hover {
     color: var(--lm-accent-hover);
